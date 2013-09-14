@@ -9,6 +9,7 @@
 
 # OpenMC executable
 src/openmc
+src/build
 
 # emacs backups
 *~
