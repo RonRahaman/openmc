@@ -1,8 +1,10 @@
-
 cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
 project(openmc Fortran)
 
-option(mpi      "Enable distributed-memory parallelism with MPI" OFF)
+#===============================================================================
+# Command line options
+#===============================================================================
+
 option(openmp   "Enable shared-memory parallelism with OpenMP"   OFF)
 option(profile  "Compile with profiling flags"                   OFF)
 option(hdf5     "Enable HDF5 binary output"                      OFF)
@@ -10,11 +12,27 @@ option(petsc    "Enable PETSC for use in CMFD acceleration"      OFF)
 option(debug    "Compile with debug flags"                       OFF)
 option(optimize "Turn on all compiler optimization flags"        OFF)
 
+#===============================================================================
+# MPI for distributed-memory parallelism
+#===============================================================================
+
+if($ENV{FC} MATCHES "mpi*")
+  find_package(MPI REQUIRED)
+  add_definitions(-DMPI)
+  include_directories(BEFORE "${MPI_Fortran_INCLUDE_PATH}")
+  set(f90flags  ${MPI_Fortran_COMPILE_FLAGS} ${f90flags})
+  set(libraries ${MPI_Fortran_LIBRARIES} ${libraries})
+endif()
+
+#===============================================================================
+# Set compile/link flags based on which compiler is being used
+#===============================================================================
+
 if(CMAKE_Fortran_COMPILER_ID STREQUAL "GNU")
   # GNU Fortran compiler options
-  set(f90flags  "-cpp -fbacktrace")
+  set(f90flags  "-cpp -std=f2008 -fbacktrace")
   if(debug)
-    set(f90flags  "-g -Wall -pedantic -std=f2008 -fbounds-check -ffpe-trap=invalid,overflow,underflow ${f90flags}")
+    set(f90flags  "-g -Wall -pedantic -fbounds-check -ffpe-trap=invalid,overflow,underflow ${f90flags}")
     set(ldflags   "-g")
   endif()
   if(profile)
@@ -23,6 +41,11 @@ if(CMAKE_Fortran_COMPILER_ID STREQUAL "GNU")
   endif()
   if(optimize)
     set(f90flags  "-O3 ${f90flags}")
+  endif()
+  if(openmp)
+    set(f90flags  "-fopenmp ${f90flags}")
+    set(ldflags   "-fopenmp ${ldflags}")
+    add_definitions(-DOPENMP)
   endif()
 
 elseif(CMAKE_Fortran_COMPILER_ID STREQUAL "Intel")
@@ -39,20 +62,60 @@ elseif(CMAKE_Fortran_COMPILER_ID STREQUAL "Intel")
   if(optimize)
     set(f90flags  "-O3 ${f90flags}")
   endif()
+  if(openmp)
+    set(f90flags  "-openmp ${f90flags}")
+    set(ldflags   "-openmp ${ldflags}")
+    add_definitions(-DOPENMP)
+  endif()
+
+elseif(CMAKE_Fortran_COMPILER_ID STREQUAL "PGI")
+  # PGI Fortran compiler options
+  set(f90flags  "-Mpreprocess -Minform=inform -traceback")
+  add_definitions(-DNO_F2008)
+  if(debug)
+    set(f90flags  "-g -Mbounds -Mchkptr -Mchkstk ${f90flags}")
+    set(ldflags   "-g")
+  endif()
+  if(profile)
+    set(f90flags  "-pg ${f90flags}")
+    set(ldflags   "-pg ${ldflags}")
+  endif()
+  if(optimize)
+    set(f90flags  "-fast -Mipa ${f90flags}")
+  endif()
+
+elseif(CMAKE_Fortran_COMPILER_ID STREQUAL "XL")
+  # IBM XL compiler options
+  set(f90flags  "-WF,-DNO_F2008 -O2")
+  if(debug)
+    set(f90flags  "-g -C -qflag=i:i -u")
+    set(ldflags   "-g")
+  endif()
+  if(profile)
+    set(f90flags  "-p ${f90flags}")
+    set(ldflags   "-p ${ldflags}")
+  endif()
+  if(optimize)
+    set(f90flags  "-O3 ${f90flags}")
+  endif()
+  if(openmp)
+    set(f90flags  "-qsmp=omp -WF,-DOPENMP ${f90flags}")
+    set(ldflags   "-qsmp=omp ${ldflags}")
+  endif()
+
+elseif(CMAKE_Fortran_COMPILER_ID STREQUAL "Cray")
+  # Cray Fortran compiler options
+  set(f90flags  "-e Z -m 0")
+  if(debug)
+    set(f90flags  "-g -R abcnsp -O0 ${f90flags}")
+    set(ldflags   "-g")
+  endif()
 
 endif()
 
-# MPI for distributed-memory parallelism
-
-if(mpi)
-  find_package(MPI REQUIRED)
-  add_definitions(-DMPI)
-  include_directories(BEFORE "${MPI_Fortran_INCLUDE_PATH}")
-  set(f90flags  ${MPI_Fortran_COMPILE_FLAGS} ${f90flags})
-  set(libraries ${MPI_Fortran_LIBRARIES} ${libraries})
-endif()
-
+#===============================================================================
 # HDF5 for binary output
+#===============================================================================
 
 if(hdf5)
   find_package(HDF5 COMPONENTS Fortran Fortran_HL REQUIRED)
@@ -61,13 +124,45 @@ if(hdf5)
   set(libraries ${HDF5_LIBRARIES} ${HDF5_Fortran_LIBRARIES} ${HDF5_Fortran_HL_LIBRARIES} ${libraries})
 endif()
 
+#===============================================================================
+# PETSc for CMFD functionality
+#===============================================================================
+
+#===============================================================================
+# xml-fortran
+#===============================================================================
+
+# xml-fortran Library
+set(xmlfortran_source "xml-fortran/xmlparse.f90;xml-fortran/read_xml_primitives.f90;xml-fortran/write_xml_primitives.f90")
+add_library(xmlfortran STATIC ${xmlfortran_source})
+
+# Build xmlreader
+add_executable(xmlreader xml-fortran/xmlreader.f90)
+target_link_libraries(xmlreader xmlfortran)
+
+# Create templates using xmlreader
+add_custom_target(templates
+  ${CMAKE_CURRENT_BINARY_DIR}/xmlreader cmfd_t
+  COMMAND ${CMAKE_CURRENT_BINARY_DIR}/xmlreader cross_sections_t
+  COMMAND ${CMAKE_CURRENT_BINARY_DIR}/xmlreader geometry_t
+  COMMAND ${CMAKE_CURRENT_BINARY_DIR}/xmlreader materials_t
+  COMMAND ${CMAKE_CURRENT_BINARY_DIR}/xmlreader plots_t
+  COMMAND ${CMAKE_CURRENT_BINARY_DIR}/xmlreader settings_t
+  COMMAND ${CMAKE_CURRENT_BINARY_DIR}/xmlreader tallies_t
+  WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/templates
+  DEPENDS xmlreader
+  VERBATIM)
+add_dependencies(templates xmlreader)
+
+#===============================================================================
 # Build OpenMC executable
+#===============================================================================
 
 set(program "openmc")
-file(GLOB source *.F90)
+file(GLOB source *.F90 templates/*.f90)
 add_executable(${program} ${source})
-target_link_libraries(${program} ${libraries})
+add_dependencies(${program} templates)
+target_link_libraries(${program} ${libraries} xmlfortran)
 set_target_properties(${program} PROPERTIES
   COMPILE_FLAGS "${f90flags}"
-  COMPILE_DEFINITIONS "${definitions}"
-  )
+  COMPILE_DEFINITIONS "${definitions}")
