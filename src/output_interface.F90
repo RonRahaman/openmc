@@ -5,10 +5,14 @@ module output_interface
   use global
   use tally_header,  only: TallyResult
 
+  ! The ugly nested ifdefs are necessary for CMake to determine module
+  ! dependencies correctly
 #ifdef HDF5
   use hdf5_interface
-#elif MPI
+#else
+#ifdef MPI
   use mpiio_interface
+#endif
 #endif
 
   implicit none
