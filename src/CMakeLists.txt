@@ -133,35 +133,50 @@ endif()
 #===============================================================================
 
 # xml-fortran Library
-set(xmlfortran_source "xml-fortran/xmlparse.f90;xml-fortran/read_xml_primitives.f90;xml-fortran/write_xml_primitives.f90")
-add_library(xmlfortran STATIC ${xmlfortran_source})
+file(GLOB source_xmlfortran xml-fortran/*.f90)
+add_library(xmlfortran STATIC ${source_xmlfortran})
 
 # Build xmlreader
 add_executable(xmlreader xml-fortran/xmlreader.f90)
 target_link_libraries(xmlreader xmlfortran)
 
-# Create templates using xmlreader
-add_custom_target(templates
-  ${CMAKE_CURRENT_BINARY_DIR}/xmlreader cmfd_t
-  COMMAND ${CMAKE_CURRENT_BINARY_DIR}/xmlreader cross_sections_t
-  COMMAND ${CMAKE_CURRENT_BINARY_DIR}/xmlreader geometry_t
-  COMMAND ${CMAKE_CURRENT_BINARY_DIR}/xmlreader materials_t
-  COMMAND ${CMAKE_CURRENT_BINARY_DIR}/xmlreader plots_t
-  COMMAND ${CMAKE_CURRENT_BINARY_DIR}/xmlreader settings_t
-  COMMAND ${CMAKE_CURRENT_BINARY_DIR}/xmlreader tallies_t
+#===============================================================================
+# Commands for creating templates
+#===============================================================================
+
+add_custom_command(
+  OUTPUT ${CMAKE_SOURCE_DIR}/templates/cmfd_t.f90
+         ${CMAKE_SOURCE_DIR}/templates/cross_sections_t.f90
+         ${CMAKE_SOURCE_DIR}/templates/geometry_t.f90
+         ${CMAKE_SOURCE_DIR}/templates/materials_t.f90
+         ${CMAKE_SOURCE_DIR}/templates/plots_t.f90
+         ${CMAKE_SOURCE_DIR}/templates/settings_t.f90
+         ${CMAKE_SOURCE_DIR}/templates/tallies_t.f90
+  COMMAND ${CMAKE_BINARY_DIR}/xmlreader cmfd_t
+  COMMAND ${CMAKE_BINARY_DIR}/xmlreader cross_sections_t
+  COMMAND ${CMAKE_BINARY_DIR}/xmlreader geometry_t
+  COMMAND ${CMAKE_BINARY_DIR}/xmlreader materials_t
+  COMMAND ${CMAKE_BINARY_DIR}/xmlreader plots_t
+  COMMAND ${CMAKE_BINARY_DIR}/xmlreader settings_t
+  COMMAND ${CMAKE_BINARY_DIR}/xmlreader tallies_t
   WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/templates
-  DEPENDS xmlreader
-  VERBATIM)
-add_dependencies(templates xmlreader)
+  DEPENDS xmlreader)
+set(source_templates
+  templates/cmfd_t.f90
+  templates/cross_sections_t.f90
+  templates/geometry_t.f90
+  templates/materials_t.f90
+  templates/plots_t.f90
+  templates/settings_t.f90
+  templates/tallies_t.f90)
 
 #===============================================================================
 # Build OpenMC executable
 #===============================================================================
 
 set(program "openmc")
-file(GLOB source *.F90 templates/*.f90)
-add_executable(${program} ${source})
-add_dependencies(${program} templates)
+file(GLOB source *.F90)
+add_executable(${program} ${source} ${source_templates})
 target_link_libraries(${program} ${libraries} xmlfortran)
 set_target_properties(${program} PROPERTIES
   COMPILE_FLAGS "${f90flags}"
