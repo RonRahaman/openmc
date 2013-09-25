@@ -144,14 +144,21 @@ target_link_libraries(xmlreader xmlfortran)
 # Commands for creating templates
 #===============================================================================
 
+# Copy template XML files to build directory
+if(NOT CMAKE_BINARY_DIR STREQUAL CMAKE_SOURCE_DIR)
+  file(GLOB xmltemplates templates/*_t.xml)
+  file(COPY ${xmltemplates} DESTINATION ${CMAKE_BINARY_DIR}/templates)
+endif()
+
+# Use xmlreader to build template source files
 add_custom_command(
-  OUTPUT ${CMAKE_SOURCE_DIR}/templates/cmfd_t.f90
-         ${CMAKE_SOURCE_DIR}/templates/cross_sections_t.f90
-         ${CMAKE_SOURCE_DIR}/templates/geometry_t.f90
-         ${CMAKE_SOURCE_DIR}/templates/materials_t.f90
-         ${CMAKE_SOURCE_DIR}/templates/plots_t.f90
-         ${CMAKE_SOURCE_DIR}/templates/settings_t.f90
-         ${CMAKE_SOURCE_DIR}/templates/tallies_t.f90
+  OUTPUT ${CMAKE_BINARY_DIR}/templates/cmfd_t.f90
+         ${CMAKE_BINARY_DIR}/templates/cross_sections_t.f90
+         ${CMAKE_BINARY_DIR}/templates/geometry_t.f90
+         ${CMAKE_BINARY_DIR}/templates/materials_t.f90
+         ${CMAKE_BINARY_DIR}/templates/plots_t.f90
+         ${CMAKE_BINARY_DIR}/templates/settings_t.f90
+         ${CMAKE_BINARY_DIR}/templates/tallies_t.f90
   COMMAND ${CMAKE_BINARY_DIR}/xmlreader cmfd_t
   COMMAND ${CMAKE_BINARY_DIR}/xmlreader cross_sections_t
   COMMAND ${CMAKE_BINARY_DIR}/xmlreader geometry_t
@@ -159,16 +166,18 @@ add_custom_command(
   COMMAND ${CMAKE_BINARY_DIR}/xmlreader plots_t
   COMMAND ${CMAKE_BINARY_DIR}/xmlreader settings_t
   COMMAND ${CMAKE_BINARY_DIR}/xmlreader tallies_t
-  WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/templates
+  WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/templates
   DEPENDS xmlreader)
+
+# List of templates source files
 set(source_templates
-  templates/cmfd_t.f90
-  templates/cross_sections_t.f90
-  templates/geometry_t.f90
-  templates/materials_t.f90
-  templates/plots_t.f90
-  templates/settings_t.f90
-  templates/tallies_t.f90)
+  ${CMAKE_BINARY_DIR}/templates/cmfd_t.f90
+  ${CMAKE_BINARY_DIR}/templates/cross_sections_t.f90
+  ${CMAKE_BINARY_DIR}/templates/geometry_t.f90
+  ${CMAKE_BINARY_DIR}/templates/materials_t.f90
+  ${CMAKE_BINARY_DIR}/templates/plots_t.f90
+  ${CMAKE_BINARY_DIR}/templates/settings_t.f90
+  ${CMAKE_BINARY_DIR}/templates/tallies_t.f90)
 
 #===============================================================================
 # Build OpenMC executable
