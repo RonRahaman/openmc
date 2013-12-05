@@ -33,3 +33,4 @@ results_error.dat
 *.swp
 
 src/data_dump
+src/profiles
