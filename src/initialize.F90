@@ -1044,6 +1044,8 @@ subroutine inv_stack_recon(nuc)
     ! interpolated value of Y(q)
     real(8) :: total_interp, elastic_interp, fission_interp, nu_fission_interp, &
         absorption_interp
+    ! interpolation errors
+    real(8) :: elastic_err, absorption_err
 
     n0 = size(nuc % energy)
 
@@ -1080,12 +1082,20 @@ subroutine inv_stack_recon(nuc)
       
 
       ! If interpolation is succesful at q (or if there are no gridpoints between q and p)
-      if (nuc % elastic(q) == 0 .or. nuc % absorption(q) == 0 ) then
-        print *, '*****FP EXCEPTION****'
-        stop
+      if (nuc % elastic(q) == 0) then
+        elastic_err = INFINITY
+      else
+        elastic_err = abs( (elastic_interp - nuc % elastic(q)) / nuc % elastic(q))
       endif
-      if ( q <= p .or. ( abs( (elastic_interp - nuc % elastic(q)) / nuc % elastic(q) ) < thresh .and. &
-          abs( (absorption_interp - nuc % absorption(q)) / nuc % absorption(q) ) < thresh )) then
+
+
+      if (nuc % absorption(q) == 0 ) then
+        absorption_err = INFINITY
+      else
+        absorption_err = abs( (absorption_interp - nuc % absorption(q)) / nuc % absorption(q) )
+      endif
+
+      if ( q <= p .or. ( elastic_err  < thresh .and. absorption_err < thresh ) ) then
       ! if ( q <= p .or. ( &
       !     abs( (total_interp - nuc % total(q)) / nuc % total(q) ) < thresh .and. &
       !     abs( (elastic_interp - nuc % elastic(q)) / nuc % elastic(q) ) < thresh .and. &

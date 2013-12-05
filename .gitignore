@@ -28,3 +28,8 @@ src/templates/*.f90
 
 # Test results error file
 results_error.dat
+
+# Vim swap files
+*.swp
+
+src/data_dump
