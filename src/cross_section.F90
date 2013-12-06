@@ -149,28 +149,30 @@ contains
     ! Set pointer to nuclide
     nuc => nuclides(i_nuclide)
 
-    ! Determine index on nuclide energy grid
-    select case (grid_method)
-    case (GRID_UNION)
-      ! If we're using the unionized grid with pointers, finding the index on
-      ! the nuclide energy grid is as simple as looking up the pointer
+    i_grid = get_i_grid(nuc, E)
 
-      i_grid = nuc % grid_index(union_grid_index)
+    ! ! Determine index on nuclide energy grid
+    ! select case (grid_method)
+    ! case (GRID_UNION)
+    !   ! If we're using the unionized grid with pointers, finding the index on
+    !   ! the nuclide energy grid is as simple as looking up the pointer
 
-    case (GRID_NUCLIDE)
-      ! If we're not using the unionized grid, we have to do a binary search on
-      ! the nuclide energy grid in order to determine which points to
-      ! interpolate between
+    !   i_grid = nuc % grid_index(union_grid_index)
 
-      if (E < nuc % energy(1)) then
-        i_grid = 1
-      elseif (E > nuc % energy(nuc % n_grid)) then
-        i_grid = nuc % n_grid - 1
-      else
-        i_grid = binary_search(nuc % energy, nuc % n_grid, E)
-      end if
+    ! case (GRID_NUCLIDE)
+    !   ! If we're not using the unionized grid, we have to do a binary search on
+    !   ! the nuclide energy grid in order to determine which points to
+    !   ! interpolate between
 
-    end select
+    !   if (E < nuc % energy(1)) then
+    !     i_grid = 1
+    !   elseif (E > nuc % energy(nuc % n_grid)) then
+    !     i_grid = nuc % n_grid - 1
+    !   else
+    !     i_grid = binary_search(nuc % energy, nuc % n_grid, E)
+    !   end if
+
+    ! end select
 
     ! check for rare case where two energy points are the same
     if (nuc % energy(i_grid) == nuc % energy(i_grid+1)) i_grid = i_grid + 1
@@ -477,5 +479,34 @@ contains
     end if
 
   end subroutine find_energy_index
+
+integer function get_i_grid(nuc, E)
+    real(8), intent(in) :: E         ! energy
+    type(Nuclide), intent(in) :: nuc ! nuclide
+
+    select case (grid_method)
+    case (GRID_UNION)
+      ! If we're using the unionized grid with pointers, finding the index on
+      ! the nuclide energy grid is as simple as looking up the pointer
+
+      get_i_grid = nuc % grid_index(union_grid_index)
+
+    case (GRID_NUCLIDE)
+      ! If we're not using the unionized grid, we have to do a binary search on
+      ! the nuclide energy grid in order to determine which points to
+      ! interpolate between
+
+      if (E < nuc % energy(1)) then
+        get_i_grid = 1
+      elseif (E > nuc % energy(nuc % n_grid)) then
+        get_i_grid = nuc % n_grid - 1
+      else
+        get_i_grid = binary_search(nuc % energy, nuc % n_grid, E)
+      end if
+
+    end select
+
+end function get_i_grid
+
 
 end module cross_section
