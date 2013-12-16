@@ -1,0 +1,1329 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+100	ace.F90	/^100   format(A70,A10\/4(I7,F11.0)\/4(I7,F11.0)\/4(I7,F11.0)\/4(I7,F11.0)\/&$/;"	l	subroutine:read_ace_table	file:
+100	output.F90	/^100 format (1X,A,T15,A)$/;"	l	subroutine:print_overlap_check	file:
+100	output.F90	/^100 format (1X,A,T25,A)$/;"	l	subroutine:print_plot	file:
+100	output.F90	/^100 format (1X,A,T35,A)$/;"	l	subroutine:write_summary	file:
+100	output.F90	/^100 format (1X,A,T36,"= ",ES11.4," seconds")$/;"	l	subroutine:print_runtime	file:
+101	output.F90	/^101 format (1X,A,T35,I11)$/;"	l	subroutine:write_summary	file:
+101	output.F90	/^101 format (1X,A,T36,"=  ",A," neutrons\/second")$/;"	l	subroutine:print_runtime	file:
+101	output.F90	/^101 format (1X,I8,T15,I12)$/;"	l	subroutine:print_overlap_check	file:
+102	output.F90	/^102 format (1X,A,T30,"= ",F8.5," +\/- ",F8.5)$/;"	l	subroutine:print_results	file:
+103	output.F90	/^103 format (1X,A,T30,"= ",F8.5)$/;"	l	subroutine:print_results	file:
+ACE_DOSIMETRY	constants.F90	/^       ACE_THERMAL   = 2, & ! thermal S(a,b) scattering data$/;"	v	module:constants
+ACE_NEUTRON	constants.F90	/^  integer, parameter :: &$/;"	v	module:constants
+ACE_THERMAL	constants.F90	/^       ACE_NEUTRON   = 1, & ! continuous-energy neutron$/;"	v	module:constants
+ALBEDO_REJECT	constants.F90	/^  real(8), parameter :: ALBEDO_REJECT /;"	v	module:constants
+AMU	constants.F90	/^       MASS_PROTON  = 1.007276466812,    & ! mass of a proton in amu$/;"	v	module:constants
+ANGLE_32_EQUI	constants.F90	/^       ANGLE_ISOTROPIC = 1, & ! Isotropic angular distribution$/;"	v	module:constants
+ANGLE_ISOTROPIC	constants.F90	/^  integer, parameter :: & $/;"	v	module:constants
+ANGLE_TABULAR	constants.F90	/^       ANGLE_32_EQUI   = 2, & ! 32 equiprobable bins$/;"	v	module:constants
+ASCII	constants.F90	/^  integer, parameter :: &$/;"	v	module:constants
+ATTR_NODE	xml_interface.F90	/^  integer, parameter :: ATTR_NODE /;"	v	module:xml_interface
+BASE_UNIVERSE	geometry_header.F90	/^  integer :: BASE_UNIVERSE$/;"	v	module:geometry_header
+BC_PERIODIC	constants.F90	/^       BC_REFLECT  = 2,  & ! Reflecting boundary condition$/;"	v	module:constants
+BC_REFLECT	constants.F90	/^       BC_VACUUM   = 1,  & ! Vacuum boundary condition$/;"	v	module:constants
+BC_TRANSMIT	constants.F90	/^  integer, parameter ::  &$/;"	v	module:constants
+BC_VACUUM	constants.F90	/^       BC_TRANSMIT = 0,  & ! Transmission boundary condition (default)$/;"	v	module:constants
+BINARY	constants.F90	/^       ASCII  = 1, & ! ASCII cross section file$/;"	v	module:constants
+Bank	bank_header.F90	/^  type Bank$/;"	t	module:bank_header
+BinaryOutput	output_interface.F90	/^  type, public :: BinaryOutput$/;"	t	module:output_interface
+CELL_FILL	constants.F90	/^       CELL_NORMAL  = 1, & ! Cell with a specified material$/;"	v	module:constants
+CELL_LATTICE	constants.F90	/^       CELL_FILL    = 2, & ! Cell filled by a separate universe$/;"	v	module:constants
+CELL_NORMAL	constants.F90	/^  integer, parameter ::  &$/;"	v	module:constants
+CMFD_NOACCEL	constants.F90	/^  integer, parameter :: CMFD_NOACCEL /;"	v	module:constants
+CMFD_NORES	constants.F90	/^  real(8), parameter :: CMFD_NORES /;"	v	module:constants
+CONFIDENCE_LEVEL	constants.F90	/^  real(8), parameter :: CONFIDENCE_LEVEL /;"	v	module:constants
+Cell	geometry_header.F90	/^  type Cell$/;"	t	module:geometry_header
+DICT_KEY_LENGTH	dict_header.F90	/^  integer, parameter          :: DICT_KEY_LENGTH /;"	v	module:dict_header
+DICT_NULL	dict_header.F90	/^  integer, parameter, private :: DICT_NULL /;"	v	module:dict_header
+DictCharInt	dict_header.F90	/^  type, public :: DictCharInt$/;"	t	module:dict_header
+DictIntInt	dict_header.F90	/^  type, public :: DictIntInt$/;"	t	module:dict_header
+DistAngle	ace_header.F90	/^  type DistAngle$/;"	t	module:ace_header
+DistEnergy	ace_header.F90	/^  type DistEnergy$/;"	t	module:ace_header
+E	bank_header.F90	/^    real(8)    :: E /;"	k	type:Bank
+E	particle_header.F90	/^    real(8)    :: E /;"	k	type:Particle
+ELASTIC	constants.F90	/^       TOTAL_XS    = 1, &$/;"	v	module:constants
+ELECTRON	constants.F90	/^       PHOTON   = 2, &$/;"	v	module:constants
+ELEM_NODE	xml_interface.F90	/^  integer, parameter :: ELEM_NODE /;"	v	module:xml_interface
+ERROR_INT	constants.F90	/^  integer, parameter :: ERROR_INT /;"	v	module:constants
+ERROR_REAL	constants.F90	/^  real(8), parameter :: ERROR_REAL /;"	v	module:constants
+ESTIMATOR_ANALOG	constants.F90	/^  integer, parameter :: &$/;"	v	module:constants
+ESTIMATOR_TRACKLENGTH	constants.F90	/^       ESTIMATOR_ANALOG      = 1, &$/;"	v	module:constants
+EVENT_ABSORB	constants.F90	/^       EVENT_SCATTER =  1, &$/;"	v	module:constants
+EVENT_LATTICE	constants.F90	/^       EVENT_SURFACE = -2, &$/;"	v	module:constants
+EVENT_SCATTER	constants.F90	/^       EVENT_LATTICE = -1, &$/;"	v	module:constants
+EVENT_SURFACE	constants.F90	/^  integer, parameter :: &$/;"	v	module:constants
+ElemKeyValueCI	dict_header.F90	/^  type ElemKeyValueCI$/;"	t	module:dict_header
+ElemKeyValueII	dict_header.F90	/^  type ElemKeyValueII$/;"	t	module:dict_header
+ExtSource	source_header.F90	/^  type ExtSource$/;"	t	module:source_header
+FILETYPE_PARTICLE_RESTART	constants.F90	/^       FILETYPE_STATEPOINT       = -1, &$/;"	v	module:constants
+FILETYPE_STATEPOINT	constants.F90	/^  integer, parameter :: &$/;"	v	module:constants
+FILTER_CELL	constants.F90	/^       FILTER_MATERIAL  = 2, &$/;"	v	module:constants
+FILTER_CELLBORN	constants.F90	/^       FILTER_CELL      = 3, &$/;"	v	module:constants
+FILTER_ENERGYIN	constants.F90	/^       FILTER_MESH      = 6, &$/;"	v	module:constants
+FILTER_ENERGYOUT	constants.F90	/^       FILTER_ENERGYIN  = 7, &$/;"	v	module:constants
+FILTER_MATERIAL	constants.F90	/^       FILTER_UNIVERSE  = 1, &$/;"	v	module:constants
+FILTER_MESH	constants.F90	/^       FILTER_SURFACE   = 5, &$/;"	v	module:constants
+FILTER_SURFACE	constants.F90	/^       FILTER_CELLBORN  = 4, &$/;"	v	module:constants
+FILTER_UNIVERSE	constants.F90	/^  integer, parameter :: &$/;"	v	module:constants
+FP_COINCIDENT	constants.F90	/^  real(8), parameter :: FP_COINCIDENT /;"	v	module:constants
+FP_PRECISION	constants.F90	/^  real(8), parameter :: FP_PRECISION /;"	v	module:constants
+FP_REL_PRECISION	constants.F90	/^  real(8), parameter :: FP_REL_PRECISION /;"	v	module:constants
+FREE_GAS_THRESHOLD	constants.F90	/^  real(8), parameter :: FREE_GAS_THRESHOLD /;"	v	module:constants
+GMRESSolver	solver_interface.F90	/^  type, public :: GMRESSolver /;"	t	module:solver_interface
+GRID_LETHARGY	constants.F90	/^       GRID_UNION    = 2, & ! union grid with pointers$/;"	v	module:constants
+GRID_NUCLIDE	constants.F90	/^  integer, parameter :: &$/;"	v	module:constants
+GRID_UNION	constants.F90	/^       GRID_NUCLIDE  = 1, & ! non-unionized energy grid$/;"	v	module:constants
+HASH_MULTIPLIER	dict_header.F90	/^  integer, parameter, private :: HASH_MULTIPLIER /;"	v	module:dict_header
+HASH_SIZE	dict_header.F90	/^  integer, parameter, private :: HASH_SIZE /;"	v	module:dict_header
+HISTOGRAM	constants.F90	/^  integer, parameter ::   &$/;"	v	module:constants
+HashListCI	dict_header.F90	/^  type, private :: HashListCI$/;"	t	module:dict_header
+HashListII	dict_header.F90	/^  type, private :: HashListII$/;"	t	module:dict_header
+INFINITY	constants.F90	/^       K_BOLTZMANN  = 8.6173324e-11,     & ! Boltzmann constant in MeV\/K$/;"	v	module:constants
+IN_FRONT	constants.F90	/^       OUT_RIGHT = 2,   &$/;"	v	module:constants
+IN_RIGHT	constants.F90	/^  integer, parameter :: &$/;"	v	module:constants
+IN_TOP	constants.F90	/^       OUT_FRONT = 4,   &$/;"	v	module:constants
+Image	ppmlib.F90	/^  type Image$/;"	t	module:ppmlib
+JFNKSolver	solver_interface.F90	/^  type, public :: JFNKSolver /;"	t	module:solver_interface
+JXS	ace.F90	/^  integer :: JXS(/;"	v	module:ace
+Jfnk_ctx	solver_interface.F90	/^  type, public :: Jfnk_ctx$/;"	t	module:solver_interface
+K_ABSORPTION	constants.F90	/^       K_COLLISION   = 1, &$/;"	v	module:constants
+K_BOLTZMANN	constants.F90	/^       N_AVOGADRO   = 0.602214129,       & ! Avogadro's number in 10^24\/mol$/;"	v	module:constants
+K_COLLISION	constants.F90	/^  integer, parameter :: &$/;"	v	module:constants
+K_TRACKLENGTH	constants.F90	/^       K_ABSORPTION  = 2, &$/;"	v	module:constants
+LATTICE_BACK	constants.F90	/^       LATTICE_RIGHT  = 2, & ! Flag for crossing right (x) lattice boundary$/;"	v	module:constants
+LATTICE_BOTTOM	constants.F90	/^       LATTICE_FRONT  = 4, & ! Flag for crossing front (y) lattice boundary$/;"	v	module:constants
+LATTICE_FRONT	constants.F90	/^       LATTICE_BACK   = 3, & ! Flag for crossing back (y) lattice boundary$/;"	v	module:constants
+LATTICE_HEX	constants.F90	/^       LATTICE_RECT = 1, & ! Rectangular lattice$/;"	v	module:constants
+LATTICE_LEFT	constants.F90	/^  integer, parameter ::    &$/;"	v	module:constants
+LATTICE_RECT	constants.F90	/^  integer, parameter ::  &$/;"	v	module:constants
+LATTICE_RIGHT	constants.F90	/^       LATTICE_LEFT   = 1, & ! Flag for crossing left (x) lattice boundary$/;"	v	module:constants
+LATTICE_TOP	constants.F90	/^       LATTICE_BOTTOM = 5, & ! Flag for crossing bottom (z) lattice boundary$/;"	v	module:constants
+LEAKAGE	constants.F90	/^       K_TRACKLENGTH = 3, &$/;"	v	module:constants
+LINEAR_LINEAR	constants.F90	/^       HISTOGRAM     = 1, & ! y is constant in x$/;"	v	module:constants
+LINEAR_LOG	constants.F90	/^       LINEAR_LINEAR = 2, & ! y is linear in x$/;"	v	module:constants
+LOG_LINEAR	constants.F90	/^       LINEAR_LOG    = 3, & ! y is linear in ln(x)$/;"	v	module:constants
+LOG_LOG	constants.F90	/^       LOG_LINEAR    = 4, & ! ln(y) is linear in x$/;"	v	module:constants
+Lattice	geometry_header.F90	/^  type Lattice$/;"	t	module:geometry_header
+ListChar	list_header.F90	/^  type, public :: ListChar$/;"	t	module:list_header
+ListElemChar	list_header.F90	/^  type :: ListElemChar$/;"	t	module:list_header
+ListElemInt	list_header.F90	/^  type :: ListElemInt$/;"	t	module:list_header
+ListElemReal	list_header.F90	/^  type :: ListElemReal$/;"	t	module:list_header
+ListInt	list_header.F90	/^  type, public :: ListInt$/;"	t	module:list_header
+ListReal	list_header.F90	/^  type, public :: ListReal$/;"	t	module:list_header
+LocalCoord	particle_header.F90	/^  type LocalCoord$/;"	t	module:particle_header
+MASS_NEUTRON	constants.F90	/^       PI           = 3.1415926535898_8, & ! pi$/;"	v	module:constants
+MASS_PROTON	constants.F90	/^       MASS_NEUTRON = 1.008664916,       & ! mass of a neutron in amu$/;"	v	module:constants
+MATERIAL_VOID	constants.F90	/^  integer, parameter :: MATERIAL_VOID /;"	v	module:constants
+MAX_EVENTS	constants.F90	/^  integer, parameter :: MAX_EVENTS /;"	v	module:constants
+MAX_FILE_LEN	constants.F90	/^  integer, parameter :: MAX_FILE_LEN /;"	v	module:constants
+MAX_ITERATION	search.F90	/^  integer, parameter :: MAX_ITERATION /;"	v	module:search
+MAX_LINE_LEN	constants.F90	/^  integer, parameter :: MAX_LINE_LEN /;"	v	module:constants
+MAX_LOST_PARTICLES	constants.F90	/^  integer, parameter :: MAX_LOST_PARTICLES /;"	v	module:constants
+MAX_SAMPLE	constants.F90	/^  integer, parameter :: MAX_SAMPLE /;"	v	module:constants
+MAX_WORDS	constants.F90	/^  integer, parameter :: MAX_WORDS /;"	v	module:constants
+MAX_WORD_LEN	constants.F90	/^  integer, parameter :: MAX_WORD_LEN /;"	v	module:constants
+MISC	constants.F90	/^       N_LEVEL     = 4, &$/;"	v	module:constants
+MODE_EIGENVALUE	constants.F90	/^       MODE_FIXEDSOURCE = 1, & ! Fixed source mode$/;"	v	module:constants
+MODE_FIXEDSOURCE	constants.F90	/^  integer, parameter ::        &$/;"	v	module:constants
+MODE_PARTICLE	constants.F90	/^       MODE_PLOTTING    = 3, & ! Plotting mode$/;"	v	module:constants
+MODE_PLOTTING	constants.F90	/^       MODE_EIGENVALUE  = 2, & ! K eigenvalue mode$/;"	v	module:constants
+MT	ace_header.F90	/^    integer :: MT /;"	k	type:Reaction
+Material	material_header.F90	/^  type Material$/;"	t	module:material_header
+MaterialMacroXS	ace_header.F90	/^  type MaterialMacroXS$/;"	t	module:ace_header
+Matrix	matrix_header.F90	/^  type, public :: Matrix$/;"	t	module:matrix_header
+NEUTRON	constants.F90	/^  integer, parameter :: &$/;"	v	module:constants
+NONE	constants.F90	/^  integer, parameter :: NONE /;"	v	module:constants
+NO_BIN_FOUND	constants.F90	/^  integer, parameter :: NO_BIN_FOUND /;"	v	module:constants
+NU_NONE	constants.F90	/^  integer, parameter ::   &$/;"	v	module:constants
+NU_POLYNOMIAL	constants.F90	/^       NU_NONE       = 0, & ! No nu values (non-fissionable)$/;"	v	module:constants
+NU_TABULAR	constants.F90	/^       NU_POLYNOMIAL = 1, & ! Nu values given by polynomial$/;"	v	module:constants
+NXS	ace.F90	/^  integer :: NXS(/;"	v	module:ace
+N_2A	constants.F90	/^       N_A         = 107, &$/;"	v	module:constants
+N_2N	constants.F90	/^       N_2ND/;"	v	module:constants
+N_2N2A	constants.F90	/^       N_N2A       = 29, &$/;"	v	module:constants
+N_2NA	constants.F90	/^       N_N3A       = 23, &$/;"	v	module:constants
+N_2ND	constants.F90	/^       MISC        = 5, &$/;"	v	module:constants
+N_2NF	constants.F90	/^       N_NF        = 20, &$/;"	v	module:constants
+N_2NP	constants.F90	/^       N_3NF       = 38, &$/;"	v	module:constants
+N_2P	constants.F90	/^       N_3A        = 109, &$/;"	v	module:constants
+N_3A	constants.F90	/^       N_2A        = 108, &$/;"	v	module:constants
+N_3HE	constants.F90	/^       N_T         = 105, &$/;"	v	module:constants
+N_3N	constants.F90	/^       N_2N        = 16, &$/;"	v	module:constants
+N_3NA	constants.F90	/^       N_2NA       = 24, &$/;"	v	module:constants
+N_3NF	constants.F90	/^       N_4N        = 37, &$/;"	v	module:constants
+N_3NP	constants.F90	/^       N_2NP       = 41, &$/;"	v	module:constants
+N_4N	constants.F90	/^       N_NT2A      = 36, &$/;"	v	module:constants
+N_A	constants.F90	/^       N_3HE       = 106, &$/;"	v	module:constants
+N_AVOGADRO	constants.F90	/^       AMU          = 1.660538921e-27,   & ! 1 amu in kg$/;"	v	module:constants
+N_D	constants.F90	/^       N_P         = 103, &$/;"	v	module:constants
+N_D2A	constants.F90	/^       N_T2A       = 113, &$/;"	v	module:constants
+N_DA	constants.F90	/^       N_PT        = 116, &$/;"	v	module:constants
+N_DISAPPEAR	constants.F90	/^       N_NC        = 91, &$/;"	v	module:constants
+N_F	constants.F90	/^       N_FI/;"	v	module:constants
+N_FILTER_TYPES	constants.F90	/^  integer, parameter :: N_FILTER_TYPES /;"	v	module:constants
+N_FISSION	constants.F90	/^       N_3N        = 17, &$/;"	v	module:constants
+N_GAMMA	constants.F90	/^       N_DISAPPEAR = 101, &$/;"	v	module:constants
+N_GLOBAL_TALLIES	constants.F90	/^  integer, parameter :: N_GLOBAL_TALLIES /;"	v	module:constants
+N_LEVEL	constants.F90	/^       ELASTIC     = 2, &$/;"	v	module:constants
+N_N1	constants.F90	/^       N_NPA       = 45, &$/;"	v	module:constants
+N_N2A	constants.F90	/^       N_NP        = 28, &$/;"	v	module:constants
+N_N2P	constants.F90	/^       N_3NP       = 42, &$/;"	v	module:constants
+N_N3A	constants.F90	/^       N_NA        = 22, &$/;"	v	module:constants
+N_N3HE	constants.F90	/^       N_NT        = 33, &$/;"	v	module:constants
+N_N40	constants.F90	/^       N_N1        = 51, &$/;"	v	module:constants
+N_NA	constants.F90	/^       N_2NF       = 21, &$/;"	v	module:constants
+N_NC	constants.F90	/^       N_N40       = 90, &$/;"	v	module:constants
+N_ND	constants.F90	/^       N_2N2A      = 30, &$/;"	v	module:constants
+N_ND2A	constants.F90	/^       N_N3HE      = 34, &$/;"	v	module:constants
+N_NF	constants.F90	/^       N_F         = 19, &$/;"	v	module:constants
+N_NP	constants.F90	/^       N_3NA       = 25, &$/;"	v	module:constants
+N_NPA	constants.F90	/^       N_N2P       = 44, &$/;"	v	module:constants
+N_NT	constants.F90	/^       N_ND        = 32, &$/;"	v	module:constants
+N_NT2A	constants.F90	/^       N_ND2A      = 35, &$/;"	v	module:constants
+N_P	constants.F90	/^       N_GAMMA     = 102, &$/;"	v	module:constants
+N_PA	constants.F90	/^       N_2P        = 111, &$/;"	v	module:constants
+N_PD	constants.F90	/^       N_D2A       = 114, &$/;"	v	module:constants
+N_PT	constants.F90	/^       N_PD        = 115, &$/;"	v	module:constants
+N_SCORE_TYPES	constants.F90	/^  integer, parameter :: N_SCORE_TYPES /;"	v	module:constants
+N_T	constants.F90	/^       N_D         = 104, &$/;"	v	module:constants
+N_T2A	constants.F90	/^       N_PA        = 112, &$/;"	v	module:constants
+Nuclide	ace_header.F90	/^  type Nuclide$/;"	t	module:ace_header
+NuclideMicroXS	ace_header.F90	/^  type NuclideMicroXS$/;"	t	module:ace_header
+ONE	constants.F90	/^       ZERO         = 0.0_8,             &$/;"	v	module:constants
+OP_DIFFERENCE	constants.F90	/^       OP_UNION       = huge(0) - 2, & ! Union operator$/;"	v	module:constants
+OP_LEFT_PAREN	constants.F90	/^  integer, parameter ::              &$/;"	v	module:constants
+OP_RIGHT_PAREN	constants.F90	/^       OP_LEFT_PAREN  = huge(0),     & ! Left parentheses$/;"	v	module:constants
+OP_UNION	constants.F90	/^       OP_RIGHT_PAREN = huge(0) - 1, & ! Right parentheses$/;"	v	module:constants
+OUT_FRONT	constants.F90	/^       IN_FRONT  = 3,   &$/;"	v	module:constants
+OUT_RIGHT	constants.F90	/^       IN_RIGHT  = 1,   &$/;"	v	module:constants
+OUT_TOP	constants.F90	/^       IN_TOP    = 5,   &$/;"	v	module:constants
+ObjectColor	plot_header.F90	/^  type ObjectColor$/;"	t	module:plot_header
+ObjectPlot	plot_header.F90	/^  type ObjectPlot$/;"	t	module:plot_header
+PARTIAL_FISSION_MAX	constants.F90	/^  integer, parameter :: PARTIAL_FISSION_MAX /;"	v	module:constants
+PHOTON	constants.F90	/^       NEUTRON  = 1, &$/;"	v	module:constants
+PI	constants.F90	/^  real(8), parameter ::            &$/;"	v	module:constants
+PLOT_BASIS_XY	plot_header.F90	/^  integer, parameter :: PLOT_BASIS_XY /;"	v	module:plot_header
+PLOT_BASIS_XZ	plot_header.F90	/^  integer, parameter :: PLOT_BASIS_XZ /;"	v	module:plot_header
+PLOT_BASIS_YZ	plot_header.F90	/^  integer, parameter :: PLOT_BASIS_YZ /;"	v	module:plot_header
+PLOT_COLOR_CELLS	plot_header.F90	/^  integer, parameter :: PLOT_COLOR_CELLS /;"	v	module:plot_header
+PLOT_COLOR_MATS	plot_header.F90	/^  integer, parameter :: PLOT_COLOR_MATS /;"	v	module:plot_header
+PLOT_TYPE_SLICE	plot_header.F90	/^  integer, parameter :: PLOT_TYPE_SLICE /;"	v	module:plot_header
+PLOT_TYPE_VOXEL	plot_header.F90	/^  integer, parameter :: PLOT_TYPE_VOXEL /;"	v	module:plot_header
+Particle	particle_header.F90	/^  type Particle$/;"	t	module:particle_header
+Q_value	ace_header.F90	/^    real(8) :: Q_value /;"	k	type:Reaction
+REVISION_PARTICLE_RESTART	constants.F90	/^  integer, parameter :: REVISION_PARTICLE_RESTART /;"	v	module:constants
+REVISION_STATEPOINT	constants.F90	/^  integer, parameter :: REVISION_STATEPOINT /;"	v	module:constants
+Reaction	ace_header.F90	/^  type Reaction$/;"	t	module:ace_header
+SAB_ELASTIC_DISCRETE	constants.F90	/^  integer, parameter :: &$/;"	v	module:constants
+SAB_ELASTIC_EXACT	constants.F90	/^       SAB_ELASTIC_DISCRETE = 3, & ! Sample from discrete cosines$/;"	v	module:constants
+SAB_SECONDARY_EQUAL	constants.F90	/^  integer, parameter :: &$/;"	v	module:constants
+SAB_SECONDARY_SKEWED	constants.F90	/^       SAB_SECONDARY_EQUAL  = 0, & ! Equally-likely outgoing energy bins$/;"	v	module:constants
+SAlphaBeta	ace_header.F90	/^  type SAlphaBeta$/;"	t	module:ace_header
+SCATT_ORDER_MAX	constants.F90	/^  integer, parameter :: SCATT_ORDER_MAX /;"	v	module:constants
+SCATT_ORDER_MAX_PNSTR	constants.F90	/^  character(len=*), parameter :: SCATT_ORDER_MAX_PNSTR /;"	v	module:constants
+SCORE_ABSORPTION	constants.F90	/^       SCORE_N_1N          = -8,  & ! (n,1n) rate$/;"	v	module:constants
+SCORE_CURRENT	constants.F90	/^       SCORE_KAPPA_FISSION = -12, & ! fission energy production rate$/;"	v	module:constants
+SCORE_EVENTS	constants.F90	/^       SCORE_CURRENT       = -13, & ! partial current$/;"	v	module:constants
+SCORE_FISSION	constants.F90	/^       SCORE_ABSORPTION    = -9,  & ! absorption rate$/;"	v	module:constants
+SCORE_FLUX	constants.F90	/^  integer, parameter :: &$/;"	v	module:constants
+SCORE_KAPPA_FISSION	constants.F90	/^       SCORE_NU_FISSION    = -11, & ! neutron production rate$/;"	v	module:constants
+SCORE_NU_FISSION	constants.F90	/^       SCORE_FISSION       = -10, & ! fission rate$/;"	v	module:constants
+SCORE_NU_SCATTER	constants.F90	/^       SCORE_SCATTER       = -3,  & ! scattering rate$/;"	v	module:constants
+SCORE_N_1N	constants.F90	/^       SCORE_TRANSPORT     = -7,  & ! transport reaction rate$/;"	v	module:constants
+SCORE_SCATTER	constants.F90	/^       SCORE_TOTAL         = -2,  & ! total reaction rate$/;"	v	module:constants
+SCORE_SCATTER_N	constants.F90	/^       SCORE_NU_SCATTER    = -4,  & ! scattering production rate$/;"	v	module:constants
+SCORE_SCATTER_PN	constants.F90	/^       SCORE_SCATTER_N     = -5,  & ! arbitrary scattering moment$/;"	v	module:constants
+SCORE_TOTAL	constants.F90	/^       SCORE_FLUX          = -1,  & ! flux$/;"	v	module:constants
+SCORE_TRANSPORT	constants.F90	/^       SCORE_SCATTER_PN    = -6,  & ! system for scoring 0th through nth moment$/;"	v	module:constants
+SRC_ANGLE_ISOTROPIC	constants.F90	/^  integer, parameter :: &$/;"	v	module:constants
+SRC_ANGLE_MONO	constants.F90	/^       SRC_ANGLE_ISOTROPIC = 1, & ! Isotropic angular $/;"	v	module:constants
+SRC_ANGLE_TABULAR	constants.F90	/^       SRC_ANGLE_MONO      = 2, & ! Monodirectional source$/;"	v	module:constants
+SRC_ENERGY_MAXWELL	constants.F90	/^       SRC_ENERGY_MONO    = 1, & ! Monoenergetic source$/;"	v	module:constants
+SRC_ENERGY_MONO	constants.F90	/^  integer, parameter :: &$/;"	v	module:constants
+SRC_ENERGY_TABULAR	constants.F90	/^       SRC_ENERGY_WATT    = 3, & ! Watt fission spectrum$/;"	v	module:constants
+SRC_ENERGY_WATT	constants.F90	/^       SRC_ENERGY_MAXWELL = 2, & ! Maxwell fission spectrum$/;"	v	module:constants
+SRC_SPACE_BOX	constants.F90	/^  integer, parameter :: &$/;"	v	module:constants
+SRC_SPACE_POINT	constants.F90	/^       SRC_SPACE_BOX   = 1, & ! Source in a rectangular prism$/;"	v	module:constants
+SURF_CONE_X	constants.F90	/^       SURF_SPHERE =  8, & ! Sphere$/;"	v	module:constants
+SURF_CONE_Y	constants.F90	/^       SURF_CONE_X =  9, & ! Cone parallel to x-axis$/;"	v	module:constants
+SURF_CONE_Z	constants.F90	/^       SURF_CONE_Y = 10, & ! Cone parallel to y-axis$/;"	v	module:constants
+SURF_CYL_X	constants.F90	/^       SURF_PLANE  =  4, & ! Arbitrary plane$/;"	v	module:constants
+SURF_CYL_Y	constants.F90	/^       SURF_CYL_X  =  5, & ! Cylinder along x-axis$/;"	v	module:constants
+SURF_CYL_Z	constants.F90	/^       SURF_CYL_Y  =  6, & ! Cylinder along y-axis$/;"	v	module:constants
+SURF_PLANE	constants.F90	/^       SURF_PZ     =  3, & ! Plane parallel to z-plane $/;"	v	module:constants
+SURF_PX	constants.F90	/^  integer, parameter ::  &$/;"	v	module:constants
+SURF_PY	constants.F90	/^       SURF_PX     =  1, & ! Plane parallel to x-plane $/;"	v	module:constants
+SURF_PZ	constants.F90	/^       SURF_PY     =  2, & ! Plane parallel to y-plane $/;"	v	module:constants
+SURF_SPHERE	constants.F90	/^       SURF_CYL_Z  =  7, & ! Cylinder along z-axis$/;"	v	module:constants
+SetChar	set_header.F90	/^  type :: SetChar$/;"	t	module:set_header
+SetInt	set_header.F90	/^  type :: SetInt$/;"	t	module:set_header
+StructuredMesh	mesh_header.F90	/^  type StructuredMesh$/;"	t	module:mesh_header
+Surface	geometry_header.F90	/^  type Surface$/;"	t	module:geometry_header
+TALLY_SURFACE_CURRENT	constants.F90	/^       TALLY_VOLUME          = 1, &$/;"	v	module:constants
+TALLY_VOLUME	constants.F90	/^  integer, parameter :: &$/;"	v	module:constants
+TINY_BIT	constants.F90	/^  real(8), parameter :: TINY_BIT /;"	v	module:constants
+TOTAL_XS	constants.F90	/^  integer, parameter :: &$/;"	v	module:constants
+TWO	constants.F90	/^       ONE          = 1.0_8,             &$/;"	v	module:constants
+Tab1	endf_header.F90	/^  type Tab1$/;"	t	module:endf_header
+TallyFilter	tally_header.F90	/^  type TallyFilter$/;"	t	module:tally_header
+TallyMap	tally_header.F90	/^  type TallyMap$/;"	t	module:tally_header
+TallyMapElement	tally_header.F90	/^  type TallyMapElement$/;"	t	module:tally_header
+TallyMapItem	tally_header.F90	/^  type TallyMapItem$/;"	t	module:tally_header
+TallyObject	tally_header.F90	/^  type TallyObject$/;"	t	module:tally_header
+TallyResult	tally_header.F90	/^  type TallyResult$/;"	t	module:tally_header
+Timer	timer_header.F90	/^  type Timer$/;"	t	module:timer_header
+UNIT_OUTPUT	constants.F90	/^  integer, parameter :: UNIT_OUTPUT /;"	v	module:constants
+UNIT_PARTICLE	constants.F90	/^  integer, parameter :: UNIT_PARTICLE /;"	v	module:constants
+UNIT_PLOT	constants.F90	/^  integer, parameter :: UNIT_PLOT /;"	v	module:constants
+UNIT_SUMMARY	constants.F90	/^  integer, parameter :: UNIT_SUMMARY /;"	v	module:constants
+UNIT_TALLY	constants.F90	/^  integer, parameter :: UNIT_TALLY /;"	v	module:constants
+UNIT_XS	constants.F90	/^  integer, parameter :: UNIT_XS /;"	v	module:constants
+URR_CUM_PROB	constants.F90	/^  integer, parameter :: &$/;"	v	module:constants
+URR_ELASTIC	constants.F90	/^       URR_TOTAL    = 2, &$/;"	v	module:constants
+URR_FISSION	constants.F90	/^       URR_ELASTIC  = 3, &$/;"	v	module:constants
+URR_HEATING	constants.F90	/^       URR_N_GAMMA  = 5, &$/;"	v	module:constants
+URR_N_GAMMA	constants.F90	/^       URR_FISSION  = 4, &$/;"	v	module:constants
+URR_TOTAL	constants.F90	/^       URR_CUM_PROB = 1, &$/;"	v	module:constants
+Universe	geometry_header.F90	/^  type Universe$/;"	t	module:geometry_header
+UrrData	ace_header.F90	/^  type UrrData$/;"	t	module:ace_header
+VERSION_MAJOR	constants.F90	/^  integer, parameter :: VERSION_MAJOR /;"	v	module:constants
+VERSION_MINOR	constants.F90	/^  integer, parameter :: VERSION_MINOR /;"	v	module:constants
+VERSION_RELEASE	constants.F90	/^  integer, parameter :: VERSION_RELEASE /;"	v	module:constants
+Vector	vector_header.F90	/^  type, public :: Vector /;"	t	module:vector_header
+XSS	ace.F90	/^  real(8), allocatable :: XSS(/;"	v	module:ace
+XSS_index	ace.F90	/^  integer :: XSS_index /;"	v	module:ace
+XsListing	ace_header.F90	/^  type XsListing$/;"	t	module:ace_header
+ZERO	constants.F90	/^       INFINITY     = huge(0.0_8),       & ! positive infinity$/;"	v	module:constants
+ZERO_FLUX	constants.F90	/^  real(8), parameter :: ZERO_FLUX /;"	v	module:constants
+absorb_wgt	particle_header.F90	/^    real(8)    :: absorb_wgt /;"	k	type:Particle
+absorption	ace_header.F90	/^    real(8) :: absorption /;"	k	type:MaterialMacroXS
+absorption	ace_header.F90	/^    real(8) :: absorption /;"	k	type:NuclideMicroXS
+absorption	ace_header.F90	/^    real(8), allocatable :: absorption(/;"	k	type:Nuclide
+absorption	physics.F90	/^  subroutine absorption(/;"	s	module:physics
+absorption_flag	ace_header.F90	/^    integer :: absorption_flag /;"	k	type:UrrData
+accumulate_result	tally.F90	/^  elemental subroutine accumulate_result(/;"	s	module:tally
+accumulate_tally	tally.F90	/^  subroutine accumulate_tally(/;"	s	module:tally
+ace	ace.F90	/^module ace$/;"	m
+ace_header	ace_header.F90	/^module ace_header$/;"	m
+add_grid_points	energy_grid.F90	/^  subroutine add_grid_points(/;"	s	module:energy_grid
+add_map_element	tally_initialize.F90	/^  subroutine add_map_element(/;"	s	module:tally_initialize
+add_tallies	tally_initialize.F90	/^  subroutine add_tallies(/;"	s	module:tally_initialize
+adist	ace_header.F90	/^    type(DistAngle)           :: adist /;"	k	type:Reaction
+adj_keff	cmfd_header.F90	/^    real(8) :: adj_keff /;"	k	type:cmfd_type
+adj_phi	cmfd_header.F90	/^    real(8), allocatable :: adj_phi(/;"	k	type:cmfd_type
+adjoint_calc	cmfd_jfnk_solver.F90	/^  logical          :: adjoint_calc /;"	v	module:cmfd_jfnk_solver
+adjoint_calc	cmfd_power_solver.F90	/^  logical :: adjoint_calc /;"	v	module:cmfd_power_solver
+adjust_indices	initialize.F90	/^  subroutine adjust_indices(/;"	s	module:initialize
+albedo	cmfd_header.F90	/^    real(8) :: albedo(/;"	k	type:cmfd_type
+alias	ace_header.F90	/^    character(12) :: alias /;"	k	type:XsListing
+alive	particle_header.F90	/^    logical    :: alive /;"	k	type:Particle
+all_nuclides	tally_header.F90	/^    logical              :: all_nuclides /;"	k	type:TallyObject
+allocate_banks	initialize.F90	/^  subroutine allocate_banks(/;"	s	module:initialize
+allocate_cmfd	cmfd_header.F90	/^  subroutine allocate_cmfd(/;"	s	module:cmfd_header
+allocate_image	ppmlib.F90	/^  subroutine allocate_image(/;"	s	module:ppmlib
+atom_density	material_header.F90	/^    real(8), allocatable :: atom_density(/;"	k	type:Material
+awr	ace_header.F90	/^    real(8)       :: awr /;"	k	type:Nuclide
+awr	ace_header.F90	/^    real(8)       :: awr /;"	k	type:SAlphaBeta
+awr	ace_header.F90	/^    real(8)       :: awr /;"	k	type:XsListing
+balance	cmfd_header.F90	/^    real(8), allocatable :: balance(/;"	k	type:cmfd_type
+bank_header	bank_header.F90	/^module bank_header$/;"	m
+basis	plot_header.F90	/^    integer :: basis /;"	k	type:ObjectPlot
+bc	geometry_header.F90	/^     integer :: bc /;"	k	type:Surface
+bin_to_mesh_indices	mesh.F90	/^  subroutine bin_to_mesh_indices(/;"	s	module:mesh
+binary_search_int4	search.F90	/^  function binary_search_int4(/;"	f	module:search
+binary_search_int8	search.F90	/^  function binary_search_int8(/;"	f	module:search
+binary_search_real	search.F90	/^  function binary_search_real(/;"	f	module:search
+blue	ppmlib.F90	/^    integer, dimension(:,:), pointer :: red, green, blue$/;"	k	type:Image
+broaden	doppler.F90	/^  subroutine broaden(/;"	s	module:doppler
+build_jacobian_matrix	cmfd_jfnk_solver.F90	/^  subroutine build_jacobian_matrix(/;"	s	module:cmfd_jfnk_solver
+build_loss_matrix	cmfd_loss_operator.F90	/^  subroutine build_loss_matrix(/;"	s	module:cmfd_loss_operator
+build_prod_matrix	cmfd_prod_operator.F90	/^  subroutine build_prod_matrix(/;"	s	module:cmfd_prod_operator
+calc_fission_source	cmfd_execute.F90	/^  subroutine calc_fission_source(/;"	s	module:cmfd_execute
+calc_pn	math.F90	/^  pure function calc_pn(/;"	f	module:math
+calculate_F	doppler.F90	/^  subroutine calculate_F(/;"	s	module:doppler
+calculate_average_keff	eigenvalue.F90	/^  subroutine calculate_average_keff(/;"	s	module:eigenvalue
+calculate_combined_keff	eigenvalue.F90	/^  subroutine calculate_combined_keff(/;"	s	module:eigenvalue
+calculate_generation_keff	eigenvalue.F90	/^  subroutine calculate_generation_keff(/;"	s	module:eigenvalue
+calculate_nuclide_xs	cross_section.F90	/^  subroutine calculate_nuclide_xs(/;"	s	module:cross_section
+calculate_sab_xs	cross_section.F90	/^  subroutine calculate_sab_xs(/;"	s	module:cross_section
+calculate_urr_xs	cross_section.F90	/^  subroutine calculate_urr_xs(/;"	s	module:cross_section
+calculate_work	initialize.F90	/^  subroutine calculate_work(/;"	s	module:initialize
+calculate_xs	cross_section.F90	/^  subroutine calculate_xs(/;"	s	module:cross_section
+cell	particle_header.F90	/^    integer :: cell /;"	k	type:LocalCoord
+cell_born	particle_header.F90	/^    integer    :: cell_born /;"	k	type:Particle
+cell_dict	global.F90	/^  type(DictIntInt) :: cell_dict$/;"	v	module:global
+cells	geometry_header.F90	/^     integer, allocatable :: cells(/;"	k	type:Universe
+cells	global.F90	/^  type(Cell),      allocatable, target :: cells(/;"	v	module:global
+cells_in_univ_dict	input_xml.F90	/^  type(DictIntInt) :: cells_in_univ_dict /;"	v	module:input_xml
+check_cell_overlap	geometry.F90	/^  subroutine check_cell_overlap(/;"	s	module:geometry
+check_for_node	xml_interface.F90	/^  function check_for_node(/;"	f	module:xml_interface
+clear_particle	particle_header.F90	/^  subroutine clear_particle(/;"	s	module:particle_header
+close_group	output_interface.F90	/^  subroutine close_group(/;"	s	module:output_interface
+close_xmldoc	xml_interface.F90	/^  subroutine close_xmldoc(/;"	s	module:xml_interface
+cmfd_data	cmfd_data.F90	/^module cmfd_data$/;"	m
+cmfd_execute	cmfd_execute.F90	/^module cmfd_execute /;"	m
+cmfd_header	cmfd_header.F90	/^module cmfd_header /;"	m
+cmfd_init_batch	cmfd_execute.F90	/^  subroutine cmfd_init_batch(/;"	s	module:cmfd_execute
+cmfd_input	cmfd_input.F90	/^module cmfd_input$/;"	m
+cmfd_jfnk_execute	cmfd_jfnk_solver.F90	/^  subroutine cmfd_jfnk_execute(/;"	s	module:cmfd_jfnk_solver
+cmfd_jfnk_solver	cmfd_jfnk_solver.F90	/^module cmfd_jfnk_solver$/;"	m
+cmfd_loss_operator	cmfd_loss_operator.F90	/^module cmfd_loss_operator$/;"	m
+cmfd_power_execute	cmfd_power_solver.F90	/^  subroutine cmfd_power_execute(/;"	s	module:cmfd_power_solver
+cmfd_power_solver	cmfd_power_solver.F90	/^module cmfd_power_solver$/;"	m
+cmfd_prod_operator	cmfd_prod_operator.F90	/^module cmfd_prod_operator$/;"	m
+cmfd_reweight	cmfd_execute.F90	/^  subroutine cmfd_reweight(/;"	s	module:cmfd_execute
+cmfd_slepc_solver	cmfd_slepc_solver.F90	/^module cmfd_slepc_solver$/;"	m
+cmfd_src	cmfd_header.F90	/^    real(8), allocatable :: cmfd_src(/;"	k	type:cmfd_type
+cmfd_tally_reset	cmfd_execute.F90	/^  subroutine cmfd_tally_reset(/;"	s	module:cmfd_execute
+cmfd_type	cmfd_header.F90	/^  type, public :: cmfd_type$/;"	t	module:cmfd_header
+coeffs	geometry_header.F90	/^     real(8), allocatable :: coeffs(/;"	k	type:Surface
+col	matrix_header.F90	/^    integer, allocatable :: col(/;"	k	type:Matrix
+collision	physics.F90	/^  subroutine collision(/;"	s	module:physics
+color_by	plot_header.F90	/^    integer :: color_by /;"	k	type:ObjectPlot
+colors	plot_header.F90	/^    type(ObjectColor), allocatable :: colors(/;"	k	type:ObjectPlot
+compress_all_nuc_arrays	initialize.F90	/^  subroutine compress_all_nuc_arrays(/;"	s	module:initialize
+compress_array_piecewise	initialize.F90	/^  subroutine compress_array_piecewise(/;"	s	module:initialize
+compress_array_totalavg	initialize.F90	/^  subroutine compress_array_totalavg(/;"	s	module:initialize
+compute_adjoint	cmfd_jfnk_solver.F90	/^  subroutine compute_adjoint(/;"	s	module:cmfd_jfnk_solver
+compute_adjoint	cmfd_power_solver.F90	/^  subroutine compute_adjoint(/;"	s	module:cmfd_power_solver
+compute_dhat	cmfd_data.F90	/^  subroutine compute_dhat(/;"	s	module:cmfd_data
+compute_dtilde	cmfd_data.F90	/^  subroutine compute_dtilde(/;"	s	module:cmfd_data
+compute_effective_downscatter	cmfd_data.F90	/^  subroutine compute_effective_downscatter(/;"	s	module:cmfd_data
+compute_nonlinear_residual	cmfd_jfnk_solver.F90	/^  subroutine compute_nonlinear_residual(/;"	s	module:cmfd_jfnk_solver
+compute_xs	cmfd_data.F90	/^  subroutine compute_xs(/;"	s	module:cmfd_data
+concatenate	string.F90	/^  function concatenate(/;"	f	module:string
+configure_cmfd	cmfd_input.F90	/^  subroutine configure_cmfd(/;"	s	module:cmfd_input
+configure_tallies	tally_initialize.F90	/^  subroutine configure_tallies(/;"	s	module:tally_initialize
+constants	constants.F90	/^module constants$/;"	m
+convergence	cmfd_power_solver.F90	/^  subroutine convergence(/;"	s	module:cmfd_power_solver
+coord	particle_header.F90	/^    type(LocalCoord), pointer :: coord /;"	k	type:Particle
+coord0	particle_header.F90	/^    type(LocalCoord), pointer :: coord0 /;"	k	type:Particle
+coords	track_output.F90	/^  real(8), private, allocatable     :: coords(/;"	v	module:track_output
+copy_source_attributes	source.F90	/^  subroutine copy_source_attributes(/;"	s	module:source
+coremap	cmfd_header.F90	/^    integer, allocatable :: coremap(/;"	k	type:cmfd_type
+count	list_header.F90	/^    integer :: count /;"	k	type:ListChar
+count	list_header.F90	/^    integer :: count /;"	k	type:ListInt
+count	list_header.F90	/^    integer :: count /;"	k	type:ListReal
+count_bank_sites	mesh.F90	/^  subroutine count_bank_sites(/;"	s	module:mesh
+count_source_for_ufs	eigenvalue.F90	/^  subroutine count_source_for_ufs(/;"	s	module:eigenvalue
+create_3d_dump	plot.F90	/^  subroutine create_3d_dump(/;"	s	module:plot
+create_cmfd_tally	cmfd_input.F90	/^  subroutine create_cmfd_tally(/;"	s	module:cmfd_input
+create_fission_sites	physics.F90	/^  subroutine create_fission_sites(/;"	s	module:physics
+create_ppm	plot.F90	/^  subroutine create_ppm(/;"	s	module:plot
+cross_lattice	geometry.F90	/^  subroutine cross_lattice(/;"	s	module:geometry
+cross_section	cross_section.F90	/^module cross_section$/;"	m
+cross_surface	geometry.F90	/^  subroutine cross_surface(/;"	s	module:geometry
+current	cmfd_header.F90	/^    real(8), allocatable :: current(/;"	k	type:cmfd_type
+data	ace_header.F90	/^    real(8), allocatable :: data(/;"	k	type:DistAngle
+data	ace_header.F90	/^    real(8), allocatable :: data(/;"	k	type:DistEnergy
+data	list_header.F90	/^    character(MAX_WORD_LEN) :: data$/;"	k	type:ListElemChar
+data	list_header.F90	/^    integer :: data$/;"	k	type:ListElemInt
+data	list_header.F90	/^    real(8) :: data$/;"	k	type:ListElemReal
+data	vector_header.F90	/^    real(8), allocatable :: data(/;"	k	type:Vector
+data_dump	data_dump.F90	/^module data_dump$/;"	m
+deallocate_cmfd	cmfd_header.F90	/^  subroutine deallocate_cmfd(/;"	s	module:cmfd_header
+deallocate_coord	particle_header.F90	/^  recursive subroutine deallocate_coord(/;"	s	module:particle_header
+deallocate_image	ppmlib.F90	/^  subroutine deallocate_image(/;"	s	module:ppmlib
+default_xs	global.F90	/^  character(3):: default_xs$/;"	v	module:global
+density	material_header.F90	/^    real(8)              :: density /;"	k	type:Material
+dhat	cmfd_header.F90	/^    real(8), allocatable :: dhat(/;"	k	type:cmfd_type
+dhat_reset	cmfd_data.F90	/^  logical :: dhat_reset /;"	v	module:cmfd_data
+dict_add_key_ci	dict_header.F90	/^  subroutine dict_add_key_ci(/;"	s	module:dict_header
+dict_add_key_ii	dict_header.F90	/^  subroutine dict_add_key_ii(/;"	s	module:dict_header
+dict_clear_ci	dict_header.F90	/^  subroutine dict_clear_ci(/;"	s	module:dict_header
+dict_clear_ii	dict_header.F90	/^  subroutine dict_clear_ii(/;"	s	module:dict_header
+dict_get_elem_ci	dict_header.F90	/^  function dict_get_elem_ci(/;"	f	module:dict_header
+dict_get_elem_ii	dict_header.F90	/^  function dict_get_elem_ii(/;"	f	module:dict_header
+dict_get_key_ci	dict_header.F90	/^  function dict_get_key_ci(/;"	f	module:dict_header
+dict_get_key_ii	dict_header.F90	/^  function dict_get_key_ii(/;"	f	module:dict_header
+dict_has_key_ci	dict_header.F90	/^  function dict_has_key_ci(/;"	f	module:dict_header
+dict_has_key_ii	dict_header.F90	/^  function dict_has_key_ii(/;"	f	module:dict_header
+dict_hash_key_ci	dict_header.F90	/^  function dict_hash_key_ci(/;"	f	module:dict_header
+dict_hash_key_ii	dict_header.F90	/^  function dict_hash_key_ii(/;"	f	module:dict_header
+dict_header	dict_header.F90	/^module dict_header$/;"	m
+dict_keys_ci	dict_header.F90	/^  function dict_keys_ci(/;"	f	module:dict_header
+dict_keys_ii	dict_header.F90	/^  function dict_keys_ii(/;"	f	module:dict_header
+diffcof	cmfd_header.F90	/^    real(8), allocatable :: diffcof(/;"	k	type:cmfd_type
+dimension	geometry_header.F90	/^     integer, allocatable :: dimension(/;"	k	type:Lattice
+dimension	mesh_header.F90	/^    integer, allocatable :: dimension(/;"	k	type:StructuredMesh
+dims1	hdf5_interface.F90	/^  integer(HSIZE_T) :: dims1(/;"	v	module:hdf5_interface
+dims2	hdf5_interface.F90	/^  integer(HSIZE_T) :: dims2(/;"	v	module:hdf5_interface
+dims3	hdf5_interface.F90	/^  integer(HSIZE_T) :: dims3(/;"	v	module:hdf5_interface
+dims4	hdf5_interface.F90	/^  integer(HSIZE_T) :: dims4(/;"	v	module:hdf5_interface
+distance_to_boundary	geometry.F90	/^  subroutine distance_to_boundary(/;"	s	module:geometry
+distangle_clear	ace_header.F90	/^    subroutine distangle_clear(/;"	s	module:ace_header
+distenergy_clear	ace_header.F90	/^    recursive subroutine distenergy_clear(/;"	s	module:ace_header
+dom	cmfd_header.F90	/^    real(8), allocatable :: dom(/;"	k	type:cmfd_type
+doppler	doppler.F90	/^module doppler$/;"	m
+dset	hdf5_interface.F90	/^  integer(HID_T)   :: dset /;"	v	module:hdf5_interface
+dspace	hdf5_interface.F90	/^  integer(HID_T)   :: dspace /;"	v	module:hdf5_interface
+dtilde	cmfd_header.F90	/^    real(8), allocatable :: dtilde(/;"	k	type:cmfd_type
+e_grid	global.F90	/^  real(8), allocatable :: e_grid(/;"	v	module:global
+edist	ace_header.F90	/^    type(DistEnergy), pointer :: edist /;"	k	type:Reaction
+egrid	cmfd_header.F90	/^    real(8), allocatable :: egrid(/;"	k	type:cmfd_type
+eigenvalue	eigenvalue.F90	/^module eigenvalue$/;"	m
+elapsed	timer_header.F90	/^    real(8), public :: elapsed /;"	k	type:Timer
+elastic	ace_header.F90	/^    real(8) :: elastic /;"	k	type:MaterialMacroXS
+elastic	ace_header.F90	/^    real(8) :: elastic /;"	k	type:NuclideMicroXS
+elastic	ace_header.F90	/^    real(8), allocatable :: elastic(/;"	k	type:Nuclide
+elastic_P	ace_header.F90	/^    real(8), allocatable :: elastic_P(/;"	k	type:SAlphaBeta
+elastic_e_in	ace_header.F90	/^    real(8), allocatable :: elastic_e_in(/;"	k	type:SAlphaBeta
+elastic_mode	ace_header.F90	/^    integer :: elastic_mode /;"	k	type:SAlphaBeta
+elastic_mu	ace_header.F90	/^    real(8), allocatable :: elastic_mu(/;"	k	type:SAlphaBeta
+elastic_sab	ace_header.F90	/^    real(8) :: elastic_sab /;"	k	type:NuclideMicroXS
+elastic_scatter	physics.F90	/^  subroutine elastic_scatter(/;"	s	module:physics
+elements	set_header.F90	/^    type(ListChar) :: elements$/;"	k	type:SetChar
+elements	set_header.F90	/^    type(ListInt) :: elements$/;"	k	type:SetInt
+elements	tally_header.F90	/^    type(TallyMapElement), allocatable :: elements(/;"	k	type:TallyMapItem
+endf	endf.F90	/^module endf$/;"	m
+endf_header	endf_header.F90	/^module endf_header$/;"	m
+ends_with	string.F90	/^  logical function ends_with(/;"	f	module:string
+energy	ace_header.F90	/^    real(8), allocatable :: energy(/;"	k	type:DistAngle
+energy	ace_header.F90	/^    real(8), allocatable :: energy(/;"	k	type:Nuclide
+energy	ace_header.F90	/^    real(8), allocatable :: energy(/;"	k	type:UrrData
+energy_grid	energy_grid.F90	/^module energy_grid$/;"	m
+entries	ace_header.F90	/^    integer       :: entries /;"	k	type:XsListing
+entropy	cmfd_header.F90	/^    real(8), allocatable :: entropy(/;"	k	type:cmfd_type
+error	error.F90	/^module error$/;"	m
+estimator	tally_header.F90	/^    integer :: estimator /;"	k	type:TallyObject
+eu	output.F90	/^  integer :: eu /;"	v	module:output
+event	particle_header.F90	/^    integer    :: event /;"	k	type:Particle
+event_MT	particle_header.F90	/^    integer    :: event_MT /;"	k	type:Particle
+event_nuclide	particle_header.F90	/^    integer    :: event_nuclide /;"	k	type:Particle
+execute_cmfd	cmfd_execute.F90	/^  subroutine execute_cmfd(/;"	s	module:cmfd_execute
+execute_power_iter	cmfd_power_solver.F90	/^  subroutine execute_power_iter(/;"	s	module:cmfd_power_solver
+expand_natural_element	input_xml.F90	/^  subroutine expand_natural_element(/;"	s	module:input_xml
+extract_results	cmfd_jfnk_solver.F90	/^  subroutine extract_results(/;"	s	module:cmfd_jfnk_solver
+extract_results	cmfd_power_solver.F90	/^  subroutine extract_results(/;"	s	module:cmfd_power_solver
+extract_results	cmfd_slepc_solver.F90	/^  subroutine extract_results(/;"	s
+f_ptr	hdf5_interface.F90	/^  type(c_ptr)      :: f_ptr /;"	v	module:hdf5_interface
+fatal_error	error.F90	/^  subroutine fatal_error(/;"	s	module:error
+file_close	output_interface.F90	/^  subroutine file_close(/;"	s	module:output_interface
+file_create	output_interface.F90	/^  subroutine file_create(/;"	s	module:output_interface
+file_open	output_interface.F90	/^  subroutine file_open(/;"	s	module:output_interface
+filetype	ace_header.F90	/^    integer       :: filetype /;"	k	type:XsListing
+fill	geometry_header.F90	/^     integer :: fill /;"	k	type:Cell
+filters	tally_header.F90	/^    type(TallyFilter), allocatable :: filters(/;"	k	type:TallyObject
+finalize	cmfd_jfnk_solver.F90	/^  subroutine finalize(/;"	s	module:cmfd_jfnk_solver
+finalize	cmfd_power_solver.F90	/^  subroutine finalize(/;"	s	module:cmfd_power_solver
+finalize	cmfd_slepc_solver.F90	/^  subroutine finalize(/;"	s
+finalize	finalize.F90	/^module finalize$/;"	m
+finalize_batch	eigenvalue.F90	/^  subroutine finalize_batch(/;"	s	module:eigenvalue
+finalize_batch	fixed_source.F90	/^  subroutine finalize_batch(/;"	s
+finalize_generation	eigenvalue.F90	/^  subroutine finalize_generation(/;"	s	module:eigenvalue
+finalize_particle_track	track_output.F90	/^  subroutine finalize_particle_track(/;"	s	module:track_output
+finalize_run	finalize.F90	/^  subroutine finalize_run(/;"	s	module:finalize
+find_cell	geometry.F90	/^  recursive subroutine find_cell(/;"	s	module:geometry
+find_energy_index	cross_section.F90	/^  subroutine find_energy_index(/;"	s	module:cross_section
+find_filter	tally_header.F90	/^    integer :: find_filter(/;"	k	type:TallyObject
+fission	ace_header.F90	/^    real(8) :: fission /;"	k	type:MaterialMacroXS
+fission	ace_header.F90	/^    real(8) :: fission /;"	k	type:NuclideMicroXS
+fission	ace_header.F90	/^    real(8), allocatable :: fission(/;"	k	type:Nuclide
+fission	fission.F90	/^module fission$/;"	m
+fission	particle_header.F90	/^    logical    :: fission /;"	k	type:Particle
+fissionable	ace_header.F90	/^    logical :: fissionable /;"	k	type:Nuclide
+fix_neutron_balance	cmfd_data.F90	/^  subroutine fix_neutron_balance(/;"	s	module:cmfd_data
+fixed_source	fixed_source.F90	/^module fixed_source$/;"	m
+flux	cmfd_header.F90	/^    real(8), allocatable :: flux(/;"	k	type:cmfd_type
+generate_nu_fission	ace.F90	/^  subroutine generate_nu_fission(/;"	s	module:ace
+geometry	geometry.F90	/^module geometry$/;"	m
+geometry_header	geometry_header.F90	/^module geometry_header$/;"	m
+get_arraysize_double	xml_interface.F90	/^  function get_arraysize_double(/;"	f	module:xml_interface
+get_arraysize_integer	xml_interface.F90	/^  function get_arraysize_integer(/;"	f	module:xml_interface
+get_arraysize_string	xml_interface.F90	/^  function get_arraysize_string(/;"	f	module:xml_interface
+get_energy_dist	ace.F90	/^  recursive subroutine get_energy_dist(/;"	s	module:ace
+get_int	ace.F90	/^  function get_int(/;"	f	module:ace
+get_label	output.F90	/^  function get_label(/;"	f	module:output
+get_list_item	xml_interface.F90	/^  subroutine get_list_item(/;"	s	module:xml_interface
+get_list_size	xml_interface.F90	/^  function get_list_size(/;"	f	module:xml_interface
+get_matrix_idx	cmfd_execute.F90	/^  function get_matrix_idx(/;"	f	module:cmfd_execute
+get_mesh_bin	mesh.F90	/^  subroutine get_mesh_bin(/;"	s	module:mesh
+get_mesh_indices	mesh.F90	/^  subroutine get_mesh_indices(/;"	s	module:mesh
+get_next_bin	tally.F90	/^  function get_next_bin(/;"	f	module:tally
+get_node	xml_interface.F90	/^  subroutine get_node(/;"	s	module:xml_interface
+get_node_array_double	xml_interface.F90	/^  subroutine get_node_array_double(/;"	s	module:xml_interface
+get_node_array_integer	xml_interface.F90	/^  subroutine get_node_array_integer(/;"	s	module:xml_interface
+get_node_array_string	xml_interface.F90	/^  subroutine get_node_array_string(/;"	s	module:xml_interface
+get_node_list	xml_interface.F90	/^  subroutine get_node_list(/;"	s	module:xml_interface
+get_node_ptr	xml_interface.F90	/^  subroutine get_node_ptr(/;"	s	module:xml_interface
+get_node_value_double	xml_interface.F90	/^  subroutine get_node_value_double(/;"	s	module:xml_interface
+get_node_value_integer	xml_interface.F90	/^  subroutine get_node_value_integer(/;"	s	module:xml_interface
+get_node_value_long	xml_interface.F90	/^  subroutine get_node_value_long(/;"	s	module:xml_interface
+get_node_value_string	xml_interface.F90	/^  subroutine get_node_value_string(/;"	s	module:xml_interface
+get_real	ace.F90	/^  function get_real(/;"	f	module:ace
+get_reflector_albedo	cmfd_data.F90	/^  function get_reflector_albedo(/;"	f	module:cmfd_data
+get_scoring_bins	tally.F90	/^  subroutine get_scoring_bins(/;"	s	module:tally
+get_source_particle	source.F90	/^  subroutine get_source_particle(/;"	s	module:source
+global	global.F90	/^module global$/;"	m
+gmres	cmfd_power_solver.F90	/^  type(GMRESSolver) :: gmres /;"	v	module:cmfd_power_solver
+green	ppmlib.F90	/^    integer, dimension(:,:), pointer :: red, green,/;"	k	type:Image
+grid_index	ace_header.F90	/^    integer, allocatable :: grid_index(/;"	k	type:Nuclide
+grid_method	global.F90	/^  integer :: grid_method /;"	v	module:global
+grid_pointers	energy_grid.F90	/^  subroutine grid_pointers(/;"	s	module:energy_grid
+handle_lost_particle	geometry.F90	/^  subroutine handle_lost_particle(/;"	s	module:geometry
+has_angle_dist	ace_header.F90	/^    logical :: has_angle_dist /;"	k	type:Reaction
+has_energy_dist	ace_header.F90	/^    logical :: has_energy_dist /;"	k	type:Reaction
+has_partial_fission	ace_header.F90	/^    logical :: has_partial_fission /;"	k	type:Nuclide
+hdf5_close_group	hdf5_interface.F90	/^  subroutine hdf5_close_group(/;"	s	module:hdf5_interface
+hdf5_err	hdf5_interface.F90	/^  integer          :: hdf5_err /;"	v	module:hdf5_interface
+hdf5_fh	output_interface.F90	/^    integer(HID_T) :: hdf5_fh$/;"	k	type:BinaryOutput
+hdf5_file_close	hdf5_interface.F90	/^  subroutine hdf5_file_close(/;"	s	module:hdf5_interface
+hdf5_file_create	hdf5_interface.F90	/^  subroutine hdf5_file_create(/;"	s	module:hdf5_interface
+hdf5_file_create_parallel	hdf5_interface.F90	/^  subroutine hdf5_file_create_parallel(/;"	s	module:hdf5_interface
+hdf5_file_open	hdf5_interface.F90	/^  subroutine hdf5_file_open(/;"	s	module:hdf5_interface
+hdf5_file_open_parallel	hdf5_interface.F90	/^  subroutine hdf5_file_open_parallel(/;"	s	module:hdf5_interface
+hdf5_grp	output_interface.F90	/^    integer(HID_T) :: hdf5_grp$/;"	k	type:BinaryOutput
+hdf5_initialize	initialize.F90	/^  subroutine hdf5_initialize(/;"	s	module:initialize
+hdf5_interface	hdf5_interface.F90	/^module hdf5_interface$/;"	m
+hdf5_open_group	hdf5_interface.F90	/^  subroutine hdf5_open_group(/;"	s	module:hdf5_interface
+hdf5_rank	hdf5_interface.F90	/^  integer          :: hdf5_rank /;"	v	module:hdf5_interface
+hdf5_read_double	hdf5_interface.F90	/^  subroutine hdf5_read_double(/;"	s	module:hdf5_interface
+hdf5_read_double_1Darray	hdf5_interface.F90	/^  subroutine hdf5_read_double_1Darray(/;"	s	module:hdf5_interface
+hdf5_read_double_1Darray_parallel	hdf5_interface.F90	/^  subroutine hdf5_read_double_1Darray_parallel(/;"	s	module:hdf5_interface
+hdf5_read_double_2Darray	hdf5_interface.F90	/^  subroutine hdf5_read_double_2Darray(/;"	s	module:hdf5_interface
+hdf5_read_double_2Darray_parallel	hdf5_interface.F90	/^  subroutine hdf5_read_double_2Darray_parallel(/;"	s	module:hdf5_interface
+hdf5_read_double_3Darray	hdf5_interface.F90	/^  subroutine hdf5_read_double_3Darray(/;"	s	module:hdf5_interface
+hdf5_read_double_3Darray_parallel	hdf5_interface.F90	/^  subroutine hdf5_read_double_3Darray_parallel(/;"	s	module:hdf5_interface
+hdf5_read_double_4Darray	hdf5_interface.F90	/^  subroutine hdf5_read_double_4Darray(/;"	s	module:hdf5_interface
+hdf5_read_double_4Darray_parallel	hdf5_interface.F90	/^  subroutine hdf5_read_double_4Darray_parallel(/;"	s	module:hdf5_interface
+hdf5_read_double_parallel	hdf5_interface.F90	/^  subroutine hdf5_read_double_parallel(/;"	s	module:hdf5_interface
+hdf5_read_integer	hdf5_interface.F90	/^  subroutine hdf5_read_integer(/;"	s	module:hdf5_interface
+hdf5_read_integer_1Darray	hdf5_interface.F90	/^  subroutine hdf5_read_integer_1Darray(/;"	s	module:hdf5_interface
+hdf5_read_integer_1Darray_parallel	hdf5_interface.F90	/^  subroutine hdf5_read_integer_1Darray_parallel(/;"	s	module:hdf5_interface
+hdf5_read_integer_2Darray	hdf5_interface.F90	/^  subroutine hdf5_read_integer_2Darray(/;"	s	module:hdf5_interface
+hdf5_read_integer_2Darray_parallel	hdf5_interface.F90	/^  subroutine hdf5_read_integer_2Darray_parallel(/;"	s	module:hdf5_interface
+hdf5_read_integer_3Darray	hdf5_interface.F90	/^  subroutine hdf5_read_integer_3Darray(/;"	s	module:hdf5_interface
+hdf5_read_integer_3Darray_parallel	hdf5_interface.F90	/^  subroutine hdf5_read_integer_3Darray_parallel(/;"	s	module:hdf5_interface
+hdf5_read_integer_4Darray	hdf5_interface.F90	/^  subroutine hdf5_read_integer_4Darray(/;"	s	module:hdf5_interface
+hdf5_read_integer_4Darray_parallel	hdf5_interface.F90	/^  subroutine hdf5_read_integer_4Darray_parallel(/;"	s	module:hdf5_interface
+hdf5_read_integer_parallel	hdf5_interface.F90	/^  subroutine hdf5_read_integer_parallel(/;"	s	module:hdf5_interface
+hdf5_read_long	hdf5_interface.F90	/^  subroutine hdf5_read_long(/;"	s	module:hdf5_interface
+hdf5_read_long_parallel	hdf5_interface.F90	/^  subroutine hdf5_read_long_parallel(/;"	s	module:hdf5_interface
+hdf5_read_string	hdf5_interface.F90	/^  subroutine hdf5_read_string(/;"	s	module:hdf5_interface
+hdf5_read_string_parallel	hdf5_interface.F90	/^  subroutine hdf5_read_string_parallel(/;"	s	module:hdf5_interface
+hdf5_summary	hdf5_summary.F90	/^module hdf5_summary$/;"	m
+hdf5_write_attribute_string	hdf5_interface.F90	/^  subroutine hdf5_write_attribute_string(/;"	s	module:hdf5_interface
+hdf5_write_double	hdf5_interface.F90	/^  subroutine hdf5_write_double(/;"	s	module:hdf5_interface
+hdf5_write_double_1Darray	hdf5_interface.F90	/^  subroutine hdf5_write_double_1Darray(/;"	s	module:hdf5_interface
+hdf5_write_double_1Darray_parallel	hdf5_interface.F90	/^  subroutine hdf5_write_double_1Darray_parallel(/;"	s	module:hdf5_interface
+hdf5_write_double_2Darray	hdf5_interface.F90	/^  subroutine hdf5_write_double_2Darray(/;"	s	module:hdf5_interface
+hdf5_write_double_2Darray_parallel	hdf5_interface.F90	/^  subroutine hdf5_write_double_2Darray_parallel(/;"	s	module:hdf5_interface
+hdf5_write_double_3Darray	hdf5_interface.F90	/^  subroutine hdf5_write_double_3Darray(/;"	s	module:hdf5_interface
+hdf5_write_double_3Darray_parallel	hdf5_interface.F90	/^  subroutine hdf5_write_double_3Darray_parallel(/;"	s	module:hdf5_interface
+hdf5_write_double_4Darray	hdf5_interface.F90	/^  subroutine hdf5_write_double_4Darray(/;"	s	module:hdf5_interface
+hdf5_write_double_4Darray_parallel	hdf5_interface.F90	/^  subroutine hdf5_write_double_4Darray_parallel(/;"	s	module:hdf5_interface
+hdf5_write_double_parallel	hdf5_interface.F90	/^  subroutine hdf5_write_double_parallel(/;"	s	module:hdf5_interface
+hdf5_write_geometry	hdf5_summary.F90	/^  subroutine hdf5_write_geometry(/;"	s	module:hdf5_summary
+hdf5_write_header	hdf5_summary.F90	/^  subroutine hdf5_write_header(/;"	s	module:hdf5_summary
+hdf5_write_integer	hdf5_interface.F90	/^  subroutine hdf5_write_integer(/;"	s	module:hdf5_interface
+hdf5_write_integer_1Darray	hdf5_interface.F90	/^  subroutine hdf5_write_integer_1Darray(/;"	s	module:hdf5_interface
+hdf5_write_integer_1Darray_parallel	hdf5_interface.F90	/^  subroutine hdf5_write_integer_1Darray_parallel(/;"	s	module:hdf5_interface
+hdf5_write_integer_2Darray	hdf5_interface.F90	/^  subroutine hdf5_write_integer_2Darray(/;"	s	module:hdf5_interface
+hdf5_write_integer_2Darray_parallel	hdf5_interface.F90	/^  subroutine hdf5_write_integer_2Darray_parallel(/;"	s	module:hdf5_interface
+hdf5_write_integer_3Darray	hdf5_interface.F90	/^  subroutine hdf5_write_integer_3Darray(/;"	s	module:hdf5_interface
+hdf5_write_integer_3Darray_parallel	hdf5_interface.F90	/^  subroutine hdf5_write_integer_3Darray_parallel(/;"	s	module:hdf5_interface
+hdf5_write_integer_4Darray	hdf5_interface.F90	/^  subroutine hdf5_write_integer_4Darray(/;"	s	module:hdf5_interface
+hdf5_write_integer_4Darray_parallel	hdf5_interface.F90	/^  subroutine hdf5_write_integer_4Darray_parallel(/;"	s	module:hdf5_interface
+hdf5_write_integer_parallel	hdf5_interface.F90	/^  subroutine hdf5_write_integer_parallel(/;"	s	module:hdf5_interface
+hdf5_write_long	hdf5_interface.F90	/^  subroutine hdf5_write_long(/;"	s	module:hdf5_interface
+hdf5_write_long_parallel	hdf5_interface.F90	/^  subroutine hdf5_write_long_parallel(/;"	s	module:hdf5_interface
+hdf5_write_materials	hdf5_summary.F90	/^  subroutine hdf5_write_materials(/;"	s	module:hdf5_summary
+hdf5_write_nuclides	hdf5_summary.F90	/^  subroutine hdf5_write_nuclides(/;"	s	module:hdf5_summary
+hdf5_write_string	hdf5_interface.F90	/^  subroutine hdf5_write_string(/;"	s	module:hdf5_interface
+hdf5_write_string_parallel	hdf5_interface.F90	/^  subroutine hdf5_write_string_parallel(/;"	s	module:hdf5_interface
+hdf5_write_summary	hdf5_summary.F90	/^  subroutine hdf5_write_summary(/;"	s	module:hdf5_summary
+hdf5_write_tallies	hdf5_summary.F90	/^  subroutine hdf5_write_tallies(/;"	s	module:hdf5_summary
+hdf5_write_timing	hdf5_summary.F90	/^  subroutine hdf5_write_timing(/;"	s	module:hdf5_summary
+head	list_header.F90	/^    type(ListElemChar), public, pointer :: head /;"	k	type:ListChar
+head	list_header.F90	/^    type(ListElemInt), public, pointer :: head /;"	k	type:ListInt
+head	list_header.F90	/^    type(ListElemReal), public, pointer :: head /;"	k	type:ListReal
+header	output.F90	/^  subroutine header(/;"	s	module:output
+heating	ace_header.F90	/^    real(8), allocatable :: heating(/;"	k	type:Nuclide
+height	ppmlib.F90	/^    integer                          :: width, height$/;"	k	type:Image
+hxyz	cmfd_header.F90	/^    real(8), allocatable :: hxyz(/;"	k	type:cmfd_type
+i_sab_nuclides	material_header.F90	/^    integer, allocatable :: i_sab_nuclides(/;"	k	type:Material
+i_sab_tables	material_header.F90	/^    integer, allocatable :: i_sab_tables(/;"	k	type:Material
+iconv	cmfd_power_solver.F90	/^  logical :: iconv /;"	v	module:cmfd_power_solver
+id	geometry_header.F90	/^     integer :: id /;"	k	type:Cell
+id	geometry_header.F90	/^     integer :: id /;"	k	type:Lattice
+id	geometry_header.F90	/^     integer :: id /;"	k	type:Surface
+id	geometry_header.F90	/^     integer :: id /;"	k	type:Universe
+id	material_header.F90	/^    integer              :: id /;"	k	type:Material
+id	mesh_header.F90	/^    integer :: id /;"	k	type:StructuredMesh
+id	particle_header.F90	/^    integer(8) :: id /;"	k	type:Particle
+id	plot_header.F90	/^    integer :: id /;"	k	type:ObjectPlot
+id	tally_header.F90	/^    integer :: id /;"	k	type:TallyObject
+index_bin	tally_header.F90	/^    integer :: index_bin$/;"	k	type:TallyMapElement
+index_fission	ace_header.F90	/^    integer, allocatable :: index_fission(/;"	k	type:Nuclide
+index_grid	ace_header.F90	/^    integer :: index_grid /;"	k	type:NuclideMicroXS
+index_sab	ace_header.F90	/^    integer :: index_sab /;"	k	type:NuclideMicroXS
+index_tally	tally_header.F90	/^    integer :: index_tally$/;"	k	type:TallyMapElement
+index_temp	ace_header.F90	/^    integer :: index_temp /;"	k	type:NuclideMicroXS
+indexmap	cmfd_header.F90	/^    integer, allocatable :: indexmap(/;"	k	type:cmfd_type
+indices	cmfd_header.F90	/^    integer :: indices(/;"	k	type:cmfd_type
+indices_to_matrix	cmfd_loss_operator.F90	/^  subroutine indices_to_matrix(/;"	s	module:cmfd_loss_operator
+indices_to_matrix	cmfd_prod_operator.F90	/^  subroutine indices_to_matrix(/;"	s	module:cmfd_prod_operator
+inelastic_e_in	ace_header.F90	/^    real(8), allocatable :: inelastic_e_in(/;"	k	type:SAlphaBeta
+inelastic_e_out	ace_header.F90	/^    real(8), allocatable :: inelastic_e_out(/;"	k	type:SAlphaBeta
+inelastic_flag	ace_header.F90	/^    integer :: inelastic_flag /;"	k	type:UrrData
+inelastic_mu	ace_header.F90	/^    real(8), allocatable :: inelastic_mu(/;"	k	type:SAlphaBeta
+inelastic_scatter	physics.F90	/^  subroutine inelastic_scatter(/;"	s	module:physics
+inelastic_sigma	ace_header.F90	/^    real(8), allocatable :: inelastic_sigma(/;"	k	type:SAlphaBeta
+init_data	cmfd_jfnk_solver.F90	/^  subroutine init_data(/;"	s	module:cmfd_jfnk_solver
+init_data	cmfd_power_solver.F90	/^  subroutine init_data(/;"	s	module:cmfd_power_solver
+init_data	cmfd_slepc_solver.F90	/^  subroutine init_data(/;"	s
+init_image	ppmlib.F90	/^  subroutine init_image(/;"	s	module:ppmlib
+init_jacobian_matrix	cmfd_jfnk_solver.F90	/^  subroutine init_jacobian_matrix(/;"	s	module:cmfd_jfnk_solver
+init_loss_matrix	cmfd_loss_operator.F90	/^  subroutine init_loss_matrix(/;"	s	module:cmfd_loss_operator
+init_prod_matrix	cmfd_prod_operator.F90	/^  subroutine init_prod_matrix(/;"	s	module:cmfd_prod_operator
+init_solver	cmfd_slepc_solver.F90	/^  subroutine init_solver(/;"	s
+initialize	initialize.F90	/^module initialize$/;"	m
+initialize_batch	eigenvalue.F90	/^  subroutine initialize_batch(/;"	s	module:eigenvalue
+initialize_batch	fixed_source.F90	/^  subroutine initialize_batch(/;"	s
+initialize_generation	eigenvalue.F90	/^  subroutine initialize_generation(/;"	s	module:eigenvalue
+initialize_mpi	initialize.F90	/^  subroutine initialize_mpi(/;"	s	module:initialize
+initialize_particle	particle_header.F90	/^  subroutine initialize_particle(/;"	s	module:particle_header
+initialize_particle_track	track_output.F90	/^  subroutine initialize_particle_track(/;"	s	module:track_output
+initialize_prng	random_lcg.F90	/^  subroutine initialize_prng(/;"	s	module:random_lcg
+initialize_run	initialize.F90	/^  subroutine initialize_run(/;"	s	module:initialize
+initialize_source	source.F90	/^  subroutine initialize_source(/;"	s	module:source
+input_xml	input_xml.F90	/^module input_xml$/;"	m
+inside_image	ppmlib.F90	/^  function inside_image(/;"	f	module:ppmlib
+int	endf_header.F90	/^    inte/;"	k	type:Tab1
+int4_to_str	string.F90	/^  function int4_to_str(/;"	f	module:string
+int8_to_str	string.F90	/^  function int8_to_str(/;"	f	module:string
+int_bins	tally_header.F90	/^    integer, allocatable :: int_bins(/;"	k	type:TallyFilter
+interp	ace_header.F90	/^    integer :: interp /;"	k	type:UrrData
+interp_factor	ace_header.F90	/^    real(8) :: interp_factor /;"	k	type:NuclideMicroXS
+interp_on_grid	initialize.F90	/^real(8) function interp_on_grid(/;"	f	module:initialize
+interpolate_tab1_array	interpolation.F90	/^  function interpolate_tab1_array(/;"	f	module:interpolation
+interpolate_tab1_object	interpolation.F90	/^  function interpolate_tab1_object(/;"	f	module:interpolation
+interpolation	interpolation.F90	/^module interpolation$/;"	m
+inv_stack_recon	initialize.F90	/^subroutine inv_stack_recon(/;"	s	module:initialize
+is_fission	endf.F90	/^  function is_fission(/;"	f	module:endf
+is_number	string.F90	/^  function is_number(/;"	f	module:string
+is_scatter	endf.F90	/^  function is_scatter(/;"	f	module:endf
+items	tally_header.F90	/^    type(TallyMapItem), allocatable :: items(/;"	k	type:TallyMap
+jac_interface	solver_interface.F90	/^    subroutine jac_interface(/;"	s
+jac_mf	solver_interface.F90	/^    type(mat)  :: jac_mf /;"	k	type:JFNKSolver
+jac_prec	cmfd_jfnk_solver.F90	/^  type(Matrix)     :: jac_prec /;"	v	module:cmfd_jfnk_solver
+jfnk	cmfd_jfnk_solver.F90	/^  type(JFNKSolver) :: jfnk /;"	v	module:cmfd_jfnk_solver
+jfnk_data	cmfd_jfnk_solver.F90	/^  type(Jfnk_ctx)   :: jfnk_data /;"	v	module:cmfd_jfnk_solver
+join_bank_from_threads	eigenvalue.F90	/^  subroutine join_bank_from_threads(/;"	s	module:eigenvalue
+kT	ace_header.F90	/^    real(8)       :: kT /;"	k	type:Nuclide
+kT	ace_header.F90	/^    real(8)       :: kT /;"	k	type:SAlphaBeta
+kT	ace_header.F90	/^    real(8)       :: kT /;"	k	type:XsListing
+k_cmfd	cmfd_header.F90	/^    real(8), allocatable :: k_cmfd(/;"	k	type:cmfd_type
+k_n	cmfd_power_solver.F90	/^  real(8) :: k_n /;"	v	module:cmfd_power_solver
+k_o	cmfd_power_solver.F90	/^  real(8) :: k_o /;"	v	module:cmfd_power_solver
+k_sum	eigenvalue.F90	/^  real(8) :: k_sum(/;"	v	module:eigenvalue
+kappa_fission	ace_header.F90	/^    real(8) :: kappa_fission /;"	k	type:MaterialMacroXS
+kappa_fission	ace_header.F90	/^    real(8) :: kappa_fission /;"	k	type:NuclideMicroXS
+keff	cmfd_header.F90	/^    real(8) :: keff /;"	k	type:cmfd_type
+keff_generation	eigenvalue.F90	/^  real(8) :: keff_generation /;"	v	module:eigenvalue
+kerr	cmfd_power_solver.F90	/^  real(8) :: kerr /;"	v	module:cmfd_power_solver
+key	dict_header.F90	/^    character(len=DICT_KEY_LENGTH) :: key$/;"	k	type:ElemKeyValueCI
+key	dict_header.F90	/^    integer :: key$/;"	k	type:ElemKeyValueII
+ksp_	solver_interface.F90	/^    type(ksp)  :: ksp_ /;"	k	type:JFNKSolver
+ksp_	solver_interface.F90	/^    type(ksp) :: ksp_ /;"	k	type:GMRESSolver
+ktol	cmfd_power_solver.F90	/^  real(8) :: ktol /;"	v	module:cmfd_power_solver
+label	tally_header.F90	/^    character(len=52) :: label /;"	k	type:TallyObject
+last_E	ace_header.F90	/^    real(8) :: last_E /;"	k	type:NuclideMicroXS
+last_E	particle_header.F90	/^    real(8)    :: last_E /;"	k	type:Particle
+last_elem	list_header.F90	/^    type(ListElemChar), pointer :: last_elem /;"	k	type:ListChar
+last_elem	list_header.F90	/^    type(ListElemInt), pointer :: last_elem /;"	k	type:ListInt
+last_elem	list_header.F90	/^    type(ListElemReal), pointer :: last_elem /;"	k	type:ListReal
+last_index	list_header.F90	/^    integer :: last_index /;"	k	type:ListChar
+last_index	list_header.F90	/^    integer :: last_index /;"	k	type:ListInt
+last_index	list_header.F90	/^    integer :: last_index /;"	k	type:ListReal
+last_index_sab	ace_header.F90	/^    integer :: last_index_sab /;"	k	type:NuclideMicroXS
+last_material	particle_header.F90	/^    integer    :: last_material /;"	k	type:Particle
+last_wgt	particle_header.F90	/^    real(8)    :: last_wgt /;"	k	type:Particle
+last_xyz	particle_header.F90	/^    real(8)    :: last_xyz(/;"	k	type:Particle
+lattice	particle_header.F90	/^    integer :: lattice /;"	k	type:LocalCoord
+lattice_dict	global.F90	/^  type(DictIntInt) :: lattice_dict$/;"	v	module:global
+lattice_x	particle_header.F90	/^    integer :: lattice_x /;"	k	type:LocalCoord
+lattice_y	particle_header.F90	/^    integer :: lattice_y /;"	k	type:LocalCoord
+lattice_z	particle_header.F90	/^    integer :: lattice_z /;"	k	type:LocalCoord
+lattices	global.F90	/^  type(Lattice),   allocatable, target :: lattices(/;"	v	module:global
+law	ace_header.F90	/^    integer    :: law /;"	k	type:DistEnergy
+length_energy_dist	ace.F90	/^  function length_energy_dist(/;"	f	module:ace
+level	geometry_header.F90	/^     integer :: level /;"	k	type:Lattice
+list	dict_header.F90	/^    type(ElemKeyValueCI), pointer :: list /;"	k	type:HashListCI
+list	dict_header.F90	/^    type(ElemKeyValueII), pointer :: list /;"	k	type:HashListII
+list_append_char	list_header.F90	/^  subroutine list_append_char(/;"	s	module:list_header
+list_append_int	list_header.F90	/^  subroutine list_append_int(/;"	s	module:list_header
+list_append_real	list_header.F90	/^  subroutine list_append_real(/;"	s	module:list_header
+list_clear_char	list_header.F90	/^  subroutine list_clear_char(/;"	s	module:list_header
+list_clear_int	list_header.F90	/^  subroutine list_clear_int(/;"	s	module:list_header
+list_clear_real	list_header.F90	/^  subroutine list_clear_real(/;"	s	module:list_header
+list_contains_char	list_header.F90	/^  function list_contains_char(/;"	f	module:list_header
+list_contains_int	list_header.F90	/^  function list_contains_int(/;"	f	module:list_header
+list_contains_real	list_header.F90	/^  function list_contains_real(/;"	f	module:list_header
+list_get_item_char	list_header.F90	/^  function list_get_item_char(/;"	f	module:list_header
+list_get_item_int	list_header.F90	/^  function list_get_item_int(/;"	f	module:list_header
+list_get_item_real	list_header.F90	/^  function list_get_item_real(/;"	f	module:list_header
+list_header	list_header.F90	/^module list_header$/;"	m
+list_index_char	list_header.F90	/^  function list_index_char(/;"	f	module:list_header
+list_index_int	list_header.F90	/^  function list_index_int(/;"	f	module:list_header
+list_index_real	list_header.F90	/^  function list_index_real(/;"	f	module:list_header
+list_insert_char	list_header.F90	/^  subroutine list_insert_char(/;"	s	module:list_header
+list_insert_int	list_header.F90	/^  subroutine list_insert_int(/;"	s	module:list_header
+list_insert_real	list_header.F90	/^  subroutine list_insert_real(/;"	s	module:list_header
+list_remove_char	list_header.F90	/^  subroutine list_remove_char(/;"	s	module:list_header
+list_remove_int	list_header.F90	/^  subroutine list_remove_int(/;"	s	module:list_header
+list_remove_real	list_header.F90	/^  subroutine list_remove_real(/;"	s	module:list_header
+list_size_char	list_header.F90	/^  function list_size_char(/;"	f	module:list_header
+list_size_int	list_header.F90	/^  function list_size_int(/;"	f	module:list_header
+list_size_real	list_header.F90	/^  function list_size_real(/;"	f	module:list_header
+listing	ace_header.F90	/^    integer       :: listing /;"	k	type:Nuclide
+load_state_point	state_point.F90	/^  subroutine load_state_point(/;"	s	module:state_point
+location	ace_header.F90	/^    integer       :: location /;"	k	type:XsListing
+location	ace_header.F90	/^    integer, allocatable :: location(/;"	k	type:DistAngle
+loss	cmfd_jfnk_solver.F90	/^  type(Matrix)     :: loss /;"	v	module:cmfd_jfnk_solver
+loss	cmfd_power_solver.F90	/^  type(Matrix) :: loss /;"	v	module:cmfd_power_solver
+loss	cmfd_slepc_solver.F90	/^  type(loss_/;"	v	module:cmfd_slepc_solver
+lower_case	string.F90	/^  elemental subroutine lower_case(/;"	s	module:string
+lower_left	geometry_header.F90	/^     real(8), allocatable :: lower_left(/;"	k	type:Lattice
+lower_left	mesh_header.F90	/^    real(8), allocatable :: lower_left(/;"	k	type:StructuredMesh
+ls	solver_interface.F90	/^    integer    :: ls /;"	k	type:JFNKSolver
+main	main.F90	/^program main$/;"	p
+mat_dim	cmfd_header.F90	/^    integer :: mat_dim /;"	k	type:cmfd_type
+matching_bins	global.F90	/^  integer, allocatable :: matching_bins(/;"	v	module:global
+material	geometry_header.F90	/^     integer :: material /;"	k	type:Cell
+material	particle_header.F90	/^    integer    :: material /;"	k	type:Particle
+material_dict	global.F90	/^  type(DictIntInt) :: material_dict$/;"	v	module:global
+material_header	material_header.F90	/^module material_header$/;"	m
+material_xs	global.F90	/^  type(MaterialMacroXS)             :: material_xs /;"	v	module:global
+materials	global.F90	/^  type(Material),  allocatable, target :: materials(/;"	v	module:global
+math	math.F90	/^module math$/;"	m
+matrix_add_value	matrix_header.F90	/^  subroutine matrix_add_value(/;"	s	module:matrix_header
+matrix_assemble	matrix_header.F90	/^  subroutine matrix_assemble(/;"	s	module:matrix_header
+matrix_create	matrix_header.F90	/^  subroutine matrix_create(/;"	s	module:matrix_header
+matrix_destroy	matrix_header.F90	/^  subroutine matrix_destroy(/;"	s	module:matrix_header
+matrix_get_col	matrix_header.F90	/^  function matrix_get_col(/;"	f	module:matrix_header
+matrix_get_row	matrix_header.F90	/^  function matrix_get_row(/;"	f	module:matrix_header
+matrix_header	matrix_header.F90	/^module matrix_header$/;"	m
+matrix_new_row	matrix_header.F90	/^  subroutine matrix_new_row(/;"	s	module:matrix_header
+matrix_setup_petsc	matrix_header.F90	/^  subroutine matrix_setup_petsc(/;"	s	module:matrix_header
+matrix_to_indices	cmfd_loss_operator.F90	/^  subroutine matrix_to_indices(/;"	s	module:cmfd_loss_operator
+matrix_to_indices	cmfd_prod_operator.F90	/^  subroutine matrix_to_indices(/;"	s	module:cmfd_prod_operator
+matrix_transpose	matrix_header.F90	/^  subroutine matrix_transpose(/;"	s	module:matrix_header
+matrix_vector_multiply	matrix_header.F90	/^  subroutine matrix_vector_multiply(/;"	s	module:matrix_header
+matrix_write_petsc_binary	matrix_header.F90	/^  subroutine matrix_write_petsc_binary(/;"	s	module:matrix_header
+maxwell_spectrum	math.F90	/^  function maxwell_spectrum(/;"	f	module:math
+memspace	hdf5_interface.F90	/^  integer(HID_T)   :: memspace /;"	v	module:hdf5_interface
+mesh	mesh.F90	/^module mesh$/;"	m
+mesh_dict	global.F90	/^  type(DictIntInt) :: mesh_dict$/;"	v	module:global
+mesh_header	mesh_header.F90	/^module mesh_header$/;"	m
+mesh_indices_to_bin	mesh.F90	/^  function mesh_indices_to_bin(/;"	f	module:mesh
+mesh_intersects_2d	mesh.F90	/^  function mesh_intersects_2d(/;"	f	module:mesh
+mesh_intersects_3d	mesh.F90	/^  function mesh_intersects_3d(/;"	f	module:mesh
+meshes	global.F90	/^  type(StructuredMesh), allocatable, target :: meshes(/;"	v	module:global
+metastable	ace_header.F90	/^    logical       :: metastable /;"	k	type:XsListing
+micro_xs	global.F90	/^  type(NuclideMicroXS), allocatable :: micro_xs(/;"	v	module:global
+mpi_close_file	mpiio_interface.F90	/^  subroutine mpi_close_file(/;"	s	module:mpiio_interface
+mpi_create_file	mpiio_interface.F90	/^  subroutine mpi_create_file(/;"	s	module:mpiio_interface
+mpi_open_file	mpiio_interface.F90	/^  subroutine mpi_open_file(/;"	s	module:mpiio_interface
+mpi_read_double	mpiio_interface.F90	/^  subroutine mpi_read_double(/;"	s	module:mpiio_interface
+mpi_read_double_1Darray	mpiio_interface.F90	/^  subroutine mpi_read_double_1Darray(/;"	s	module:mpiio_interface
+mpi_read_double_2Darray	mpiio_interface.F90	/^  subroutine mpi_read_double_2Darray(/;"	s	module:mpiio_interface
+mpi_read_double_3Darray	mpiio_interface.F90	/^  subroutine mpi_read_double_3Darray(/;"	s	module:mpiio_interface
+mpi_read_double_4Darray	mpiio_interface.F90	/^  subroutine mpi_read_double_4Darray(/;"	s	module:mpiio_interface
+mpi_read_integer	mpiio_interface.F90	/^  subroutine mpi_read_integer(/;"	s	module:mpiio_interface
+mpi_read_integer_1Darray	mpiio_interface.F90	/^  subroutine mpi_read_integer_1Darray(/;"	s	module:mpiio_interface
+mpi_read_integer_2Darray	mpiio_interface.F90	/^  subroutine mpi_read_integer_2Darray(/;"	s	module:mpiio_interface
+mpi_read_integer_3Darray	mpiio_interface.F90	/^  subroutine mpi_read_integer_3Darray(/;"	s	module:mpiio_interface
+mpi_read_integer_4Darray	mpiio_interface.F90	/^  subroutine mpi_read_integer_4Darray(/;"	s	module:mpiio_interface
+mpi_read_long	mpiio_interface.F90	/^  subroutine mpi_read_long(/;"	s	module:mpiio_interface
+mpi_read_string	mpiio_interface.F90	/^  subroutine mpi_read_string(/;"	s	module:mpiio_interface
+mpi_write_double	mpiio_interface.F90	/^  subroutine mpi_write_double(/;"	s	module:mpiio_interface
+mpi_write_double_1Darray	mpiio_interface.F90	/^  subroutine mpi_write_double_1Darray(/;"	s	module:mpiio_interface
+mpi_write_double_2Darray	mpiio_interface.F90	/^  subroutine mpi_write_double_2Darray(/;"	s	module:mpiio_interface
+mpi_write_double_3Darray	mpiio_interface.F90	/^  subroutine mpi_write_double_3Darray(/;"	s	module:mpiio_interface
+mpi_write_double_4Darray	mpiio_interface.F90	/^  subroutine mpi_write_double_4Darray(/;"	s	module:mpiio_interface
+mpi_write_integer	mpiio_interface.F90	/^  subroutine mpi_write_integer(/;"	s	module:mpiio_interface
+mpi_write_integer_1Darray	mpiio_interface.F90	/^  subroutine mpi_write_integer_1Darray(/;"	s	module:mpiio_interface
+mpi_write_integer_2Darray	mpiio_interface.F90	/^  subroutine mpi_write_integer_2Darray(/;"	s	module:mpiio_interface
+mpi_write_integer_3Darray	mpiio_interface.F90	/^  subroutine mpi_write_integer_3Darray(/;"	s	module:mpiio_interface
+mpi_write_integer_4Darray	mpiio_interface.F90	/^  subroutine mpi_write_integer_4Darray(/;"	s	module:mpiio_interface
+mpi_write_long	mpiio_interface.F90	/^  subroutine mpi_write_long(/;"	s	module:mpiio_interface
+mpi_write_string	mpiio_interface.F90	/^  subroutine mpi_write_string(/;"	s	module:mpiio_interface
+mpiio_err	mpiio_interface.F90	/^  integer :: mpiio_err /;"	v	module:mpiio_interface
+mpiio_interface	mpiio_interface.F90	/^module mpiio_interface$/;"	m
+mu	particle_header.F90	/^    real(8)    :: mu /;"	k	type:Particle
+multiplicity	ace_header.F90	/^    integer :: multiplicity /;"	k	type:Reaction
+multiply_smooth	ace_header.F90	/^    logical :: multiply_smooth /;"	k	type:UrrData
+n	matrix_header.F90	/^    int/;"	k	type:Matrix
+n	vector_header.F90	/^    int/;"	k	type:Vector
+n_bank	particle_header.F90	/^    integer    :: n_bank /;"	k	type:Particle
+n_bins	tally_header.F90	/^    integer :: n_bins /;"	k	type:TallyFilter
+n_cells	geometry_header.F90	/^     integer :: n_cells /;"	k	type:Universe
+n_cells	global.F90	/^  integer :: n_cells /;"	v	module:global
+n_collision	particle_header.F90	/^    integer    :: n_collision /;"	k	type:Particle
+n_count	matrix_header.F90	/^    integer :: n_count /;"	k	type:Matrix
+n_dimension	geometry_header.F90	/^     integer :: n_dimension /;"	k	type:Lattice
+n_dimension	mesh_header.F90	/^    integer :: n_dimension /;"	k	type:StructuredMesh
+n_elastic_e_in	ace_header.F90	/^    integer :: n_elastic_e_in /;"	k	type:SAlphaBeta
+n_elastic_mu	ace_header.F90	/^    integer :: n_elastic_mu /;"	k	type:SAlphaBeta
+n_energy	ace_header.F90	/^    integer              :: n_energy /;"	k	type:DistAngle
+n_energy	ace_header.F90	/^    integer :: n_energy /;"	k	type:UrrData
+n_filters	tally_header.F90	/^    integer                        :: n_filters /;"	k	type:TallyObject
+n_fission	ace_header.F90	/^    integer :: n_fission /;"	k	type:Nuclide
+n_grid	ace_header.F90	/^    integer :: n_grid /;"	k	type:Nuclide
+n_grid	global.F90	/^  integer :: n_grid /;"	v	module:global
+n_inelastic_e_in	ace_header.F90	/^    integer :: n_inelastic_e_in /;"	k	type:SAlphaBeta
+n_inelastic_e_out	ace_header.F90	/^    integer :: n_inelastic_e_out /;"	k	type:SAlphaBeta
+n_inelastic_mu	ace_header.F90	/^    integer :: n_inelastic_mu /;"	k	type:SAlphaBeta
+n_lattices	global.F90	/^  integer :: n_lattices /;"	v	module:global
+n_listings	global.F90	/^  integer :: n_listings /;"	v	module:global
+n_lost_particles	global.F90	/^  integer :: n_lost_particles$/;"	v	module:global
+n_materials	global.F90	/^  integer :: n_materials /;"	v	module:global
+n_nuclide_bins	tally_header.F90	/^    integer              :: n_nuclide_bins /;"	k	type:TallyObject
+n_nuclides	material_header.F90	/^    integer              :: n_nuclides /;"	k	type:Material
+n_nuclides_total	global.F90	/^  integer :: n_nuclides_total /;"	v	module:global
+n_pairs	endf_header.F90	/^    integer :: n_pairs /;"	k	type:Tab1
+n_plots	global.F90	/^  integer :: n_plots /;"	v	module:global
+n_precursor	ace_header.F90	/^    integer :: n_precursor /;"	k	type:Nuclide
+n_prob	ace_header.F90	/^    integer :: n_prob /;"	k	type:UrrData
+n_reaction	ace_header.F90	/^    integer :: n_reaction /;"	k	type:Nuclide
+n_realizations	tally_header.F90	/^    integer :: n_realizations /;"	k	type:TallyObject
+n_regions	endf_header.F90	/^    integer :: n_regions /;"	k	type:Tab1
+n_sab	material_header.F90	/^    integer              :: n_sab /;"	k	type:Material
+n_sab_tables	global.F90	/^  integer :: n_sab_tables /;"	v	module:global
+n_score_bins	tally_header.F90	/^    integer              :: n_score_bins /;"	k	type:TallyObject
+n_surfaces	geometry_header.F90	/^     integer :: n_surfaces /;"	k	type:Cell
+n_surfaces	global.F90	/^  integer :: n_surfaces /;"	v	module:global
+n_tracks	track_output.F90	/^  integer, private                  :: n_tracks /;"	v	module:track_output
+n_universes	global.F90	/^  integer :: n_universes /;"	v	module:global
+n_user_score_bins	tally_header.F90	/^    integer              :: n_user_score_bins /;"	k	type:TallyObject
+name	ace_header.F90	/^    character(10) :: name /;"	k	type:Nuclide
+name	ace_header.F90	/^    character(10) :: name /;"	k	type:SAlphaBeta
+name	ace_header.F90	/^    character(12) :: name /;"	k	type:XsListing
+names	material_header.F90	/^    character(12), allocatable :: names(/;"	k	type:Material
+nbt	endf_header.F90	/^    integer, allocatable :: nbt(/;"	k	type:Tab1
+neighbor_lists	geometry.F90	/^  subroutine neighbor_lists(/;"	s	module:geometry
+neighbor_neg	geometry_header.F90	/^          neighbor_pos(:), &           ! List of cells on positive side$/;"	k	type:Surface
+neighbor_pos	geometry_header.F90	/^     integer, allocatable :: & $/;"	k	type:Surface
+neutron_balance	cmfd_data.F90	/^  subroutine neutron_balance(/;"	s	module:cmfd_data
+next	ace_header.F90	/^    type(DistEnergy), pointer :: next /;"	k	type:DistEnergy
+next	dict_header.F90	/^    type(ElemKeyValueCI), pointer :: next /;"	k	type:ElemKeyValueCI
+next	dict_header.F90	/^    type(ElemKeyValueII), pointer :: next /;"	k	type:ElemKeyValueII
+next	list_header.F90	/^    type(ListElemChar), pointer :: next /;"	k	type:ListElemChar
+next	list_header.F90	/^    type(ListElemInt), pointer :: next /;"	k	type:ListElemInt
+next	list_header.F90	/^    type(ListElemReal), pointer :: next /;"	k	type:ListElemReal
+next	particle_header.F90	/^    type(LocalCoord), pointer :: next /;"	k	type:LocalCoord
+nfissxs	cmfd_header.F90	/^    real(8), allocatable :: nfissxs(/;"	k	type:cmfd_type
+nnz	matrix_header.F90	/^    integer :: nnz /;"	k	type:Matrix
+norm	cmfd_header.F90	/^    real(8) :: norm /;"	k	type:cmfd_type
+norm_n	cmfd_power_solver.F90	/^  real(8) :: norm_n /;"	v	module:cmfd_power_solver
+norm_o	cmfd_power_solver.F90	/^  real(8) :: norm_o /;"	v	module:cmfd_power_solver
+normal_percentile	math.F90	/^  function normal_percentile(/;"	f	module:math
+normalize_ao	initialize.F90	/^  subroutine normalize_ao(/;"	s	module:initialize
+not_found	plot_header.F90	/^    type(ObjectColor) :: not_found /;"	k	type:ObjectPlot
+nu_d_data	ace_header.F90	/^    real(8), allocatable :: nu_d_data(/;"	k	type:Nuclide
+nu_d_edist	ace_header.F90	/^    type(DistEnergy), pointer :: nu_d_edist(/;"	k	type:Nuclide
+nu_d_precursor_data	ace_header.F90	/^    real(8), allocatable :: nu_d_precursor_data(/;"	k	type:Nuclide
+nu_d_type	ace_header.F90	/^    integer :: nu_d_type$/;"	k	type:Nuclide
+nu_delayed	fission.F90	/^  function nu_delayed(/;"	f	module:fission
+nu_fission	ace_header.F90	/^    real(8) :: nu_fission /;"	k	type:MaterialMacroXS
+nu_fission	ace_header.F90	/^    real(8) :: nu_fission /;"	k	type:NuclideMicroXS
+nu_fission	ace_header.F90	/^    real(8), allocatable :: nu_fission(/;"	k	type:Nuclide
+nu_p_data	ace_header.F90	/^    real(8), allocatable :: nu_p_data(/;"	k	type:Nuclide
+nu_p_type	ace_header.F90	/^    integer :: nu_p_type$/;"	k	type:Nuclide
+nu_prompt	fission.F90	/^  function nu_prompt(/;"	f	module:fission
+nu_t_data	ace_header.F90	/^    real(8), allocatable :: nu_t_data(/;"	k	type:Nuclide
+nu_t_type	ace_header.F90	/^    integer :: nu_t_type$/;"	k	type:Nuclide
+nu_total	fission.F90	/^  function nu_total(/;"	f	module:fission
+nuclide	material_header.F90	/^    integer, allocatable :: nuclide(/;"	k	type:Material
+nuclide_bins	tally_header.F90	/^    integer, allocatable :: nuclide_bins(/;"	k	type:TallyObject
+nuclide_clear	ace_header.F90	/^    subroutine nuclide_clear(/;"	s	module:ace_header
+nuclide_dict	global.F90	/^  type(DictCharInt) :: nuclide_dict$/;"	v	module:global
+nuclides	global.F90	/^  type(Nuclide),    allocatable, target :: nuclides(/;"	v	module:global
+nz_count	matrix_header.F90	/^    integer :: nz_count /;"	k	type:Matrix
+open_group	output_interface.F90	/^  subroutine open_group(/;"	s	module:output_interface
+open_xmldoc	xml_interface.F90	/^  subroutine open_xmldoc(/;"	s	module:xml_interface
+openmc_src	cmfd_header.F90	/^    real(8), allocatable :: openmc_src(/;"	k	type:cmfd_type
+origin	plot_header.F90	/^    real(8) :: origin(/;"	k	type:ObjectPlot
+ou	output.F90	/^  integer :: ou /;"	v	module:output
+output	output.F90	/^module output$/;"	m
+output_interface	output_interface.F90	/^module output_interface$/;"	m
+output_ppm	plot.F90	/^  subroutine output_ppm(/;"	s	module:plot
+outside	geometry_header.F90	/^     integer              :: outside /;"	k	type:Lattice
+p1scattxs	cmfd_header.F90	/^    real(8), allocatable :: p1scattxs(/;"	k	type:cmfd_type
+p_valid	ace_header.F90	/^    type(Tab1) :: p_valid /;"	k	type:DistEnergy
+params_angle	source_header.F90	/^    real(8), allocatable :: params_angle(/;"	k	type:ExtSource
+params_energy	source_header.F90	/^    real(8), allocatable :: params_energy(/;"	k	type:ExtSource
+params_space	source_header.F90	/^    real(8), allocatable :: params_space(/;"	k	type:ExtSource
+particle_header	particle_header.F90	/^module particle_header$/;"	m
+particle_restart	particle_restart.F90	/^module particle_restart /;"	m
+particle_restart_write	particle_restart_write.F90	/^module particle_restart_write$/;"	m
+path	ace_header.F90	/^    character(MAX_FILE_LEN) :: path /;"	k	type:XsListing
+path_plot	plot_header.F90	/^    character(MAX_LINE_LEN) :: path_plot /;"	k	type:ObjectPlot
+pc_	solver_interface.F90	/^    type(pc)   :: pc_ /;"	k	type:JFNKSolver
+pc_	solver_interface.F90	/^    type(pc)  :: pc_ /;"	k	type:GMRESSolver
+petsc_active	matrix_header.F90	/^    logical :: petsc_active$/;"	k	type:Matrix
+petsc_active	vector_header.F90	/^    logical :: petsc_active /;"	k	type:Vector
+petsc_err	matrix_header.F90	/^  integer :: petsc_err$/;"	v	module:matrix_header
+petsc_err	solver_interface.F90	/^  integer :: petsc_err /;"	v
+petsc_err	vector_header.F90	/^  integer :: petsc_err /;"	v	module:vector_header
+petsc_gmres_create	solver_interface.F90	/^  subroutine petsc_gmres_create(/;"	s
+petsc_gmres_destroy	solver_interface.F90	/^  subroutine petsc_gmres_destroy(/;"	s
+petsc_gmres_set_oper	solver_interface.F90	/^  subroutine petsc_gmres_set_oper(/;"	s
+petsc_gmres_solve	solver_interface.F90	/^  subroutine petsc_gmres_solve(/;"	s
+petsc_jfnk_compute_jacobian	solver_interface.F90	/^  subroutine petsc_jfnk_compute_jacobian(/;"	s
+petsc_jfnk_compute_residual	solver_interface.F90	/^  subroutine petsc_jfnk_compute_residual(/;"	s
+petsc_jfnk_create	solver_interface.F90	/^  subroutine petsc_jfnk_create(/;"	s
+petsc_jfnk_destroy	solver_interface.F90	/^  subroutine petsc_jfnk_destroy(/;"	s
+petsc_jfnk_set_functions	solver_interface.F90	/^  subroutine petsc_jfnk_set_functions(/;"	s
+petsc_jfnk_solve	solver_interface.F90	/^  subroutine petsc_jfnk_solve(/;"	s
+petsc_mat	matrix_header.F90	/^    type(mat) :: petsc_mat$/;"	k	type:Matrix
+petsc_vec	vector_header.F90	/^    type(vec) :: petsc_vec /;"	k	type:Vector
+phi	cmfd_header.F90	/^    real(8), allocatable :: phi(/;"	k	type:cmfd_type
+phi_n	cmfd_power_solver.F90	/^  type(Vector) :: phi_n /;"	v	module:cmfd_power_solver
+phi_o	cmfd_power_solver.F90	/^  type(Vector) :: phi_o /;"	v	module:cmfd_power_solver
+physics	physics.F90	/^module physics$/;"	m
+pixels	plot_header.F90	/^    integer :: pixels(/;"	k	type:ObjectPlot
+plist	hdf5_interface.F90	/^  integer(HID_T)   :: plist /;"	v	module:hdf5_interface
+plot	plot.F90	/^module plot$/;"	m
+plot_dict	global.F90	/^  type(DictIntInt) :: plot_dict$/;"	v	module:global
+plot_header	plot_header.F90	/^module plot_header$/;"	m
+plots	global.F90	/^  type(ObjectPlot),allocatable, target :: plots(/;"	v	module:global
+position	tally.F90	/^  integer :: position(/;"	v	module:tally
+position_rgb	plot.F90	/^  subroutine position_rgb(/;"	s	module:plot
+ppmlib	ppmlib.F90	/^module ppmlib$/;"	m
+pr	particle_restart.F90	/^  type(BinaryOutput) :: pr$/;"	v	module:particle_restart
+pr	particle_restart_write.F90	/^  type(BinaryOutput) :: pr$/;"	v	module:particle_restart_write
+preallocate_loss_matrix	cmfd_loss_operator.F90	/^  function preallocate_loss_matrix(/;"	f	module:cmfd_loss_operator
+prepare_universes	initialize.F90	/^  subroutine prepare_universes(/;"	s	module:initialize
+prev	list_header.F90	/^    type(ListElemChar), pointer :: prev /;"	k	type:ListElemChar
+prev	list_header.F90	/^    type(ListElemInt), pointer :: prev /;"	k	type:ListElemInt
+prev	list_header.F90	/^    type(ListElemReal), pointer :: prev /;"	k	type:ListElemReal
+print_batch_keff	output.F90	/^  subroutine print_batch_keff(/;"	s	module:output
+print_cell	output.F90	/^  subroutine print_cell(/;"	s	module:output
+print_columns	output.F90	/^  subroutine print_columns(/;"	s	module:output
+print_generation	output.F90	/^  subroutine print_generation(/;"	s	module:output
+print_geometry	output.F90	/^  subroutine print_geometry(/;"	s	module:output
+print_lattice	output.F90	/^  subroutine print_lattice(/;"	s	module:output
+print_material	output.F90	/^  subroutine print_material(/;"	s	module:output
+print_nuclide	output.F90	/^  subroutine print_nuclide(/;"	s	module:output
+print_nuclides_info	data_dump.F90	/^  subroutine print_nuclides_info(/;"	s	module:data_dump
+print_overlap_check	output.F90	/^  subroutine print_overlap_check$/;"	s	module:output
+print_particle	output.F90	/^  subroutine print_particle(/;"	s	module:output
+print_plot	output.F90	/^  subroutine print_plot(/;"	s	module:output
+print_reaction	output.F90	/^  subroutine print_reaction(/;"	s	module:output
+print_results	output.F90	/^  subroutine print_results(/;"	s	module:output
+print_runtime	output.F90	/^  subroutine print_runtime(/;"	s	module:output
+print_sab_table	output.F90	/^  subroutine print_sab_table(/;"	s	module:output
+print_surface	output.F90	/^  subroutine print_surface(/;"	s	module:output
+print_tally	output.F90	/^  subroutine print_tally(/;"	s	module:output
+print_union_grid	data_dump.F90	/^  subroutine print_union_grid(/;"	s
+print_universe	output.F90	/^  subroutine print_universe(/;"	s	module:output
+print_usage	output.F90	/^  subroutine print_usage(/;"	s	module:output
+print_version	output.F90	/^  subroutine print_version(/;"	s	module:output
+prn	random_lcg.F90	/^  function prn(/;"	f	module:random_lcg
+prn_add	random_lcg.F90	/^  integer(8) :: prn_add /;"	v	module:random_lcg
+prn_bits	random_lcg.F90	/^  integer    :: prn_bits /;"	v	module:random_lcg
+prn_mask	random_lcg.F90	/^  integer(8) :: prn_mask /;"	v	module:random_lcg
+prn_mod	random_lcg.F90	/^  integer(8) :: prn_mod /;"	v	module:random_lcg
+prn_mult	random_lcg.F90	/^  integer(8) :: prn_mult /;"	v	module:random_lcg
+prn_norm	random_lcg.F90	/^  real(8)    :: prn_norm /;"	v	module:random_lcg
+prn_seed	random_lcg.F90	/^  integer(8) :: prn_seed /;"	v	module:random_lcg
+prn_seed0	random_lcg.F90	/^  integer(8) :: prn_seed0 /;"	v	module:random_lcg
+prn_skip	random_lcg.F90	/^  subroutine prn_skip(/;"	s	module:random_lcg
+prn_skip_ahead	random_lcg.F90	/^  function prn_skip_ahead(/;"	f	module:random_lcg
+prn_stride	random_lcg.F90	/^  integer(8) :: prn_stride /;"	v	module:random_lcg
+prob	ace_header.F90	/^    real(8), allocatable :: prob(/;"	k	type:UrrData
+process_cmfd_options	cmfd_execute.F90	/^  subroutine process_cmfd_options(/;"	s	module:cmfd_execute
+prod	cmfd_jfnk_solver.F90	/^  type(Matrix)     :: prod /;"	v	module:cmfd_jfnk_solver
+prod	cmfd_power_solver.F90	/^  type(Matrix) :: prod /;"	v	module:cmfd_power_solver
+prod	cmfd_slepc_solver.F90	/^  type(prod_/;"	v	module:cmfd_slepc_solver
+random_lcg	random_lcg.F90	/^module random_lcg$/;"	m
+reaction_clear	ace_header.F90	/^    subroutine reaction_clear(/;"	s	module:ace_header
+reaction_name	endf.F90	/^  function reaction_name(/;"	f	module:endf
+reactions	ace_header.F90	/^    type(Reaction), pointer :: reactions(/;"	k	type:Nuclide
+read_ace_table	ace.F90	/^  subroutine read_ace_table(/;"	s	module:ace
+read_angular_dist	ace.F90	/^  subroutine read_angular_dist(/;"	s	module:ace
+read_cmfd_xml	cmfd_input.F90	/^  subroutine read_cmfd_xml(/;"	s	module:cmfd_input
+read_command_line	initialize.F90	/^  subroutine read_command_line(/;"	s	module:initialize
+read_cross_sections_xml	input_xml.F90	/^  subroutine read_cross_sections_xml(/;"	s	module:input_xml
+read_double	output_interface.F90	/^  subroutine read_double(/;"	s	module:output_interface
+read_double_1Darray	output_interface.F90	/^  subroutine read_double_1Darray(/;"	s	module:output_interface
+read_double_2Darray	output_interface.F90	/^  subroutine read_double_2Darray(/;"	s	module:output_interface
+read_double_3Darray	output_interface.F90	/^  subroutine read_double_3Darray(/;"	s	module:output_interface
+read_double_4Darray	output_interface.F90	/^  subroutine read_double_4Darray(/;"	s	module:output_interface
+read_energy_dist	ace.F90	/^  subroutine read_energy_dist(/;"	s	module:ace
+read_esz	ace.F90	/^  subroutine read_esz(/;"	s	module:ace
+read_geometry_xml	input_xml.F90	/^  subroutine read_geometry_xml(/;"	s	module:input_xml
+read_input_xml	input_xml.F90	/^  subroutine read_input_xml(/;"	s	module:input_xml
+read_integer	output_interface.F90	/^  subroutine read_integer(/;"	s	module:output_interface
+read_integer_1Darray	output_interface.F90	/^  subroutine read_integer_1Darray(/;"	s	module:output_interface
+read_integer_2Darray	output_interface.F90	/^  subroutine read_integer_2Darray(/;"	s	module:output_interface
+read_integer_3Darray	output_interface.F90	/^  subroutine read_integer_3Darray(/;"	s	module:output_interface
+read_integer_4Darray	output_interface.F90	/^  subroutine read_integer_4Darray(/;"	s	module:output_interface
+read_long	output_interface.F90	/^  subroutine read_long(/;"	s	module:output_interface
+read_materials_xml	input_xml.F90	/^  subroutine read_materials_xml(/;"	s	module:input_xml
+read_nu_data	ace.F90	/^  subroutine read_nu_data(/;"	s	module:ace
+read_particle_restart	particle_restart.F90	/^  subroutine read_particle_restart(/;"	s	module:particle_restart
+read_plots_xml	input_xml.F90	/^  subroutine read_plots_xml(/;"	s	module:input_xml
+read_reactions	ace.F90	/^  subroutine read_reactions(/;"	s	module:ace
+read_settings_xml	input_xml.F90	/^  subroutine read_settings_xml(/;"	s	module:input_xml
+read_source	state_point.F90	/^  subroutine read_source$/;"	s	module:state_point
+read_source_bank	output_interface.F90	/^  subroutine read_source_bank(/;"	s	module:output_interface
+read_string	output_interface.F90	/^  subroutine read_string(/;"	s	module:output_interface
+read_tallies_xml	input_xml.F90	/^  subroutine read_tallies_xml(/;"	s	module:input_xml
+read_tally_result	output_interface.F90	/^  subroutine read_tally_result(/;"	s	module:output_interface
+read_thermal_data	ace.F90	/^  subroutine read_thermal_data(/;"	s	module:ace
+read_unr_res	ace.F90	/^  subroutine read_unr_res(/;"	s	module:ace
+read_xs	ace.F90	/^  subroutine read_xs(/;"	s	module:ace
+real_bins	tally_header.F90	/^    real(8), allocatable :: real_bins(/;"	k	type:TallyFilter
+real_to_str	string.F90	/^  function real_to_str(/;"	f	module:string
+recl	ace_header.F90	/^    integer       :: recl /;"	k	type:XsListing
+red	ppmlib.F90	/^    integer, dimension(:,:), pointer :: red,/;"	k	type:Image
+reduce_energy	initialize.F90	/^  subroutine reduce_energy(/;"	s	module:initialize
+reduce_overlap_count	finalize.F90	/^  subroutine reduce_overlap_count(/;"	s	module:finalize
+reduce_tally_results	tally.F90	/^  subroutine reduce_tally_results(/;"	s	module:tally
+reduce_xs_avg	initialize.F90	/^  subroutine reduce_xs_avg(/;"	s	module:initialize
+reduce_xs_minmax	initialize.F90	/^  subroutine reduce_xs_minmax(/;"	s	module:initialize
+replay_batch_history	eigenvalue.F90	/^  subroutine replay_batch_history$/;"	s	module:eigenvalue
+reset	tally_header.F90	/^    logical :: reset /;"	k	type:TallyObject
+reset_result	tally.F90	/^  elemental subroutine reset_result(/;"	s	module:tally
+resnb	cmfd_header.F90	/^    real(8), allocatable :: resnb(/;"	k	type:cmfd_type
+results	tally_header.F90	/^    type(TallyResult), allocatable :: results(/;"	k	type:TallyObject
+resvec	cmfd_jfnk_solver.F90	/^  type(Vector)     :: resvec /;"	v	module:cmfd_jfnk_solver
+rgb	plot_header.F90	/^    integer :: rgb(/;"	k	type:ObjectColor
+rotate_angle	physics.F90	/^  function rotate_angle(/;"	f	module:physics
+rotated	particle_header.F90	/^    logical :: rotated /;"	k	type:LocalCoord
+rotation	geometry_header.F90	/^     real(8), allocatable :: rotation(/;"	k	type:Cell
+row	matrix_header.F90	/^    integer, allocatable :: row(/;"	k	type:Matrix
+run_eigenvalue	eigenvalue.F90	/^  subroutine run_eigenvalue(/;"	s	module:eigenvalue
+run_particle_restart	particle_restart.F90	/^  subroutine run_particle_restart(/;"	s	module:particle_restart
+run_plot	plot.F90	/^  subroutine run_plot(/;"	s	module:plot
+running	timer_header.F90	/^    logical :: running /;"	k	type:Timer
+russian_roulette	physics.F90	/^  subroutine russian_roulette(/;"	s	module:physics
+s_n	cmfd_power_solver.F90	/^  type(Vector) :: s_n /;"	v	module:cmfd_power_solver
+s_o	cmfd_power_solver.F90	/^  type(Vector) :: s_o /;"	v	module:cmfd_power_solver
+sab_dict	global.F90	/^  type(DictCharInt) :: sab_dict$/;"	v	module:global
+sab_names	material_header.F90	/^    character(12), allocatable :: sab_names(/;"	k	type:Material
+sab_scatter	physics.F90	/^  subroutine sab_scatter(/;"	s	module:physics
+sab_tables	global.F90	/^  type(SAlphaBeta), allocatable, target :: sab_tables(/;"	v	module:global
+sample_angle	physics.F90	/^  function sample_angle(/;"	f	module:physics
+sample_energy	physics.F90	/^  recursive subroutine sample_energy(/;"	s	module:physics
+sample_external_source	source.F90	/^  subroutine sample_external_source(/;"	s	module:source
+sample_fission	physics.F90	/^  subroutine sample_fission(/;"	s	module:physics
+sample_fission_energy	physics.F90	/^  function sample_fission_energy(/;"	f	module:physics
+sample_nuclide	physics.F90	/^  function sample_nuclide(/;"	f	module:physics
+sample_reaction	physics.F90	/^  subroutine sample_reaction(/;"	s	module:physics
+sample_source_particle	fixed_source.F90	/^  subroutine sample_source_particle(/;"	s
+sample_target_velocity	physics.F90	/^  subroutine sample_target_velocity(/;"	s	module:physics
+scatt_order	tally_header.F90	/^    integer, allocatable :: scatt_order(/;"	k	type:TallyObject
+scatter	physics.F90	/^  subroutine scatter(/;"	s	module:physics
+scatter_in_cm	ace_header.F90	/^    logical :: scatter_in_cm /;"	k	type:Reaction
+scattxs	cmfd_header.F90	/^    real(8), allocatable :: scattxs(/;"	k	type:cmfd_type
+score_all_nuclides	tally.F90	/^  subroutine score_all_nuclides(/;"	s	module:tally
+score_analog_tally	tally.F90	/^  subroutine score_analog_tally(/;"	s	module:tally
+score_bins	tally_header.F90	/^    integer, allocatable :: score_bins(/;"	k	type:TallyObject
+score_fission_eout	tally.F90	/^  subroutine score_fission_eout(/;"	s	module:tally
+score_surface_current	tally.F90	/^  subroutine score_surface_current(/;"	s	module:tally
+score_tl_on_mesh	tally.F90	/^  subroutine score_tl_on_mesh(/;"	s	module:tally
+score_tracklength_tally	tally.F90	/^  subroutine score_tracklength_tally(/;"	s	module:tally
+search	search.F90	/^module search$/;"	m
+secondary_mode	ace_header.F90	/^    integer :: secondary_mode /;"	k	type:SAlphaBeta
+sense	geometry.F90	/^  recursive function sense(/;"	f	module:geometry
+serial	output_interface.F90	/^    logical :: serial /;"	k	type:BinaryOutput
+serr	cmfd_power_solver.F90	/^  real(8) :: serr /;"	v	module:cmfd_power_solver
+serr_v	cmfd_power_solver.F90	/^  type(Vector) :: serr_v /;"	v	module:cmfd_power_solver
+set_add_char	set_header.F90	/^  subroutine set_add_char(/;"	s	module:set_header
+set_add_int	set_header.F90	/^  subroutine set_add_int(/;"	s	module:set_header
+set_clear_char	set_header.F90	/^  subroutine set_clear_char(/;"	s	module:set_header
+set_clear_int	set_header.F90	/^  subroutine set_clear_int(/;"	s	module:set_header
+set_contains_char	set_header.F90	/^  function set_contains_char(/;"	f	module:set_header
+set_contains_int	set_header.F90	/^  function set_contains_int(/;"	f	module:set_header
+set_coremap	cmfd_data.F90	/^  subroutine set_coremap(/;"	s	module:cmfd_data
+set_get_item_char	set_header.F90	/^  function set_get_item_char(/;"	f	module:set_header
+set_get_item_int	set_header.F90	/^  function set_get_item_int(/;"	f	module:set_header
+set_header	set_header.F90	/^module set_header$/;"	m
+set_particle_seed	random_lcg.F90	/^  subroutine set_particle_seed(/;"	s	module:random_lcg
+set_pixel	ppmlib.F90	/^  subroutine set_pixel(/;"	s	module:ppmlib
+set_remove_char	set_header.F90	/^  subroutine set_remove_char(/;"	s	module:set_header
+set_remove_int	set_header.F90	/^  subroutine set_remove_int(/;"	s	module:set_header
+set_size_char	set_header.F90	/^  function set_size_char(/;"	f	module:set_header
+set_size_int	set_header.F90	/^  function set_size_int(/;"	f	module:set_header
+set_up_cmfd	cmfd_data.F90	/^  subroutine set_up_cmfd(/;"	s	module:cmfd_data
+setup_active_cmfdtallies	tally.F90	/^  subroutine setup_active_cmfdtallies(/;"	s	module:tally
+setup_active_usertallies	tally.F90	/^  subroutine setup_active_usertallies(/;"	s	module:tally
+setup_tally_arrays	tally_initialize.F90	/^  subroutine setup_tally_arrays(/;"	s	module:tally_initialize
+setup_tally_maps	tally_initialize.F90	/^  subroutine setup_tally_maps(/;"	s	module:tally_initialize
+shannon_entropy	eigenvalue.F90	/^  subroutine shannon_entropy(/;"	s	module:eigenvalue
+sigma	ace_header.F90	/^    real(8), allocatable :: sigma(/;"	k	type:Reaction
+simple_cell_contains	geometry.F90	/^  function simple_cell_contains(/;"	f	module:geometry
+snes_	solver_interface.F90	/^    type(snes) :: snes_ /;"	k	type:JFNKSolver
+solver_interface	solver_interface.F90	/^module solver_interface$/;"	m
+sort_csr	matrix_header.F90	/^  recursive subroutine sort_csr(/;"	s	module:matrix_header
+source	source.F90	/^module source$/;"	m
+source_header	source_header.F90	/^module source_header$/;"	m
+source_site	fixed_source.F90	/^  type(Bank), pointer :: source_site /;"	v	module:fixed_source
+sourcecounts	cmfd_header.F90	/^    real(8), allocatable :: sourcecounts(/;"	k	type:cmfd_type
+sp	state_point.F90	/^  type(BinaryOutput) :: sp /;"	v	module:state_point
+split	matrix_header.F90	/^  subroutine split(/;"	s	module:matrix_header
+split_string	string.F90	/^  subroutine split_string(/;"	s	module:string
+split_string_wl	string.F90	/^  subroutine split_string_wl(/;"	s	module:string
+sqrt_pi_inv	doppler.F90	/^  real(8), parameter :: sqrt_pi_inv /;"	v	module:doppler
+src_cmp	cmfd_header.F90	/^    real(8), allocatable :: src_cmp(/;"	k	type:cmfd_type
+start_counts	timer_header.F90	/^    integer :: start_counts /;"	k	type:Timer
+starts_with	string.F90	/^  logical function starts_with(/;"	f	module:string
+state_point	state_point.F90	/^module state_point$/;"	m
+statistics_result	tally.F90	/^  elemental subroutine statistics_result(/;"	s	module:tally
+stol	cmfd_power_solver.F90	/^  real(8) :: stol /;"	v	module:cmfd_power_solver
+str_to_int	string.F90	/^  function str_to_int(/;"	f	module:string
+str_to_real	string.F90	/^  function str_to_real(/;"	f	module:string
+stride	tally_header.F90	/^    integer, allocatable :: stride(/;"	k	type:TallyObject
+string	string.F90	/^module string$/;"	m
+su	hdf5_summary.F90	/^  type(BinaryOutput) :: su$/;"	v	module:hdf5_summary
+sum	tally_header.F90	/^    real(8) :: sum /;"	k	type:TallyResult
+sum_sq	tally_header.F90	/^    real(8) :: sum_sq /;"	k	type:TallyResult
+surface	particle_header.F90	/^    integer    :: surface /;"	k	type:Particle
+surface_dict	global.F90	/^  type(DictIntInt) :: surface_dict$/;"	v	module:global
+surfaces	geometry_header.F90	/^     integer, allocatable :: & $/;"	k	type:Cell
+surfaces	global.F90	/^  type(Surface),   allocatable, target :: surfaces(/;"	v	module:global
+synchronize_bank	eigenvalue.F90	/^  subroutine synchronize_bank(/;"	s	module:eigenvalue
+synchronize_tallies	tally.F90	/^  subroutine synchronize_tallies(/;"	s	module:tally
+t_percentile	math.F90	/^  function t_percentile(/;"	f	module:math
+tab1_clear	endf_header.F90	/^    subroutine tab1_clear(/;"	s	module:endf_header
+table	dict_header.F90	/^    type(HashListCI), pointer :: table(/;"	k	type:DictCharInt
+table	dict_header.F90	/^    type(HashListII), pointer :: table(/;"	k	type:DictIntInt
+tail	list_header.F90	/^    type(ListElemChar), public, pointer :: tail /;"	k	type:ListChar
+tail	list_header.F90	/^    type(ListElemInt), public, pointer :: tail /;"	k	type:ListInt
+tail	list_header.F90	/^    type(ListElemReal), public, pointer :: tail /;"	k	type:ListReal
+tallies	global.F90	/^  type(TallyObject),    allocatable, target :: tallies(/;"	v	module:global
+tally	tally.F90	/^module tally$/;"	m
+tally_dict	global.F90	/^  type(DictIntInt) :: tally_dict$/;"	v	module:global
+tally_header	tally_header.F90	/^module tally_header$/;"	m
+tally_initialize	tally_initialize.F90	/^module tally_initialize$/;"	m
+tally_statistics	tally.F90	/^  subroutine tally_statistics(/;"	s	module:tally
+tallyfilter_clear	tally_header.F90	/^    subroutine tallyfilter_clear(/;"	s	module:tally_header
+tallyobject_clear	tally_header.F90	/^    subroutine tallyobject_clear(/;"	s	module:tally_header
+thresh	initialize.F90	/^  real :: thresh /;"	v	module:initialize
+thresh_str	initialize.F90	/^  character(len=66) :: thresh_str$/;"	v	module:initialize
+threshold	ace_header.F90	/^    integer :: threshold /;"	k	type:Reaction
+threshold_elastic	ace_header.F90	/^    real(8) :: threshold_elastic /;"	k	type:SAlphaBeta
+threshold_inelastic	ace_header.F90	/^    real(8) :: threshold_inelastic$/;"	k	type:SAlphaBeta
+time_stamp	output.F90	/^  function time_stamp(/;"	f	module:output
+timer_get_value	timer_header.F90	/^  function timer_get_value(/;"	f	module:timer_header
+timer_header	timer_header.F90	/^module timer_header$/;"	m
+timer_reset	timer_header.F90	/^  subroutine timer_reset(/;"	s	module:timer_header
+timer_start	timer_header.F90	/^  subroutine timer_start(/;"	s	module:timer_header
+timer_stop	timer_header.F90	/^  subroutine timer_stop(/;"	s	module:timer_header
+title	output.F90	/^  subroutine title(/;"	s	module:output
+total	ace_header.F90	/^    real(8) :: total /;"	k	type:MaterialMacroXS
+total	ace_header.F90	/^    real(8) :: total /;"	k	type:NuclideMicroXS
+total	ace_header.F90	/^    real(8), allocatable :: total(/;"	k	type:Nuclide
+total_filter_bins	tally_header.F90	/^    integer :: total_filter_bins$/;"	k	type:TallyObject
+total_score_bins	tally_header.F90	/^    integer :: total_score_bins$/;"	k	type:TallyObject
+totalxs	cmfd_header.F90	/^    real(8), allocatable :: totalxs(/;"	k	type:cmfd_type
+track_output	track_output.F90	/^module track_output$/;"	m
+tracking	tracking.F90	/^module tracking$/;"	m
+translation	geometry_header.F90	/^     real(8), allocatable :: translation(/;"	k	type:Cell
+transport	tracking.F90	/^  subroutine transport(/;"	s	module:tracking
+type	ace_header.F90	/^    integer       :: type /;"	k	type:XsListing
+type	ace_header.F90	/^    integer, allocatable :: type(/;"	k	type:DistAngle
+type	geometry_header.F90	/^     integer :: type /;"	k	type:Cell
+type	geometry_header.F90	/^     integer :: type /;"	k	type:Lattice
+type	geometry_header.F90	/^     integer :: type /;"	k	type:Surface
+type	geometry_header.F90	/^     integer :: type /;"	k	type:Universe
+type	mesh_header.F90	/^    integer :: type /;"	k	type:StructuredMesh
+type	particle_header.F90	/^    integer    :: type /;"	k	type:Particle
+type	plot_header.F90	/^    integer :: type /;"	k	type:ObjectPlot
+type	tally_header.F90	/^    integer :: type /;"	k	type:TallyFilter
+type	tally_header.F90	/^    integer :: type /;"	k	type:TallyObject
+type_angle	source_header.F90	/^    integer :: type_angle /;"	k	type:ExtSource
+type_energy	source_header.F90	/^    integer :: type_energy /;"	k	type:ExtSource
+type_space	source_header.F90	/^    integer :: type_space /;"	k	type:ExtSource
+union_grid_index	cross_section.F90	/^  integer :: union_grid_index$/;"	v	module:cross_section
+unionized_grid	energy_grid.F90	/^  subroutine unionized_grid(/;"	s	module:energy_grid
+unit_fh	output_interface.F90	/^    integer :: unit_fh$/;"	k	type:BinaryOutput
+universe	geometry_header.F90	/^     integer :: universe /;"	k	type:Cell
+universe	particle_header.F90	/^    integer :: universe /;"	k	type:LocalCoord
+universe_dict	global.F90	/^  type(DictIntInt) :: universe_dict$/;"	v	module:global
+universes	geometry_header.F90	/^     integer, allocatable :: universes(/;"	k	type:Lattice
+universes	global.F90	/^  type(Universe),  allocatable, target :: universes(/;"	v	module:global
+upper_case	string.F90	/^  elemental subroutine upper_case(/;"	s	module:string
+upper_right	mesh_header.F90	/^    real(8), allocatable :: upper_right(/;"	k	type:StructuredMesh
+urr_data	ace_header.F90	/^    type(UrrData), pointer :: urr_data /;"	k	type:Nuclide
+urr_inelastic	ace_header.F90	/^    integer                :: urr_inelastic$/;"	k	type:Nuclide
+urr_present	ace_header.F90	/^    logical                :: urr_present$/;"	k	type:Nuclide
+urr_ptables_on	global.F90	/^  logical :: urr_ptables_on /;"	v	module:global
+urrdata_clear	ace_header.F90	/^    subroutine urrdata_clear(/;"	s	module:ace_header
+use_ptable	ace_header.F90	/^    logical :: use_ptable /;"	k	type:NuclideMicroXS
+user_tallies	global.F90	/^  type(TallyObject), pointer :: user_tallies(/;"	v	module:global
+uvw	bank_header.F90	/^    real(8)    :: uvw(/;"	k	type:Bank
+uvw	particle_header.F90	/^    real(8) :: uvw(/;"	k	type:LocalCoord
+val	matrix_header.F90	/^    real(8), allocatable :: val(/;"	k	type:Matrix
+val	vector_header.F90	/^    real(8), pointer :: val(/;"	k	type:Vector
+valid_image	ppmlib.F90	/^  function valid_image(/;"	f	module:ppmlib
+value	dict_header.F90	/^    integer                        :: value$/;"	k	type:ElemKeyValueCI
+value	dict_header.F90	/^    integer :: value$/;"	k	type:ElemKeyValueII
+value	tally_header.F90	/^    real(8) :: value /;"	k	type:TallyResult
+vector_add_value	vector_header.F90	/^  subroutine vector_add_value(/;"	s	module:vector_header
+vector_create	vector_header.F90	/^  subroutine vector_create(/;"	s	module:vector_header
+vector_destroy	vector_header.F90	/^  subroutine vector_destroy(/;"	s	module:vector_header
+vector_header	vector_header.F90	/^module vector_header$/;"	m
+vector_setup_petsc	vector_header.F90	/^  subroutine vector_setup_petsc(/;"	s	module:vector_header
+vector_write_petsc_binary	vector_header.F90	/^  subroutine vector_write_petsc_binary(/;"	s	module:vector_header
+volume	tally_header.F90	/^    real(8) :: volume /;"	k	type:TallyObject
+volume_frac	mesh_header.F90	/^    real(8) :: volume_frac /;"	k	type:StructuredMesh
+warning	error.F90	/^  subroutine warning(/;"	s	module:error
+watt_spectrum	math.F90	/^  function watt_spectrum(/;"	f	module:math
+weightfactors	cmfd_header.F90	/^    real(8), allocatable :: weightfactors(/;"	k	type:cmfd_type
+wgt	bank_header.F90	/^    real(8)    :: wgt /;"	k	type:Bank
+wgt	particle_header.F90	/^    real(8)    :: wgt /;"	k	type:Particle
+wgt_bank	particle_header.F90	/^    real(8)    :: wgt_bank /;"	k	type:Particle
+width	geometry_header.F90	/^     real(8), allocatable :: width(/;"	k	type:Lattice
+width	mesh_header.F90	/^    real(8), allocatable :: width(/;"	k	type:StructuredMesh
+width	plot_header.F90	/^    real(8) :: width(/;"	k	type:ObjectPlot
+width	ppmlib.F90	/^    integer                          :: width,/;"	k	type:Image
+write_attribute_string	output_interface.F90	/^  subroutine write_attribute_string(/;"	s	module:output_interface
+write_double	output_interface.F90	/^  subroutine write_double(/;"	s	module:output_interface
+write_double_1Darray	output_interface.F90	/^  subroutine write_double_1Darray(/;"	s	module:output_interface
+write_double_2Darray	output_interface.F90	/^  subroutine write_double_2Darray(/;"	s	module:output_interface
+write_double_3Darray	output_interface.F90	/^  subroutine write_double_3Darray(/;"	s	module:output_interface
+write_double_4Darray	output_interface.F90	/^  subroutine write_double_4Darray(/;"	s	module:output_interface
+write_integer	output_interface.F90	/^  subroutine write_integer(/;"	s	module:output_interface
+write_integer_1Darray	output_interface.F90	/^  subroutine write_integer_1Darray(/;"	s	module:output_interface
+write_integer_2Darray	output_interface.F90	/^  subroutine write_integer_2Darray(/;"	s	module:output_interface
+write_integer_3Darray	output_interface.F90	/^  subroutine write_integer_3Darray(/;"	s	module:output_interface
+write_integer_4Darray	output_interface.F90	/^  subroutine write_integer_4Darray(/;"	s	module:output_interface
+write_long	output_interface.F90	/^  subroutine write_long(/;"	s	module:output_interface
+write_message	output.F90	/^  subroutine write_message(/;"	s	module:output
+write_particle_restart	particle_restart_write.F90	/^  subroutine write_particle_restart(/;"	s	module:particle_restart_write
+write_particle_track	track_output.F90	/^  subroutine write_particle_track(/;"	s	module:track_output
+write_source_bank	output_interface.F90	/^  subroutine write_source_bank(/;"	s	module:output_interface
+write_state_point	state_point.F90	/^  subroutine write_state_point(/;"	s	module:state_point
+write_string	output_interface.F90	/^  subroutine write_string(/;"	s	module:output_interface
+write_summary	output.F90	/^  subroutine write_summary(/;"	s	module:output
+write_surface_current	output.F90	/^  subroutine write_surface_current(/;"	s	module:output
+write_tallies	output.F90	/^  subroutine write_tallies(/;"	s	module:output
+write_tally_result	output_interface.F90	/^  subroutine write_tally_result(/;"	s	module:output_interface
+write_tally_results_nr	state_point.F90	/^  subroutine write_tally_results_nr(/;"	s	module:state_point
+write_track	particle_header.F90	/^    logical    :: write_track /;"	k	type:Particle
+write_xs_summary	output.F90	/^  subroutine write_xs_summary(/;"	s	module:output
+x	endf_header.F90	/^    real(8), allocatable :: x(/;"	k	type:Tab1
+x0	geometry_header.F90	/^     real(8) :: x0 /;"	k	type:Universe
+xml_interface	xml_interface.F90	/^module xml_interface$/;"	m
+xs_listing_dict	global.F90	/^  type(DictCharInt) :: xs_listing_dict$/;"	v	module:global
+xs_listings	global.F90	/^  type(XsListing),  allocatable, target :: xs_listings(/;"	v	module:global
+xvec	cmfd_jfnk_solver.F90	/^  type(Vector)     :: xvec /;"	v	module:cmfd_jfnk_solver
+xyz	bank_header.F90	/^    real(8)    :: xyz(/;"	k	type:Bank
+xyz	particle_header.F90	/^    real(8) :: xyz(/;"	k	type:LocalCoord
+y	endf_header.F90	/^    real(8), allocatable :: y(/;"	k	type:Tab1
+y0	geometry_header.F90	/^     real(8) :: y0 /;"	k	type:Universe
+z0	geometry_header.F90	/^     real(8) :: z0 /;"	k	type:Universe
+zaid	ace_header.F90	/^    integer       :: zaid /;"	k	type:Nuclide
+zaid	ace_header.F90	/^    integer       :: zaid /;"	k	type:SAlphaBeta
+zaid	ace_header.F90	/^    integer       :: zaid /;"	k	type:XsListing

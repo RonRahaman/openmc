@@ -54,9 +54,6 @@ contains
 
   subroutine initialize_run()
 
-    integer :: i
-    type(Nuclide), pointer :: nuc => null()   ! pointer to Nuclide
-
     ! Start total and initialization timer
     call time_total % start()
     call time_initialize % start()
@@ -120,17 +117,13 @@ contains
       call read_xs()
       call time_read_xs % stop()
 
-      print *, 'Reconstructing xs using inverted stack method ...'
-      do i = 1, n_nuclides_total
-        nuc => nuclides(i)
-        call inv_stack_recon(nuc)
-      enddo
+      ! Resize the energy grid
+      call resize_egrid()
 
       ! Output info about nuclides
-      call print_nuclides_info('data_dump/nuclides_info.txt')
+      ! call print_nuclides_info('data_dump/nuclides_info.txt')
       !call print_nuclides_values('data_dump/nuclides_values_smallhm_post_all.txt')
       ! stop
-
 
       ! Construct unionized energy grid from cross-sections
       if (grid_method == GRID_UNION) then
@@ -1026,6 +1019,25 @@ contains
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 ! Subroutine for inverted stack reconstruction of energy vs. elastic xs
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+! Reconstruct all nuclides
+subroutine resize_egrid()
+    integer :: i
+    type(Nuclide), pointer :: nuc => null()   ! pointer to Nuclide
+    integer :: sum_ngrid_0=0, sum_ngrid_1=0
+    print *, 'Reconstructing xs using inverted stack method ...'
+    ! ! Display output message
+    ! message = "Reading settings XML file..."
+    ! call write_message(5)
+    do i = 1, n_nuclides_total
+      nuc => nuclides(i)
+      sum_ngrid_0 = sum_ngrid_0 + nuc % n_grid 
+      call inv_stack_recon(nuc)
+      sum_ngrid_1 = sum_ngrid_1 + nuc % n_grid
+    enddo
+    print *, 'Original sum(nuc % ngrid):      ', sum_ngrid_0
+    print *, 'Reconstructed sum(nuc % ngrid): ', sum_ngrid_1
+end subroutine resize_egrid
 
 subroutine inv_stack_recon(nuc)
     type(Nuclide), pointer :: nuc
