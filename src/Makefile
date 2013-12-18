@@ -12,14 +12,15 @@ xml_fort = xml-fortran/xmlparse.o \
 # User Options
 #===============================================================================
 
-COMPILER = gnu
+COMPILER = ibm
 DEBUG    = no
 PROFILE  = no
 OPTIMIZE = no
-MPI      = no
-OPENMP   = no
+MPI      = yes
+OPENMP   = yes
 HDF5     = no
 PETSC    = no
+MACHINE  = bluegeneq
 
 #===============================================================================
 # External Library Paths
@@ -170,7 +171,8 @@ ifeq ($(MPI),yes)
     F90 = $(PHDF5_DIR)/bin/h5pfc
     F90FLAGS += -DHDF5
   else
-    F90 = $(MPI_DIR)/bin/mpif90
+    #F90 = $(MPI_DIR)/bin/mpif90
+		F90 = mpif90
   endif
   F90FLAGS += -DMPI
 else
@@ -235,8 +237,15 @@ endif
 # IBM Blue Gene/Q ANL supercomputer
 
 ifeq ($(MACHINE),bluegeneq)
-  F90 = mpixlf2003
-  F90FLAGS = -WF,-DNO_F2008,-DMPI -O5
+  ifeq ($(OPENMP), yes)
+    F90 = /bgsys/drivers/ppcfloor/comm/xl/bin/mpixlf2003_r
+    F90FLAGS = -qsmp=omp -WF,-DNO_F2008,-DMPI,-DOPENMP
+    LDFLAGS = -qsmp=omp
+  else
+    F90 = /bgsys/drivers/ppcfloor/comm/xl/bin/mpixlf2003
+    F90FLAGS = -WF,-DNO_F2008,-DMPI -O5
+    LDFLAGS = 
+  endif
 endif
 
 #===============================================================================
