@@ -20,7 +20,8 @@ module initialize
   use random_lcg,       only: initialize_prng
   use source,           only: initialize_source
   use state_point,      only: load_state_point
-  use string,           only: to_str, str_to_int, starts_with, ends_with
+  use string,           only: to_str, str_to_int, str_to_real, starts_with, &
+                              ends_with
   use tally_header,     only: TallyObject, TallyResult
   use tally_initialize, only: configure_tallies
 
@@ -40,8 +41,7 @@ module initialize
   implicit none
 
   ! Threshhold for interpolation error
-  character(len=66) :: thresh_str
-  real :: thresh 
+  real(8) :: thresh = 0.
 
 contains
 
@@ -70,18 +70,12 @@ contains
 
     ! Read command line arguments
     call read_command_line()
-    call get_command_argument(2,thresh_str)
-    if (len_trim(thresh_str) == 0) then
-      print *, 'ERROR: need to supply threshhold for inv stack as second arg'
-      stop
-    endif
-    read (thresh_str,*) thresh
-    print *, 'For inv stack, thresh is ', thresh
 
     if (master) then
       ! Display title and initialization header
       call title()
       call header("INITIALIZATION", level=1)
+      print *, 'For inv stack, thresh is ', thresh
     end if
 
     ! Read XML input files
@@ -405,6 +399,10 @@ contains
           message = "Ignoring number of threads specified on command line."
           call warning()
 #endif
+
+        case ('-resize-egrid', '--resize-egrid')
+          i = i + 1
+          thresh = str_to_real(argv(i))
 
         case ('-?', '-help', '--help')
           call print_usage()
