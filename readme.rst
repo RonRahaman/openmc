@@ -1,4 +1,44 @@
 ==========================================
+About branch resize_egrid_master
+==========================================
+
+This branch was branched from master. It contains changes from the branch
+'resize_egrid', which had been branched from develop.  It is necessary to
+branch from master to run on BGQ.
+
+The following are a description of changes:
+
+------------
+Data Dumping
+------------
+
+In data_dump.F90, there are functions for writing cross-section data to file.
+It is most appropriate to run thse functions during initialize.mod ::
+initialize_run().  Thus, the DEPENDENCIES and include statements have been
+written to include data_dump.mod in initialize.mod.
+
+------------------------
+Resizing the energy grid
+------------------------
+
+In initialize.mod, there are functions to reconstruct the energy grid to allow
+for fewer gridpoints. The reconstruction is based on the 'inverted stack'
+method implemented in the RECONR module of NJOY; the implementation here is not
+based on source code, but it based off a description in the publication: R. E.
+MacFarlane, The NJOY Nuclear Data Processing System, Version 2012,
+LA-UR-12-27079 
+
+To resize the energy grid, supply the command line option --resize-egrid <val>
+where val is the interpolation threshhold used to select points on the energy
+grid.  Using val = 0 will not modify the energy grid; using val > 0 will reduce
+the size of the energy grid.  
+
+(In the large H-M benchmark, using val > 0.9 reduces the k-value below
+reasonable levels; val <= 0.9 can still reduce the energy grid by a factor of
+100)
+
+
+==========================================
 OpenMC Monte Carlo Particle Transport Code
 ==========================================
 
