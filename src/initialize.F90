@@ -75,7 +75,6 @@ contains
       ! Display title and initialization header
       call title()
       call header("INITIALIZATION", level=1)
-      print *, 'For inv stack, thresh is ', thresh
     end if
 
     ! Read XML input files
@@ -1022,19 +1021,32 @@ contains
 subroutine resize_egrid()
     integer :: i
     type(Nuclide), pointer :: nuc => null()   ! pointer to Nuclide
-    integer :: sum_ngrid_0=0, sum_ngrid_1=0
-    print *, 'Reconstructing xs using inverted stack method ...'
-    ! ! Display output message
-    ! message = "Reading settings XML file..."
-    ! call write_message(5)
+    integer :: sum_ngrid_old=0 ! original sum of ngrid for all nuc in nuclides
+    integer :: sum_ngrid_new=0 ! new sum of ngrid for all nuc in nuclides
+
+
+    ! Write messages
+    call write_message()
+    message = 'Begin reconstructing egrid...' 
+    call write_message()
+    message = '  Egrid interpolation threshold:  '//to_str(thresh)
+    call write_message()
+
+    ! For each nuc in nuclides, reconstruct the e_grid
     do i = 1, n_nuclides_total
       nuc => nuclides(i)
-      sum_ngrid_0 = sum_ngrid_0 + nuc % n_grid 
+      sum_ngrid_old = sum_ngrid_old + nuc % n_grid 
       call inv_stack_recon(nuc)
-      sum_ngrid_1 = sum_ngrid_1 + nuc % n_grid
+      sum_ngrid_new = sum_ngrid_new + nuc % n_grid
     enddo
-    print *, 'Original sum(nuc % ngrid):      ', sum_ngrid_0
-    print *, 'Reconstructed sum(nuc % ngrid): ', sum_ngrid_1
+
+    ! Write more messages
+    message = '...Finished reconstructing egrid'
+    call write_message()
+    message = '  Original sum(nuc % ngrid):      '//to_str(sum_ngrid_old)
+    call write_message()
+    message = '  Reconstructed sum(nuc % ngrid): '//to_str(sum_ngrid_new)
+    call write_message()
 end subroutine resize_egrid
 
 subroutine inv_stack_recon(nuc)
