@@ -816,8 +816,9 @@ contains
 
   subroutine allocate_banks()
 
-    integer :: alloc_err  ! allocation error code
-    integer :: i
+    integer :: alloc_err      ! allocation error code
+    integer(8) :: alloc_size  ! allocation size for fission_bank
+    integer :: i              ! loop control
 
     ! Allocate source bank
     allocate(source_bank(work), STAT=alloc_err)
@@ -845,18 +846,38 @@ contains
       if (thread_id == i) then
         !$omp critical
         if (allocated(fission_bank)) then
-          message = 'Error in initialize::allocate_banks(), fission_bank already allocated on TID '//to_str(thread_id)
+          message = 'Error in initialize::allocate_banks(), fission_bank already allocated on TID='//to_str(thread_id)
           call fatal_error()
-        endif
-        if (thread_id == 0) then
-           allocate(fission_bank(3*work), STAT=alloc_err)
         else
-           allocate(fission_bank(3*work/n_threads), STAT=alloc_err)
+          !message = 'Message from initialzie::allocate_banks(), fission_bank was sucesfully allocated on TID='//&
+          !  to_str(thread_id)
+          !call write_message()
+          print *, 'Success from initialzie::allocate_banks(), fission_bank was not already allocated on TID='//&
+            to_str(thread_id)
+        endif
+        !if (thread_id == 0) then
+        !   allocate(fission_bank(3*work), STAT=alloc_err)
+        !else
+        !   allocate(fission_bank(3*work/n_threads), STAT=alloc_err)
+        !end if
+        if (thread_id == 0) then
+          alloc_size = 3*work
+        else
+          alloc_size = 3*work/n_threads
         end if
+        allocate(fission_bank(alloc_size), STAT=alloc_err)
         if (alloc_err /= 0) then
           message = 'Error in initalize::allocate_banks(), allocate(fission bank...) failed on TID='//&
-            to_str(thread_id)//', STAT='//to_str(alloc_err)//', work='//to_str(work)
+            to_str(thread_id)//', STAT='//to_str(alloc_err)//', alloc_size='//to_str(alloc_size)
           call fatal_error()
+        else
+          !message = &
+          !  'Message from initalize::allocate_banks(), allocate(fission bank...) succeeded on TID='//&
+          !  to_str(thread_id)//', STAT='//to_str(alloc_err)//', alloc_size='//to_str(alloc_size)
+          !call write_message()
+          print *, &
+            'Success from initalize::allocate_banks(), allocate(fission bank...) succeeded on TID='//&
+            to_str(thread_id)//', STAT='//to_str(alloc_err)//', alloc_size='//to_str(alloc_size)
         end if
         !$omp end critical
       endif
