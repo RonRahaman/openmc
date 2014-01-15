@@ -16,13 +16,19 @@ ifeq ($(F90),ifort)
   override F90FLAGS += -warn nounused
 endif
 
+ifeq ($(MACHINE),bluegeneq)
+  override F90FLAGS = 
+  override LDFLAGS = 
+endif
+
+
 #===============================================================================
 # Targets
 #===============================================================================
 
 all: $(reader)
 $(reader): $(objects)
-	$(F90) $(objects) $(LDFLAGS) -o $@
+	$(F90) $(LDFLAGS) $(objects) -o $@
 clean:
 	@rm -f *.o *.mod $(reader)
 neat:

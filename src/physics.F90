@@ -772,6 +772,13 @@ contains
     p % fission = .true. ! Fission neutrons will be banked
     do i = int(n_bank,4) + 1, int(min(n_bank + nu, 3*work),4)
       ! Bank source neutrons by copying particle data
+      if (.not. allocated(fission_bank)) then
+        message = "Error in physics.mod::create_fission_sites(), fission_bank was not allocated"
+        call fatal_error()
+      else
+        message = 'Size of fission bank is '//to_str(size(fission_bank))
+        call write_message()
+      endif
       fission_bank(i) % xyz = p % coord0 % xyz
 
       ! Set weight of fission bank site

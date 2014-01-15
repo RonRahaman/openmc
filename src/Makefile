@@ -237,14 +237,19 @@ endif
 # IBM Blue Gene/Q ANL supercomputer
 
 ifeq ($(MACHINE),bluegeneq)
+  F90FLAGS = 
+  LDFLAGS = 
+  ifeq ($(PROFILE), yes)
+    F90FLAGS += -pg
+    LDFLAGS += -pg
+  endif
   ifeq ($(OPENMP), yes)
     F90 = /bgsys/drivers/ppcfloor/comm/xl/bin/mpixlf2003_r
-    F90FLAGS = -qsmp=omp -WF,-DNO_F2008,-DMPI,-DOPENMP
-    LDFLAGS = -qsmp=omp
+    F90FLAGS += -qsmp=omp:noopt:noauto -O0 -g -WF,-DNO_F2008,-DMPI,-DOPENMP
+    LDFLAGS += -qsmp=omp:noopt:noauto -O0 -g
   else
     F90 = /bgsys/drivers/ppcfloor/comm/xl/bin/mpixlf2003
-    F90FLAGS = -WF,-DNO_F2008,-DMPI -O5
-    LDFLAGS = 
+    F90FLAGS += -WF,-DNO_F2008,-DMPI -O5
   endif
 endif
 
@@ -257,7 +262,7 @@ xml-fortran:
 	cd xml-fortran; make MACHINE=$(MACHINE) F90=$(F90) F90FLAGS="$(F90FLAGS)" LDFLAGS="$(LDFLAGS)"
 	cd templates; make F90=$(F90) F90FLAGS="$(F90FLAGS)" LDFLAGS="$(LDFLAGS)"
 $(program): $(objects)
-	$(F90) $(objects) $(templates) $(xml_fort) $(LDFLAGS) -o $@
+	$(F90) $(objects) $(templates) $(xml_fort) -qnostaticlink $(LDFLAGS) -o $@
 install:
 	@install -D $(program) $(DESTDIR)$(prefix)/bin/$(program)
 	@install -D utils/statepoint_cmp.py $(DESTDIR)$(prefix)/bin/statepoint_cmp

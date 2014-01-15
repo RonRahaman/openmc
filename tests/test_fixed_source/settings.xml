@@ -1,6 +1,8 @@
 <?xml version="1.0"?>
 <settings>
 
+  <cross_sections>/home/rrahaman/data/cross_sections.xml</cross_sections>
+
   <fixed_source>
     <batches>10</batches>
     <particles>100</particles>

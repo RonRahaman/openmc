@@ -157,7 +157,7 @@ module global
 
   ! Source and fission bank
   type(Bank), allocatable, target :: source_bank(:)
-  type(Bank), allocatable, target :: fission_bank(:)
+  type(Bank), allocatable :: fission_bank(:)
 #ifdef OPENMP
   type(Bank), allocatable, target :: master_fission_bank(:)
 #endif

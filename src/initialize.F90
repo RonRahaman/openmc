@@ -817,6 +817,7 @@ contains
   subroutine allocate_banks()
 
     integer :: alloc_err  ! allocation error code
+    integer :: i
 
     ! Allocate source bank
     allocate(source_bank(work), STAT=alloc_err)
@@ -833,15 +834,43 @@ contains
     ! generation, there is also a 'master_fission_bank' that is used to collect
     ! the sites from each thread.
 
-!$omp parallel
+!$omp parallel private(alloc_err, i)
+!$omp master
     n_threads = omp_get_num_threads()
+!$omp end master
+!$omp barrier
     thread_id = omp_get_thread_num()
 
-    if (thread_id == 0) then
-       allocate(fission_bank(3*work))
-    else
-       allocate(fission_bank(3*work/n_threads))
-    end if
+    do i = 0,n_threads-1
+      if (thread_id == i) then
+        !$omp critical
+        if (allocated(fission_bank)) then
+          message = 'Error in initialize::allocate_banks(), fission_bank already allocated on TID '//to_str(thread_id)
+          call fatal_error()
+        endif
+        if (thread_id == 0) then
+           allocate(fission_bank(3*work), STAT=alloc_err)
+        else
+           allocate(fission_bank(3*work/n_threads), STAT=alloc_err)
+        end if
+        if (alloc_err /= 0) then
+          message = 'Error in initalize::allocate_banks(), allocate(fission bank...) failed on TID='//&
+            to_str(thread_id)//', STAT='//to_str(alloc_err)//', work='//to_str(work)
+          call fatal_error()
+        end if
+        !$omp end critical
+      endif
+!$omp barrier
+    enddo
+
+!    print *, 'From TID', thread_id, 'n_threads is ', n_threads, 'and work is', work
+!
+!    if (thread_id == 0) then
+!       allocate(fission_bank(3*work), STAT=alloc_err)
+!    else
+!       allocate(fission_bank(3*work/n_threads), STAT=alloc_err)
+!    end if
+
 !$omp end parallel
     allocate(master_fission_bank(3*work), STAT=alloc_err)
 #else
