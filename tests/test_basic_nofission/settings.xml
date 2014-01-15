@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<settings>
+
+  <cross_sections>/home/rrahaman/data/cross_sections.xml</cross_sections>
+
+  <eigenvalue>
+    <batches>2</batches>
+    <inactive>0</inactive>
+    <particles>1000</particles>
+  </eigenvalue>
+
+  <source>
+    <space type="box">
+      <parameters>-4 -4 -4  4  4  4</parameters>
+    </space>
+  </source>
+
+</settings>
