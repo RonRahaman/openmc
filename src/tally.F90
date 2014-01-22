@@ -33,9 +33,10 @@ contains
 ! triggered at every collision, not every event
 !===============================================================================
 
-  subroutine score_analog_tally(p)
+  subroutine score_analog_tally(p, local_thread_id)
 
     type(Particle), intent(in) :: p
+    integer, intent(in) :: local_thread_id
 
     integer :: i
     integer :: i_tally
@@ -291,7 +292,8 @@ contains
                 ! outgoing energy bins may have been scored to. The following
                 ! logic treats this special case and results to multiple bins
 
-                call score_fission_eout(p, t, score_index)
+                call score_fission_eout(p, t, score_index, &
+                    threaded_fission_bank(local_thread_id, :))
                 cycle SCORE_LOOP
 
               else
@@ -372,11 +374,12 @@ contains
 ! neutrons produced with different energies.
 !===============================================================================
 
-  subroutine score_fission_eout(p, t, i_score)
+  subroutine score_fission_eout(p, t, i_score, fission_bank)
 
     type(Particle), intent(in) :: p
     type(TallyObject), pointer :: t
     integer, intent(in)        :: i_score ! index for score
+    type(Bank), intent(in)        :: fission_bank(:) 
 
     integer :: i             ! index of outgoing energy filter
     integer :: n             ! number of energies on filter

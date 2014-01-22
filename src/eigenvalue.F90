@@ -4,6 +4,10 @@ module eigenvalue
   use mpi
 #endif
 
+#ifdef OPENMP
+  use omp_lib
+#endif
+
   use cmfd_execute, only: cmfd_init_batch, execute_cmfd
   use constants,    only: ZERO
   use error,        only: fatal_error, warning
@@ -23,6 +27,8 @@ module eigenvalue
                           reset_result
   use tracking,     only: transport
 
+  implicit none
+
   private
   public :: run_eigenvalue
 
@@ -40,6 +46,7 @@ contains
 
     type(Particle) :: p
     integer        :: i_work
+    integer :: local_thread_id
 
     if (master) call header("K EIGENVALUE SIMULATION", level=1)
 
@@ -72,15 +79,16 @@ contains
 
         ! ====================================================================
         ! LOOP OVER PARTICLES
-!$omp parallel do schedule(static) firstprivate(p)
+!$omp parallel do schedule(static) private(local_thread_id) firstprivate(p) 
         PARTICLE_LOOP: do i_work = 1, work
+          local_thread_id = omp_get_thread_num()
           current_work = i_work
 
           ! grab source particle from bank
           call get_source_particle(p, current_work)
 
           ! transport particle
-          call transport(p)
+          call transport(p, local_thread_id)
 
         end do PARTICLE_LOOP
 !$omp end parallel do
@@ -335,14 +343,14 @@ contains
       if (total < n_particles) then
         do j = 1, int(n_particles/total)
           index_temp = index_temp + 1
-          temp_sites(index_temp) = fission_bank(i)
+          temp_sites(index_temp) = threaded_fission_bank(0,i)
         end do
       end if
 
       ! Randomly sample sites needed
       if (prn() < p_sample) then
         index_temp = index_temp + 1
-        temp_sites(index_temp) = fission_bank(i)
+        temp_sites(index_temp) = threaded_fission_bank(0,i)
       end if
     end do
 
@@ -384,7 +392,7 @@ contains
         sites_needed = n_particles - finish
         do i = 1, int(sites_needed,4)
           index_temp = index_temp + 1
-          temp_sites(index_temp) = fission_bank(n_bank - sites_needed + i)
+          temp_sites(index_temp) = threaded_fission_bank(0, n_bank - sites_needed + i)
         end do
       end if
 
@@ -542,7 +550,7 @@ contains
     end if
 
     ! count number of fission sites over mesh
-    call count_bank_sites(m, fission_bank, entropy_p, &
+    call count_bank_sites(m, threaded_fission_bank(0, :), entropy_p, &
          size_bank=n_bank, sites_outside=sites_outside)
 
     ! display warning message if there were sites outside entropy box
@@ -834,29 +842,43 @@ contains
     ! Initialize the total number of fission bank sites
     total = 0
 
-!$omp parallel
+! !$omp parallel
 
-    ! Copy thread fission bank sites to one shared copy
-!$omp do ordered schedule(static)
-    do i = 1, n_threads
-!$omp ordered
-       master_fission_bank(total+1:total+n_bank) = fission_bank(1:n_bank)
+!     ! Copy thread fission bank sites to one shared copy
+! !$omp do ordered schedule(static)
+!     do i = 1, n_threads
+! !$omp ordered
+!        master_fission_bank(total+1:total+n_bank) = fission_bank(1:n_bank)
+!        total = total + n_bank
+! !$omp end ordered
+!     end do
+! !$omp end do
+
+!     ! Make sure all threads have made it to this point
+! !$omp barrier
+
+!     ! Now copy the shared fission bank sites back to the master thread's copy.
+!     if (thread_id == 0) then
+!        n_bank = total
+!        fission_bank(1:n_bank) = master_fission_bank(1:n_bank)
+!     else
+!        n_bank = 0
+!     end if
+
+! !$omp end parallel
+
+    do i = lbound(threaded_fission_bank, 1), ubound(threaded_fission_bank, 1)
+       master_fission_bank(total+1:total+n_bank) = threaded_fission_bank(i, 1:n_bank)
        total = total + n_bank
-!$omp end ordered
-    end do
-!$omp end do
+    enddo
 
-    ! Make sure all threads have made it to this point
+!$omp parallel
+    n_bank = 0
+!$omp master
+     n_bank = total
+     threaded_fission_bank(0, 1:n_bank) = master_fission_bank(1:n_bank)
+!$omp end master
 !$omp barrier
-
-    ! Now copy the shared fission bank sites back to the master thread's copy.
-    if (thread_id == 0) then
-       n_bank = total
-       fission_bank(1:n_bank) = master_fission_bank(1:n_bank)
-    else
-       n_bank = 0
-    end if
-
 !$omp end parallel
 
   end subroutine join_bank_from_threads

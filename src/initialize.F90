@@ -816,7 +816,9 @@ contains
 
   subroutine allocate_banks()
 
-    integer :: alloc_err  ! allocation error code
+    integer :: alloc_err        ! allocation error code
+    integer :: local_thread_id  ! NOT THREADPRIVATE, just private
+    integer :: local_nthreads   ! NOT THREADPRIVATE, just private
 
     ! Allocate source bank
     allocate(source_bank(work), STAT=alloc_err)
@@ -833,16 +835,19 @@ contains
     ! generation, there is also a 'master_fission_bank' that is used to collect
     ! the sites from each thread.
 
-!$omp parallel
-    n_threads = omp_get_num_threads()
-    thread_id = omp_get_thread_num()
-
-    if (thread_id == 0) then
-       allocate(fission_bank(3*work))
-    else
-       allocate(fission_bank(3*work/n_threads))
+!$omp parallel private(local_nthreads, alloc_err) shared(threaded_fission_bank)
+!$omp master
+    local_nthreads = omp_get_num_threads()
+    allocate(threaded_fission_bank(0:local_nthreads-1, 3*work), stat=alloc_err)
+    if (alloc_err /= 0) then
+      message = "Failed to allocate threaded_fission_bank, alloc_err="//&
+          to_str(alloc_err)
+      call fatal_error()
     end if
+!$omp end master
+!$omp barrier
 !$omp end parallel
+
     allocate(master_fission_bank(3*work), STAT=alloc_err)
 #else
     allocate(fission_bank(3*work), STAT=alloc_err)

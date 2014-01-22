@@ -29,9 +29,10 @@ contains
 ! routine for that reaction
 !===============================================================================
 
-  subroutine collision(p)
+  subroutine collision(p, local_thread_id)
 
     type(Particle), intent(inout) :: p
+    integer, intent(in) :: local_thread_id
 
     ! Store pre-collision particle properties
     p % last_wgt = p % wgt
@@ -41,7 +42,7 @@ contains
     p % n_collision = p % n_collision + 1
 
     ! Sample nuclide/reaction for the material the particle is in
-    call sample_reaction(p)
+    call sample_reaction(p, local_thread_id)
 
     ! Display information about collision
     if (verbosity >= 10 .or. trace) then
@@ -68,9 +69,10 @@ contains
 ! disappearance are treated implicitly.
 !===============================================================================
 
-  subroutine sample_reaction(p)
+  subroutine sample_reaction(p, local_thread_id)
 
     type(Particle), intent(inout) :: p
+    integer, intent(in) :: local_thread_id
 
     integer :: i_nuclide    ! index in nuclides array
     integer :: i_reaction   ! index in nuc % reactions array
@@ -92,7 +94,8 @@ contains
 
     if (nuc % fissionable) then
       call sample_fission(i_nuclide, i_reaction)
-      call create_fission_sites(p, i_nuclide, i_reaction)
+      call create_fission_sites(p, i_nuclide, i_reaction, &
+          threaded_fission_bank(local_thread_id, :))
     end if
 
     ! If survival biasing is being used, the following subroutine adjusts the
@@ -711,7 +714,7 @@ contains
 ! neutrons produced from fission and creates appropriate bank sites.
 !===============================================================================
 
-  subroutine create_fission_sites(p, i_nuclide, i_reaction)
+  subroutine create_fission_sites(p, i_nuclide, i_reaction, fission_bank)
 
     type(Particle), intent(inout) :: p
     integer,        intent(in)    :: i_nuclide
@@ -727,6 +730,7 @@ contains
     logical :: in_mesh      ! source site in ufs mesh?
     type(Nuclide),  pointer, save :: nuc => null()
     type(Reaction), pointer, save :: rxn => null()
+    type(Bank), intent(inout) :: fission_bank(:)
 !$omp threadprivate(nuc, rxn)
 
     ! Get pointers

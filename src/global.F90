@@ -157,7 +157,7 @@ module global
 
   ! Source and fission bank
   type(Bank), allocatable, target :: source_bank(:)
-  type(Bank), allocatable, target :: fission_bank(:)
+  type(Bank), allocatable, target :: threaded_fission_bank(:,:)
 #ifdef OPENMP
   type(Bank), allocatable, target :: master_fission_bank(:)
 #endif
@@ -364,7 +364,7 @@ module global
   logical :: output_xs      = .false.
   logical :: output_tallies = .true.
 
-!$omp threadprivate(micro_xs, material_xs, fission_bank, n_bank, message, &
+!$omp threadprivate(micro_xs, material_xs, n_bank, message, &
 !$omp&              trace, thread_id, current_work, matching_bins)
 
 contains
@@ -432,7 +432,7 @@ contains
 
     ! Deallocate fission and source bank and entropy
 !$omp parallel
-    if (allocated(fission_bank)) deallocate(fission_bank)
+    if (allocated(threaded_fission_bank)) deallocate(threaded_fission_bank)
 !$omp end parallel
 #ifdef OPENMP
     if (allocated(master_fission_bank)) deallocate(master_fission_bank)

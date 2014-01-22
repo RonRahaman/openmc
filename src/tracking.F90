@@ -20,9 +20,10 @@ contains
 ! TRANSPORT encompasses the main logic for moving a particle through geometry.
 !===============================================================================
 
-  subroutine transport(p)
+  subroutine transport(p, local_thread_id)
 
     type(Particle), intent(inout) :: p
+    integer, intent(in) :: local_thread_id
 
     integer :: surface_crossed ! surface which particle is on
     integer :: lattice_crossed ! lattice boundary which particle crossed
@@ -145,13 +146,14 @@ contains
         ! Clear surface component
         p % surface = NONE
 
-        call collision(p)
+        call collision(p, local_thread_id)
 
         ! Score collision estimator tallies -- this is done after a collision
         ! has occurred rather than before because we need information on the
         ! outgoing energy for any tallies with an outgoing energy filter
 
-        if (active_analog_tallies % size() > 0) call score_analog_tally(p)
+        if (active_analog_tallies % size() > 0) call score_analog_tally(p,&
+            local_thread_id)
 
         ! Reset banked weight during collision
         p % n_bank   = 0

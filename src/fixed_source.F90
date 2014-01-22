@@ -11,6 +11,12 @@ module fixed_source
   use tally,           only: synchronize_tallies, setup_active_usertallies
   use tracking,        only: transport
 
+#ifdef OPENMP
+  use omp_lib
+#endif
+
+  implicit none
+
   type(Bank), pointer :: source_site => null()
 !$omp threadprivate(source_site)
 
@@ -20,6 +26,8 @@ contains
 
     integer(8)     :: i ! index over histories in single cycle
     type(Particle) :: p
+
+    integer :: local_thread_id
 
     if (master) call header("FIXED SOURCE TRANSPORT SIMULATION", level=1)
 
@@ -54,6 +62,7 @@ contains
       ! LOOP OVER PARTICLES
 !$omp parallel do schedule(static) firstprivate(p)
       PARTICLE_LOOP: do i = 1, work
+        local_thread_id = omp_get_thread_num()
 
         ! Set unique particle ID
         p % id = (current_batch - 1)*n_particles + work_index(rank) + i
@@ -70,7 +79,7 @@ contains
         call sample_source_particle(p)
 
         ! transport particle
-        call transport(p)
+        call transport(p, local_thread_id)
 
       end do PARTICLE_LOOP
 !$omp end parallel do
