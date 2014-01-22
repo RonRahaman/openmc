@@ -12,12 +12,12 @@ xml_fort = xml-fortran/xmlparse.o \
 # User Options
 #===============================================================================
 
-COMPILER = gnu
-DEBUG    = no
+COMPILER = intel
+DEBUG    = yes
 PROFILE  = no
 OPTIMIZE = no
 MPI      = no
-OPENMP   = no
+OPENMP   = yes
 HDF5     = no
 PETSC    = no
 
