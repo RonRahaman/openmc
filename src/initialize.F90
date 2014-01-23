@@ -838,7 +838,15 @@ contains
 !$omp parallel private(local_nthreads, alloc_err) shared(threaded_fission_bank)
 !$omp master
     local_nthreads = omp_get_num_threads()
-    allocate(threaded_fission_bank(0:local_nthreads-1, 3*work), stat=alloc_err)
+
+    allocate(n_bank(0:local_nthreads-1), stat=alloc_err)
+    if (alloc_err /= 0) then
+      message = "Failed to allocate n_bank, alloc_err="//to_str(alloc_err)
+      call fatal_error()
+    end if
+
+    allocate(threaded_fission_bank(0:local_nthreads-1, 3*work/local_nthreads), &
+        stat=alloc_err)
     if (alloc_err /= 0) then
       message = "Failed to allocate threaded_fission_bank, alloc_err="//&
           to_str(alloc_err)

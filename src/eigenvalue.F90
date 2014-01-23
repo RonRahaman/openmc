@@ -159,6 +159,7 @@ contains
 
     ! Reset number of fission bank sites
     n_bank = 0
+    master_n_bank = 0
 
     ! Count source sites if using uniform fission source weighting
     if (ufs) call count_source_for_ufs()
@@ -278,7 +279,7 @@ contains
 
 #ifdef MPI
     start = 0_8
-    call MPI_EXSCAN(n_bank, start, 1, MPI_INTEGER8, MPI_SUM, & 
+    call MPI_EXSCAN(master_n_bank, start, 1, MPI_INTEGER8, MPI_SUM, & 
          MPI_COMM_WORLD, mpi_err)
 
     ! While we would expect the value of start on rank 0 to be 0, the MPI
@@ -286,15 +287,15 @@ contains
     ! significant
     if (rank == 0) start = 0_8
 
-    finish = start + n_bank
+    finish = start + master_n_bank
     total = finish
     call MPI_BCAST(total, 1, MPI_INTEGER8, n_procs - 1, & 
          MPI_COMM_WORLD, mpi_err)
 
 #else
     start  = 0_8
-    finish = n_bank
-    total  = n_bank
+    finish = master_n_bank
+    total  = master_n_bank
 #endif
 
     ! If there are not that many particles per generation, it's possible that no
@@ -302,7 +303,7 @@ contains
     ! extra logic to treat this circumstance, we really want to ensure the user
     ! runs enough particles to avoid this in the first place.
 
-    if (n_bank == 0) then
+    if (master_n_bank == 0) then
       message = "No fission sites banked on processor " // to_str(rank)
       call fatal_error()
     end if
@@ -334,7 +335,7 @@ contains
     index_temp = 0_8
     if (.not. allocated(temp_sites)) allocate(temp_sites(3*work))
 
-    do i = 1, int(n_bank,4)
+    do i = 1, int(master_n_bank,4)
 
       ! If there are less than n_particles particles banked, automatically add
       ! int(n_particles/total) sites to temp_sites. For example, if you need
@@ -343,14 +344,14 @@ contains
       if (total < n_particles) then
         do j = 1, int(n_particles/total)
           index_temp = index_temp + 1
-          temp_sites(index_temp) = threaded_fission_bank(0,i)
+          temp_sites(index_temp) = master_fission_bank(i)
         end do
       end if
 
       ! Randomly sample sites needed
       if (prn() < p_sample) then
         index_temp = index_temp + 1
-        temp_sites(index_temp) = threaded_fission_bank(0,i)
+        temp_sites(index_temp) = master_fission_bank(i)
       end if
     end do
 
@@ -392,7 +393,7 @@ contains
         sites_needed = n_particles - finish
         do i = 1, int(sites_needed,4)
           index_temp = index_temp + 1
-          temp_sites(index_temp) = threaded_fission_bank(0, n_bank - sites_needed + i)
+          temp_sites(index_temp) = master_fission_bank(master_n_bank - sites_needed + i)
         end do
       end if
 
@@ -550,8 +551,8 @@ contains
     end if
 
     ! count number of fission sites over mesh
-    call count_bank_sites(m, threaded_fission_bank(0, :), entropy_p, &
-         size_bank=n_bank, sites_outside=sites_outside)
+    call count_bank_sites(m, master_fission_bank, entropy_p, &
+         size_bank=master_n_bank, sites_outside=sites_outside)
 
     ! display warning message if there were sites outside entropy box
     if (sites_outside) then
@@ -868,18 +869,11 @@ contains
 ! !$omp end parallel
 
     do i = lbound(threaded_fission_bank, 1), ubound(threaded_fission_bank, 1)
-       master_fission_bank(total+1:total+n_bank) = threaded_fission_bank(i, 1:n_bank)
-       total = total + n_bank
+       master_fission_bank(total+1:total+n_bank(i)) = threaded_fission_bank(i, 1:n_bank(i))
+       total = total + n_bank(i)
     enddo
 
-!$omp parallel
-    n_bank = 0
-!$omp master
-     n_bank = total
-     threaded_fission_bank(0, 1:n_bank) = master_fission_bank(1:n_bank)
-!$omp end master
-!$omp barrier
-!$omp end parallel
+    master_n_bank = total
 
   end subroutine join_bank_from_threads
 #endif

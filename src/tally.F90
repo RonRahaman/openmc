@@ -293,7 +293,8 @@ contains
                 ! logic treats this special case and results to multiple bins
 
                 call score_fission_eout(p, t, score_index, &
-                    threaded_fission_bank(local_thread_id, :))
+                    threaded_fission_bank(local_thread_id, :), &
+                    n_bank(local_thread_id))
                 cycle SCORE_LOOP
 
               else
@@ -374,12 +375,13 @@ contains
 ! neutrons produced with different energies.
 !===============================================================================
 
-  subroutine score_fission_eout(p, t, i_score, fission_bank)
+  subroutine score_fission_eout(p, t, i_score, fission_bank, local_n_bank)
 
     type(Particle), intent(in) :: p
     type(TallyObject), pointer :: t
     integer, intent(in)        :: i_score ! index for score
     type(Bank), intent(in)        :: fission_bank(:) 
+    integer(8), intent(inout)  :: local_n_bank
 
     integer :: i             ! index of outgoing energy filter
     integer :: n             ! number of energies on filter
@@ -404,10 +406,10 @@ contains
     ! loop over number of particles banked
     do k = 1, p % n_bank
       ! determine score based on bank site weight and keff
-      score = keff * fission_bank(n_bank - p % n_bank + k) % wgt
+      score = keff * fission_bank(local_n_bank - p % n_bank + k) % wgt
 
       ! determine outgoing energy from fission bank
-      E_out = fission_bank(n_bank - p % n_bank + k) % E
+      E_out = fission_bank(local_n_bank - p % n_bank + k) % E
 
       ! check if outgoing energy is within specified range on filter
       if (E_out < t % filters(i) % real_bins(1) .or. &
