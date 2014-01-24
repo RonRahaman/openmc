@@ -1,4 +1,95 @@
 ==========================================
+Branch "bgq_omp_hack"
+==========================================
+
+-------
+Purpose
+-------
+
+In December 2013, we discovered a bug that prvented the OMP threading from
+working on BGQ. This branch offers a workaround.
+
+--------------------
+Bug in "master" branch
+--------------------
+
+The bug is an issue with a threadprivate, allocatable array.  In the
+implementation on the master branch, each thread has a one-dimensional
+threadprivate allocatable array called "fisson_bank" which is used to store the
+neutrons created from fission events; in the subsequent generations of the
+simulation, some neutrons are sampled from fission_bank.  On BGQ, the problem
+occurs when the fission_bank is allocated in a module subroutine; when the
+allocation subroutine returns, the fission_bank is somehow unallocated.  
+
+-----------------------------------
+Workaround in "bgq_omp_hack" branch
+-----------------------------------
+
+Our workaround in OpenMC implements fission_bank as a shared two-dimensional
+array -- the second dimension is the thread_id, and the first dimension behaves
+like the original fission_bank.  It is allocated by the master thread; and
+subsequently shared by all threads. Subroutines which previously required a
+threadprivate one-dimensional fission_bank are now passed a one-dimensinoal
+array slice of the shared fission_bank (ie, a column of fission_bank).  
+
+Additionally, the 'master_fission_bank' is used more extensively.  Originally,
+master_fission_bank was used as a buffer to copy all threads' fission_bank to
+the master thread's fission_bank; and serial sections would refer to master
+thread's copy of fission_bank. In this workaround, master_fission_bank is
+used in serial sections.  
+
+This extended use of  master_fission_bank is necessary to allow the 2D
+fission_bank to be rectangular. Note that in the original implementation, the
+master thread's fission_bank had to be large enough to hold all threads'
+fission_banks.  In the workaround, all threads refer to the same-sized columns
+fission_bank; and only master_fission_bank needs to be large enough to hold all
+the columns.
+
+------------------------------
+Capabilities of the workaround
+------------------------------
+
+On Intel architectures (a platform that supports both "master" and
+"bgq_omp_hack"), the on-node scaling with respect to OMP_NUM_THREADS is similar
+between implementations.  
+
++-----------------+------------------------+-----------------------+
+| OMP_NUM_THREADS | shared                 | threadprivate         |
+|                 | (tracking rate, active)|(tracking rate, active)|
++=================+========================+=======================+
+| 2               | 4717                   | 4395                  |
++-----------------+------------------------+-----------------------+
+| 4               | 7041                   | 6680                  | 
++-----------------+------------------------+-----------------------+
+| 6               | 8602                   | 8208                  |
++-----------------+------------------------+-----------------------+
+| 8               | 8939                   | 8710                  |
++-----------------+------------------------+-----------------------+
+
+Using test and benchmark simulations (including Hoogenboom-Martin), the results
+"bgq_omp_hack" branch and the "master" branch agree within the precision of the
+reported results.
+
+------------------------------
+Shortcomings of the workaround
+------------------------------
+
+** This branch must be compiled with OPENMP=yes in Makefile. **
+
+At the moment, the workaround has not been compiled without
+OMP.  Compiling without OMP is likely to cause major problems.  
+
+It should not be necessary to compile the workaround without OMP, since the
+master branch works fine on BlueGene/Q without OMP.  
+
+Furthermore, the workaround could easily be if-def'd if it is ever necessary to
+compile without OMP.
+
+
+
+
+
+==========================================
 OpenMC Monte Carlo Particle Transport Code
 ==========================================
 
