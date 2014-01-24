@@ -54,7 +54,7 @@ On Intel architectures (a platform that supports both "master" and
 between implementations.  
 
 +-----------------+------------------------+------------------------+
-| OMP_NUM_THREADS | shared                 | threadprivate          |
+| OMP_NUM_THREADS | bgq_omp_hack           | master                 |
 |                 | (tracking rate, active)| (tracking rate, active)|
 +=================+========================+========================+
 | 2               | 4717                   | 4395                   |
