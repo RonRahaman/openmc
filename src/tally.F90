@@ -293,7 +293,7 @@ contains
                 ! logic treats this special case and results to multiple bins
 
                 call score_fission_eout(p, t, score_index, &
-                    threaded_fission_bank(local_thread_id, :), &
+                    threaded_fission_bank(:, local_thread_id), &
                     n_bank(local_thread_id))
                 cycle SCORE_LOOP
 

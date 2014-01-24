@@ -95,7 +95,7 @@ contains
     if (nuc % fissionable) then
       call sample_fission(i_nuclide, i_reaction)
       call create_fission_sites(p, i_nuclide, i_reaction, &
-          threaded_fission_bank(local_thread_id, :), n_bank(local_thread_id))
+          threaded_fission_bank(:, local_thread_id), n_bank(local_thread_id))
     end if
 
     ! If survival biasing is being used, the following subroutine adjusts the

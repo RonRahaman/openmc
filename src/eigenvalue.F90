@@ -868,8 +868,8 @@ contains
 
 ! !$omp end parallel
 
-    do i = lbound(threaded_fission_bank, 1), ubound(threaded_fission_bank, 1)
-       master_fission_bank(total+1:total+n_bank(i)) = threaded_fission_bank(i, 1:n_bank(i))
+    do i = lbound(threaded_fission_bank, 2), ubound(threaded_fission_bank, 2)
+       master_fission_bank(total+1:total+n_bank(i)) = threaded_fission_bank(1:n_bank(i), i)
        total = total + n_bank(i)
     enddo
 

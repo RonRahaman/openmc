@@ -845,7 +845,7 @@ contains
       call fatal_error()
     end if
 
-    allocate(threaded_fission_bank(0:local_nthreads-1, 3*work/local_nthreads), &
+    allocate(threaded_fission_bank(3*work/local_nthreads, 0:local_nthreads-1), &
         stat=alloc_err)
     if (alloc_err /= 0) then
       message = "Failed to allocate threaded_fission_bank, alloc_err="//&
