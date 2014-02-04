@@ -12,15 +12,15 @@ xml_fort = xml-fortran/xmlparse.o \
 # User Options
 #===============================================================================
 
-COMPILER = ibm
+COMPILER = intel
 DEBUG    = no
 PROFILE  = no
 OPTIMIZE = no
-MPI      = yes
+MPI      = no
 OPENMP   = yes
 HDF5     = no
 PETSC    = no
-MACHINE  = bluegeneq
+#MACHINE  = bluegeneq
 
 #===============================================================================
 # External Library Paths

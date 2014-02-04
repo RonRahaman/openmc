@@ -144,7 +144,7 @@ contains
     case ('total')
       cutoff = prn() * material_xs % total
     case ('scatter')
-      cutoff = prn() * material_xs % total - material_xs % absorption
+      cutoff = abs(prn() * material_xs % total - material_xs % absorption)
     case ('fission')
       cutoff = prn() * material_xs % fission
     end select
@@ -364,10 +364,11 @@ contains
 
         ! Check to make sure inelastic scattering reaction sampled
         if (i > nuc % n_reaction) then
-          call write_particle_restart(p)
-          message = "Did not sample any reaction for nuclide " // &
-               trim(nuc % name)
-          call fatal_error()
+          !call write_particle_restart(p)
+          ! message = "Did not sample any reaction for nuclide " // &
+          !       trim(nuc % name)
+          ! call fatal_error()
+          exit
         end if
 
         rxn => nuc % reactions(i)
@@ -390,9 +391,11 @@ contains
       end do
 
       ! Perform collision physics for inelastics scattering
+      if (associated(rxn % edist)) then
       call inelastic_scatter(nuc, rxn, p % E, p % coord0 % uvw, &
            p % mu, p % wgt)
       p % event_MT = rxn % MT
+      endif
 
     end if
 
@@ -1481,8 +1484,9 @@ contains
         n_sample = n_sample + 1
         if (n_sample == MAX_SAMPLE) then
           ! call write_particle_restart(p)
-          message = "Too many rejections on Maxwell fission spectrum."
-          call fatal_error()
+          ! message = "Too many rejections on Maxwell fission spectrum."
+          ! call fatal_error()
+          exit
         end if
       end do
 

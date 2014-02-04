@@ -1,8 +1,10 @@
 module initialize
 
   use ace,              only: read_xs
+  use ace_header,       only: Nuclide
   use bank_header,      only: Bank
   use constants
+  use data_dump
   use dict_header,      only: DictIntInt, ElemKeyValueII
   use energy_grid,      only: unionized_grid
   use error,            only: fatal_error, warning
@@ -18,7 +20,8 @@ module initialize
   use random_lcg,       only: initialize_prng
   use source,           only: initialize_source
   use state_point,      only: load_state_point
-  use string,           only: to_str, str_to_int, starts_with, ends_with
+  use string,           only: to_str, str_to_int, str_to_real, starts_with, &
+                              ends_with
   use tally_header,     only: TallyObject, TallyResult
   use tally_initialize, only: configure_tallies
 
@@ -36,6 +39,9 @@ module initialize
 #endif
 
   implicit none
+
+  ! Threshhold for interpolation error
+  real(8) :: thresh = 0.
 
 contains
 
@@ -104,6 +110,14 @@ contains
       call read_xs()
       call time_read_xs % stop()
 
+      ! Resize the energy grid
+      call resize_egrid()
+
+      ! Output info about nuclides
+      ! call print_nuclides_info('data_dump/nuclides_info.txt')
+      !call print_nuclides_values('data_dump/nuclides_values_smallhm_post_all.txt')
+      ! stop
+
       ! Construct unionized energy grid from cross-sections
       if (grid_method == GRID_UNION) then
         call time_unionize % start()
@@ -152,9 +166,9 @@ contains
 
     ! Warn if overlap checking is on
     if (master .and. check_overlaps) then
-      message = ""
+      message = ''
       call write_message()
-      message = "Cell overlap checking is ON"
+      message = 'Cell overlap checking is ON'
       call warning()
     end if
 
@@ -384,6 +398,10 @@ contains
           message = "Ignoring number of threads specified on command line."
           call warning()
 #endif
+
+        case ('-resize-egrid', '--resize-egrid')
+          i = i + 1
+          thresh = str_to_real(argv(i))
 
         case ('-?', '-help', '--help')
           call print_usage()
@@ -868,5 +886,334 @@ contains
     end if
 
   end subroutine allocate_banks
+
+!===============================================================================
+! COMPRESS_NUC_ENERGY compresses nuc % energy for each nuc in nuclides
+! (a test for energy band implementation)
+!===============================================================================
+
+  ! energy, total, elastic, fission, nu_fission, absorption, heating
+  subroutine compress_all_nuc_arrays()
+    integer :: compress_factor                ! compression factor for all arrays
+    integer :: post_size                      ! post_size for the current array
+    integer :: i                              ! loop control
+    type(Nuclide), pointer :: nuc => null()   ! pointer to Nuclide
+
+    compress_factor = 10
+
+    do i = 1, n_nuclides_total
+      nuc => nuclides(i)
+      post_size = max(2, nuc%n_grid/compress_factor)
+      call reduce_energy(nuc % energy, post_size)
+      call reduce_xs_avg(nuc % total, post_size)
+      call reduce_xs_avg(nuc % elastic, post_size)
+      call reduce_xs_avg(nuc % fission, post_size)
+      call reduce_xs_avg(nuc % nu_fission, post_size)
+      call reduce_xs_avg(nuc % absorption, post_size)
+      !call reduce_xs(nuc % heating, post_size)
+      nuc%n_grid = post_size
+    enddo
+  end subroutine compress_all_nuc_arrays
+
+  subroutine reduce_energy(A, post_size)
+    real(8), allocatable, intent(inout) :: A(:)
+    integer, intent(in) :: post_size
+    integer :: increment, i
+    real(8), allocatable :: temp(:)
+
+    increment = size(A)/post_size
+    allocate(temp(post_size))
+
+    do i=1,post_size
+      temp(i) = A((i-1)*increment+1)
+    enddo
+
+    deallocate(A)
+    allocate(A(post_size))
+    A = temp
+    deallocate(temp)
+  end subroutine reduce_energy
+
+  subroutine reduce_xs_avg(A, post_size)
+    real(8), allocatable, intent(inout) :: A(:)
+    integer, intent(in) :: post_size
+    integer :: increment, i
+    real(8), allocatable :: temp(:)
+    real(8) :: isum
+
+    increment = size(A)/post_size
+    allocate(temp(post_size))
+
+    do i=1,post_size
+      isum = sum(A( (i-1)*increment+1 : (i)*increment ))
+      temp(i) = isum/increment
+    enddo
+
+    deallocate(A)
+    allocate(A(post_size))
+    A = temp
+    deallocate(temp)
+
+  end subroutine reduce_xs_avg
+
+  subroutine reduce_xs_minmax(A, post_size)
+    real(8), allocatable, intent(inout) :: A(:)
+    integer, intent(in) :: post_size
+    integer :: increment, i
+    real(8) :: min_val, max_val
+    real(8), allocatable :: temp(:)
+
+    increment = size(A)/post_size
+    allocate(temp(post_size))
+
+    do i=1,post_size-1,2
+      min_val = minval(A( (i-1)*increment+1 : (i+1)*increment ))
+      max_val = maxval(A( (i-1)*increment+1 : (i+1)*increment ))
+      temp(i) = max_val
+      temp(i+1) = min_val
+    enddo
+
+    deallocate(A)
+    allocate(A(post_size))
+    A = temp
+    deallocate(temp)
+
+  end subroutine reduce_xs_minmax
+
+
+  subroutine compress_array_piecewise(a, post_size)
+    real(8), allocatable, intent(inout) :: a(:)
+    integer, intent(in) :: post_size
+    real(8), allocatable :: temp(:)
+
+    integer :: pre_size, compress_incr, i
+
+    pre_size = size(a)
+    compress_incr = pre_size/post_size
+
+    if (pre_size > 0) then
+      allocate(temp(post_size))
+      do i=1,post_size
+        temp(i) = a(i*compress_incr)
+      enddo
+      deallocate(a)
+      allocate(a(post_size))
+      a = temp
+      deallocate(temp)
+    endif
+
+  end subroutine compress_array_piecewise
+
+  subroutine compress_array_totalavg(a, post_size)
+    real(8), allocatable, intent(inout) :: a(:)
+    integer, intent(in) :: post_size
+    real(8) :: avg
+
+    integer :: pre_size, compress_incr
+
+    pre_size = size(a)
+    compress_incr = pre_size/post_size
+
+    if (pre_size > 0) then
+      avg = sum(a)/size(a)
+      deallocate(a)
+      allocate(a(post_size))
+      a = avg
+    endif
+
+  end subroutine compress_array_totalavg
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! Subroutine for inverted stack reconstruction of energy vs. elastic xs
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+! Reconstruct all nuclides
+subroutine resize_egrid()
+    integer :: i
+    type(Nuclide), pointer :: nuc => null()   ! pointer to Nuclide
+    integer :: sum_ngrid_old=0 ! original sum of ngrid for all nuc in nuclides
+    integer :: sum_ngrid_new=0 ! new sum of ngrid for all nuc in nuclides
+
+
+    ! Write messages
+    call write_message()
+    message = 'Begin reconstructing egrid...' 
+    call write_message()
+    message = '  Egrid interpolation threshold:  '//to_str(thresh)
+    call write_message()
+
+    ! For each nuc in nuclides, reconstruct the e_grid
+    do i = 1, n_nuclides_total
+      nuc => nuclides(i)
+      sum_ngrid_old = sum_ngrid_old + nuc % n_grid 
+      call inv_stack_recon(nuc)
+      sum_ngrid_new = sum_ngrid_new + nuc % n_grid
+    enddo
+
+    ! Write more messages
+    message = '...Finished reconstructing egrid'
+    call write_message()
+    message = '  Original sum(nuc % ngrid):      '//to_str(sum_ngrid_old)
+    call write_message()
+    message = '  Reconstructed sum(nuc % ngrid): '//to_str(sum_ngrid_new)
+    call write_message()
+end subroutine resize_egrid
+
+subroutine inv_stack_recon(nuc)
+    type(Nuclide), pointer :: nuc
+    ! S is the working stack of grid indices into energy, elastic grids 
+    ! (top of stack is smallest index, bottom is largest index)
+    integer, allocatable :: S(:)
+    ! Xr, Yr are reconstructed X and Y grids
+    real(8), allocatable :: energy_r(:), total_r(:), elastic_r(:), & 
+        fission_r(:), nu_fission_r(:), absorption_r(:)
+    ! original size of energy and elastic grids
+    integer :: n0
+    ! current count of elements in S; and energy_r, elastic_r
+    integer :: ns, nr
+    ! indices used for stack logic, see algorithm below
+    integer :: p, q, r
+    ! interpolated value of Y(q)
+    real(8) :: total_interp, elastic_interp, fission_interp, nu_fission_interp, &
+        absorption_interp
+    ! interpolation errors
+    real(8) :: elastic_err, absorption_err
+
+    n0 = size(nuc % energy)
+
+    allocate(S(n0))
+    allocate(energy_r(n0))
+    allocate(total_r(n0))
+    allocate(elastic_r(n0))
+    allocate(fission_r(n0))
+    allocate(nu_fission_r(n0))
+    allocate(absorption_r(n0))
+
+    ! allocate(nuc % recon_index(n0))
+
+    S(1) = n0
+    S(2) = 1
+
+    ns = 2
+    nr = 0
+
+    ! While there are two elements on the stack to interpolate between,
+    do while (ns >= 2)
+      ! p and r are the top two elements on the stack;
+      ! q is the midpoint between p and r
+      ! p < q < r; and X(p) < X(q) < X(r)
+      p = S(ns)
+      r = S(ns-1)
+      q = (p+r)/2
+
+      ! Interpolate elastic(q) using (energy(p),elastic(p)) and (energy(r),elastic(r))
+      elastic_interp = interp_on_grid(nuc % energy, nuc % elastic, p, q, r)
+      absorption_interp = interp_on_grid(nuc % energy, nuc % absorption, p, q, r)
+      ! fission_interp = interp_on_grid(nuc % energy, nuc % fission, p, q, r)
+      ! nu_fission_interp = interp_on_grid(nuc % energy, nuc % nu_fission, p, q, r)
+      
+
+      ! If interpolation is succesful at q (or if there are no gridpoints between q and p)
+      if (nuc % elastic(q) == 0) then
+        elastic_err = INFINITY
+      else
+        elastic_err = abs( (elastic_interp - nuc % elastic(q)) / nuc % elastic(q))
+      endif
+
+
+      if (nuc % absorption(q) == 0 ) then
+        absorption_err = INFINITY
+      else
+        absorption_err = abs( (absorption_interp - nuc % absorption(q)) / nuc % absorption(q) )
+      endif
+
+      if ( q <= p .or. ( elastic_err  < thresh .and. absorption_err < thresh ) ) then
+      ! if ( q <= p .or. ( &
+      !     abs( (total_interp - nuc % total(q)) / nuc % total(q) ) < thresh .and. &
+      !     abs( (elastic_interp - nuc % elastic(q)) / nuc % elastic(q) ) < thresh .and. &
+      !     abs( (fission_interp - nuc % fission(q)) / nuc % fission(q) ) < thresh .and. &
+      !     abs( (nu_fission_interp - nuc % nu_fission(q)) / nuc % nu_fission(q) ) < thresh .and. &
+      !     abs( (absorption_interp - nuc % absorption(q)) / nuc % absorption(q) ) < thresh )) then
+        ! Add new gridpoints to reconstructed grids
+        nr = nr + 1
+        energy_r(nr) = nuc % energy(p)
+        total_r(nr) = nuc % total(p)
+        elastic_r(nr) = nuc % elastic(p)
+        fission_r(nr) = nuc % fission(p)
+        nu_fission_r(nr) = nuc % nu_fission(p)
+        absorption_r(nr) = nuc % absorption(p)
+        ! Decrement ns (as if p was popped off of stack)
+        ns = ns -1
+        ! Update recon_index
+        ! nuc % recon_index(p:q) = nr
+        ! nuc % recon_index(q+1:r) = nr + 1
+      else
+        ! Insert q just below p in stack
+        S(ns) = q
+        ns = ns + 1
+        S(ns) = p
+      endif
+    enddo
+
+    ! Pop the last index off the stack and add the gridpoint
+    p = S(ns)
+    ns = ns - 1
+
+    nr = nr + 1
+    energy_r(nr) = nuc % energy(p)
+    total_r(nr) = nuc % total(p)
+    elastic_r(nr) = nuc % elastic(p)
+    fission_r(nr) = nuc % fission(p)
+    nu_fission_r(nr) = nuc % nu_fission(p)
+    absorption_r(nr) = nuc % absorption(p)
+
+    ! Resize the arrays
+    deallocate(nuc % energy)
+    allocate(nuc % energy(nr))
+    nuc % energy(1:nr) = energy_r(1:nr)
+
+    deallocate(nuc % total)
+    allocate(nuc % total(nr))
+    nuc % total(1:nr) = total_r(1:nr)
+
+    deallocate(nuc % elastic)
+    allocate(nuc % elastic(nr))
+    nuc % elastic(1:nr) = elastic_r(1:nr)
+
+    deallocate(nuc % fission)
+    allocate(nuc % fission(nr))
+    nuc % fission(1:nr) = fission_r(1:nr)
+
+    deallocate(nuc % nu_fission)
+    allocate(nuc % nu_fission(nr))
+    nuc % nu_fission(1:nr) = nu_fission_r(1:nr)
+
+    deallocate(nuc % absorption)
+    allocate(nuc % absorption(nr))
+    nuc % absorption(1:nr) = absorption_r(1:nr)
+
+    nuc % n_grid = nr
+
+    deallocate(S)
+    deallocate(energy_r)
+    deallocate(elastic_r)
+    deallocate(fission_r)
+    deallocate(nu_fission_r)
+    deallocate(absorption_r)
+
+end subroutine inv_stack_recon
+
+real(8) function interp_on_grid(X, Y, p, q, r)
+
+    real(8), intent(in) :: X(:), Y(:)
+    integer, intent(in) :: p,q,r
+
+    if (abs(X(r) - X(p)) > 0.) then
+      interp_on_grid = Y(p) + (Y(r) - Y(p)) * (X(q) - X(p)) / (X(r) - X(p))
+    else
+      interp_on_grid = Y(p)
+    endif
+
+end function interp_on_grid
 
 end module initialize

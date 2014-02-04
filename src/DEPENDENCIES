@@ -86,6 +86,8 @@ cross_section.o: particle_header.o
 cross_section.o: random_lcg.o
 cross_section.o: search.o
 
+data_dump.o: global.o
+
 doppler.o: constants.o
 
 eigenvalue.o: cmfd_execute.o
@@ -176,8 +178,10 @@ hdf5_summary.o: string.o
 hdf5_summary.o: tally_header.o
 
 initialize.o: ace.o
+initialize.o: ace_header.o
 initialize.o: bank_header.o
 initialize.o: constants.o
+initialize.o: data_dump.o
 initialize.o: dict_header.o
 initialize.o: energy_grid.o
 initialize.o: error.o
