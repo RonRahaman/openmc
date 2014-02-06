@@ -20,6 +20,7 @@ MPI      = no
 OPENMP   = no
 HDF5     = no
 PETSC    = no
+#MACHINE  = bluegeneq
 
 #===============================================================================
 # External Library Paths
@@ -235,8 +236,20 @@ endif
 # IBM Blue Gene/Q ANL supercomputer
 
 ifeq ($(MACHINE),bluegeneq)
-  F90 = mpixlf2003
-  F90FLAGS = -WF,-DNO_F2008,-DMPI -O5
+  F90FLAGS = 
+  LDFLAGS = 
+  ifeq ($(PROFILE), yes)
+    F90FLAGS += -pg
+    LDFLAGS += -pg
+  endif
+  ifeq ($(OPENMP), yes)
+    F90 = /bgsys/drivers/ppcfloor/comm/xl/bin/mpixlf2003_r
+    F90FLAGS += -qsmp=omp:noopt:noauto -O0 -g -WF,-DNO_F2008,-DMPI,-DOPENMP
+    LDFLAGS += -qsmp=omp:noopt:noauto -O0 -g
+  else
+    F90 = /bgsys/drivers/ppcfloor/comm/xl/bin/mpixlf2003
+    F90FLAGS += -WF,-DNO_F2008,-DMPI -O5
+  endif
 endif
 
 #===============================================================================

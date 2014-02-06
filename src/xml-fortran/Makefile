@@ -16,6 +16,12 @@ ifeq ($(F90),ifort)
   override F90FLAGS += -warn nounused
 endif
 
+ifeq ($(MACHINE),bluegeneq)
+  override F90FLAGS =
+  override LDFLAGS =
+endif
+
+
 #===============================================================================
 # Targets
 #===============================================================================
