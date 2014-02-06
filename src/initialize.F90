@@ -1023,11 +1023,12 @@ subroutine resize_egrid()
 
 
     ! Write messages
-    call write_message()
-    message = 'Begin reconstructing egrid...' 
-    call write_message()
-    message = '  Egrid interpolation threshold:  '//to_str(thresh)
-    call write_message()
+    print *, 'Begin reconstructing egrid...' 
+    print *, '  Egrid interpolation threshold:  '//to_str(thresh)
+    !message = 'Begin reconstructing egrid...' 
+    !call write_message()
+    !message = '  Egrid interpolation threshold:  '//to_str(thresh)
+    !call write_message()
 
     ! For each nuc in nuclides, reconstruct the e_grid
     do i = 1, n_nuclides_total
@@ -1038,12 +1039,15 @@ subroutine resize_egrid()
     enddo
 
     ! Write more messages
-    message = '...Finished reconstructing egrid'
-    call write_message()
-    message = '  Original sum(nuc % ngrid):      '//to_str(sum_ngrid_old)
-    call write_message()
-    message = '  Reconstructed sum(nuc % ngrid): '//to_str(sum_ngrid_new)
-    call write_message()
+    print *, '...Finished reconstructing egrid'
+    print *, '  Original sum(nuc % ngrid):      '//to_str(sum_ngrid_old)
+    print *,'  Reconstructed sum(nuc % ngrid): '//to_str(sum_ngrid_new)
+    !message = '...Finished reconstructing egrid'
+    !call write_message()
+    !message = '  Original sum(nuc % ngrid):      '//to_str(sum_ngrid_old)
+    !call write_message()
+    !message = '  Reconstructed sum(nuc % ngrid): '//to_str(sum_ngrid_new)
+    !call write_message()
 end subroutine resize_egrid
 
 subroutine inv_stack_recon(nuc)
