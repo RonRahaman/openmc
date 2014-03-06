@@ -40,7 +40,7 @@ module constants
   real(8), parameter :: FP_COINCIDENT = 1e-12_8
 
   ! Maximum number of collisions/crossings
-  integer, parameter :: MAX_EVENTS = 50
+  integer, parameter :: MAX_EVENTS = 100
   integer, parameter :: MAX_SAMPLE = 100000
 
   ! Maximum number of words in a single line, length of line, and length of

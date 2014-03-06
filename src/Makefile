@@ -12,7 +12,7 @@ xml_fort = xml-fortran/xmlparse.o \
 # User Options
 #===============================================================================
 
-COMPILER = gnu
+COMPILER = intel
 DEBUG    = no
 PROFILE  = yes
 OPTIMIZE = yes
