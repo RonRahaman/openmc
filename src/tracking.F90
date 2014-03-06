@@ -188,9 +188,9 @@ contains
       ! If particle has too many events, display warning and kill it
       n_event = n_event + 1
       if (n_event == MAX_EVENTS) then
-        message = "Particle " // trim(to_str(p%id)) // " underwent maximum &
-             &number of events."
-        call warning()
+        ! message = "Particle " // trim(to_str(p%id)) // " underwent maximum &
+        !      &number of events."
+        ! call warning()
         p % alive = .false.
       end if
 

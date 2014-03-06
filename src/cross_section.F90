@@ -160,13 +160,23 @@ contains
       ! the nuclide energy grid in order to determine which points to
       ! interpolate between
 
-      if (E < nuc % energy(1)) then
-        i_grid = 1
-      elseif (E > nuc % energy(nuc % n_grid)) then
-        i_grid = nuc % n_grid - 1
-      else
-        i_grid = binary_search(nuc % energy, nuc % n_grid, E)
-      end if
+      ! if (E < nuc % energy(1)) then
+      !   i_grid = 1
+      ! elseif (E > nuc % energy(nuc % n_grid)) then
+      !   i_grid = nuc % n_grid - 1
+      ! else
+      !   i_grid = binary_search(nuc % energy, nuc % n_grid, E)
+      ! end if
+
+      ! if (E < nuc % energy(1)) then
+      !   i_grid = 1
+      ! elseif (E > nuc % energy(nuc % n_grid)) then
+      !   i_grid = nuc % n_grid - 1
+      ! else
+      !   i_grid = mod(prn(),n_grid)
+      ! end if
+
+      i_grid = n_grid/2
 
     end select
 

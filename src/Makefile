@@ -14,8 +14,8 @@ xml_fort = xml-fortran/xmlparse.o \
 
 COMPILER = gnu
 DEBUG    = no
-PROFILE  = no
-OPTIMIZE = no
+PROFILE  = yes
+OPTIMIZE = yes
 MPI      = no
 OPENMP   = no
 HDF5     = no

@@ -1475,8 +1475,9 @@ contains
         n_sample = n_sample + 1
         if (n_sample == MAX_SAMPLE) then
           ! call write_particle_restart(p)
-          message = "Too many rejections on Maxwell fission spectrum."
-          call fatal_error()
+          ! message = "Too many rejections on Maxwell fission spectrum."
+          ! call fatal_error()
+          exit
         end if
       end do
 
