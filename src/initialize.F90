@@ -1041,7 +1041,8 @@ subroutine resize_egrid()
     ! Write more messages
     print *, '...Finished reconstructing egrid'
     print *, '  Original sum(nuc % ngrid):      '//to_str(sum_ngrid_old)
-    print *,'  Reconstructed sum(nuc % ngrid): '//to_str(sum_ngrid_new)
+    print *, '  Reconstructed sum(nuc % ngrid): '//to_str(sum_ngrid_new)
+    print *, '  Reconstructed size xs (MB): '//to_str(real(sum_ngrid_new*8.*6./1048576.,8))
     !message = '...Finished reconstructing egrid'
     !call write_message()
     !message = '  Original sum(nuc % ngrid):      '//to_str(sum_ngrid_old)
