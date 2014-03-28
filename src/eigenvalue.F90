@@ -47,8 +47,10 @@ contains
       character*(PAPI_MAX_STR_LEN) errorstring
       integer*8 values (2)
       numevents = 2
-      events(1) = PAPI_L3_TCA
-      events(2) = PAPI_L3_TCM
+      ! events(1) = PAPI_L3_TCA
+      ! events(2) = PAPI_L3_TCM
+      events(1) = PAPI_STL_ICY 
+      events(2) = PAPI_TOT_CYC
 
       call PAPIF_start_counters(events, numevents, ierr)
 
