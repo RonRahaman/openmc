@@ -12,15 +12,15 @@ xml_fort = xml-fortran/xmlparse.o \
 # User Options
 #===============================================================================
 
-COMPILER = ibm
+COMPILER = gnu
 DEBUG    = no
 PROFILE  = no
 OPTIMIZE = yes
-MPI      = yes
+MPI      = no
 OPENMP   = no
 HDF5     = no
 PETSC    = no
-MACHINE  = bluegeneq
+# MACHINE  = bluegeneq
 
 #===============================================================================
 # External Library Paths
@@ -43,13 +43,13 @@ GIT_SHA1 = $(shell git log -1 2>/dev/null | head -n 1 | awk '{print $$2}')
 
 ifeq ($(COMPILER),gnu)
   F90 = gfortran
-  F90FLAGS := -cpp -std=f2008 -fbacktrace
-  LDFLAGS =
+  F90FLAGS := -cpp -fbacktrace -DNO_F2008
+  LDFLAGS = -lpapi
 
   # Debugging
   ifeq ($(DEBUG),yes)
-    F90FLAGS += -g -Wall -pedantic -fbounds-check \
-                -ffpe-trap=invalid,overflow,underflow
+    F90FLAGS += -g -Wall -pedantic -std=f2008 -fbounds-check \
+                -ffpe-trap=invalid,zero,overflow,underflow
     LDFLAGS  += -g
   endif
 
