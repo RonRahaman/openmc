@@ -1,4 +1,3 @@
-#include<fpapi.h>
 module eigenvalue
 
 #ifdef MPI
@@ -24,8 +23,11 @@ module eigenvalue
       reset_result
   use tracking,     only: transport
 
+
   private
   public :: run_eigenvalue
+
+#include<f90papi.h>
 
   real(8) :: keff_generation ! Single-generation k on each processor
   real(8) :: k_sum(2) = ZERO ! used to reduce sum and sum_sq
