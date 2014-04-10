@@ -14,7 +14,7 @@ src/openmc
 *~
 
 # OpenMC statepoints
-*.binary
+#*.binary
 
 # Documentation builds
 docs/build
