@@ -9,6 +9,8 @@
     <particles>10</particles>
   </eigenvalue>
 
+  <energy_grid>nuclide</energy_grid>
+
   <source>
     <space type="box">
       <parameters>-4 -4 -4  4  4  4</parameters>

@@ -1,0 +1,96 @@
+2014-04-17 20:42:43.276 (INFO ) [0x40000a1b970] 33021:ibm.runjob.AbstractOptions: using properties file /bgsys/local/etc/bg.properties
+2014-04-17 20:42:43.278 (INFO ) [0x40000a1b970] 33021:ibm.runjob.AbstractOptions: max open file descriptors: 65536
+2014-04-17 20:42:43.278 (INFO ) [0x40000a1b970] 33021:ibm.runjob.AbstractOptions: core file limit: 0
+2014-04-17 20:42:43.278 (INFO ) [0x40000a1b970] 33021:tatu.runjob.client: scheduler job id is 250118
+2014-04-17 20:42:43.282 (INFO ) [0x40000403290] 33021:tatu.runjob.monitor: monitor started
+2014-04-17 20:42:43.283 (INFO ) [0x40000a1b970] MIR-00800-33B31-512:33021:ibm.runjob.client.options.Parser: set local socket to runjob_mux from properties file
+2014-04-17 20:42:45.319 (INFO ) [0x40000a1b970] MIR-00800-33B31-512:519620:ibm.runjob.client.Job: job 519620 started
+ ERROR: No fission sites banked on processor 0
+ Batch:                1
+ Generation:           1
+ 
+*** glibc detected *** /gpfs/mira-home/rrahaman/openmc/src/./openmc: double free or corruption (!prev): 0x00000019c8eb1760 ***
+======= Backtrace: =========
+/lib64/bgq/libc.so.6(+0xb1698)[0x19c7684698]
+/lib64/bgq/libc.so.6(cfree-0x166130)[0x19c7689dc8]
+/gpfs/mira-home/rrahaman/openmc/src/./openmc[0x105cc44]
+/soft/compilers/ibmcmp-feb2014/lib64/bg/bglib64/libxlsmp.so.1(+0x18930)[0x19c718a930]
+/lib64/bgq/libpthread.so.0(+0xbe90)[0x19c679ce90]
+/lib64/bgq/libc.so.6(clone-0x1036b0)[0x19c76f1c90]
+======= Memory map: ========
+1000000-117d000 rwxp 00000000 00:00 0 /gpfs/mira-home/rrahaman/openmc/src/./openmc
+1200000-124b000 rwxp 00180000 00:00 0 /gpfs/mira-home/rrahaman/openmc/src/./openmc
+19c6000000-19c6101000 rwxp 00000000 00:00 0 [heap0]
+19c6101000-19c6101ede rwxp 00000000 00:00 0 /etc/ld.so.bgq.cache
+19c6101ede-19c6103000 rwxp 00000000 00:00 0 [heap1]
+19c6103000-19c6603000 rwxp 00000000 00:00 0 /usr/lib64/bgq/libpami.so
+19c6603000-19c6634000 rwxp 00440000 00:00 0 /usr/lib64/bgq/libpami.so
+19c6603000-19c666e000 rwxp 00000000 00:00 0 [heap2]
+19c666e000-19c676e000 rwxp 00000000 00:00 0 /lib64/bgq/librt.so.1
+19c676e000-19c676f000 rwxp 00010000 00:00 0 /lib64/bgq/librt.so.1
+19c676e000-19c677e000 rwxp 00000000 00:00 0 [heap3]
+19c677e000-19c6780000 rwxp 00010000 00:00 0 /lib64/bgq/librt.so.1
+19c6780000-19c6791000 rwxp 00000000 00:00 0 [heap4]
+19c6791000-19c6891000 rwxp 00000000 00:00 0 /lib64/bgq/libpthread.so.0
+19c6891000-19c6892000 rwxp 00020000 00:00 0 /lib64/bgq/libpthread.so.0
+19c6891000-19c68a2000 rwxp 00000000 00:00 0 [heap5]
+19c68a2000-19c68a5000 rwxp 00021000 00:00 0 /lib64/bgq/libpthread.so.0
+19c68a5000-19c68ab000 rwxp 00000000 00:00 0 [heap6]
+19c68ab000-19c6aab000 rwxp 00000000 00:00 0 /lib64/bgq/libstdc++.so.6
+19c6aab000-19c6ac5000 rwxp 00160000 00:00 0 /lib64/bgq/libstdc++.so.6
+19c6aab000-19c6ade000 rwxp 00000000 00:00 0 [heap7]
+19c6ade000-19c70de000 rwxp 00000000 00:00 0 /soft/compilers/ibmcmp-feb2014/lib64/bg/bglib64/libxlf90_r.so.1
+19c70de000-19c716d000 rwxp 005e0000 00:00 0 /soft/compilers/ibmcmp-feb2014/lib64/bg/bglib64/libxlf90_r.so.1
+19c70de000-19c7172000 rwxp 00000000 00:00 0 [heap8]
+19c7172000-19c7272000 rwxp 00000000 00:00 0 /soft/compilers/ibmcmp-feb2014/lib64/bg/bglib64/libxlsmp.so.1
+19c7272000-19c7276000 rwxp 00030000 00:00 0 /soft/compilers/ibmcmp-feb2014/lib64/bg/bglib64/libxlsmp.so.1
+19c7272000-19c72a3000 rwxp 00000000 00:00 0 [heap9]
+19c72a3000-19c73a3000 rwxp 00000000 00:00 0 /soft/compilers/ibmcmp-feb2014/lib64/bg/bglib64/libxlfmath.so.1
+19c73a3000-19c73a4000 rwxp 00010000 00:00 0 /soft/compilers/ibmcmp-feb2014/lib64/bg/bglib64/libxlfmath.so.1
+19c73a3000-19c73a5000 rwxp 00000000 00:00 0 [heap10]
+19c73a5000-19c74a5000 rwxp 00000000 00:00 0 /lib64/bgq/libdl.so.2
+19c74a5000-19c74a6000 rwxp 00010000 00:00 0 /lib64/bgq/libdl.so.2
+19c74a5000-19c74b5000 rwxp 00000000 00:00 0 [heap11]
+19c74b5000-19c74b7000 rwxp 00010000 00:00 0 /lib64/bgq/libdl.so.2
+19c74b7000-19c75b7000 rwxp 00000000 00:00 0 /lib64/bgq/libm.so.6
+19c74b7000-19c75b7000 rwxp 00000000 00:00 0 [heap12]
+19c75b7000-19c75b9000 rwxp 000c0000 00:00 0 /lib64/bgq/libm.so.6
+19c75b9000-19c75c8000 rwxp 00000000 00:00 0 [heap13]
+19c75c8000-19c75d2000 rwxp 000c1000 00:00 0 /lib64/bgq/libm.so.6
+19c75d2000-19c75d3000 rwxp 00000000 00:00 0 [heap14]
+19c75d3000-19c77d3000 rwxp 00000000 00:00 0 /lib64/bgq/libc.so.6
+19c77d3000-19c77d7000 rwxp 00190000 00:00 0 /lib64/bgq/libc.so.6
+19c77d3000-19c77e6000 rwxp 00000000 00:00 0 [heap15]
+19c77e6000-19c7801000 rwxp 00193000 00:00 0 /lib64/bgq/libc.so.6
+19c7801000-19c7806000 rwxp 00000000 00:00 0 [heap16]
+19c7806000-19c7906000 rwxp 00000000 00:00 0 /lib64/bgq/libgcc_s.so.1
+19c7906000-19c7908000 rwxp 00020000 00:00 0 /lib64/bgq/libgcc_s.so.1
+19c7906000-1dc0000000 rwxp 00000000 00:00 0 [heap_and_stack]
+3002000000-3002200000 rwxp 00000000 00:00 0 /bgsys/drivers/ppcfloor/gnu-linux/powerpc64-bgq-linux/lib/ld64.so.1
+3144000000-3144010000 rw-s 00000000 00:00 0 /dev/shm/unique-comm-agent-shmem-file
+7000000000-7040000000 r--s 00000000 00:00 0 [process_window0]
+7040000000-7080000000 r--s 00000000 00:00 0 [process_window1]
+7080000000-70c0000000 r--s 00000000 00:00 0 [process_window2]
+70c0000000-7100000000 r--s 00000000 00:00 0 [process_window3]
+7100000000-7140000000 r--s 00000000 00:00 0 [process_window4]
+7140000000-7180000000 r--s 00000000 00:00 0 [process_window5]
+7180000000-71c0000000 r--s 00000000 00:00 0 [process_window6]
+71c0000000-7200000000 r--s 00000000 00:00 0 [process_window7]
+7200000000-7240000000 r--s 00000000 00:00 0 [process_window8]
+7240000000-7280000000 r--s 00000000 00:00 0 [process_window9]
+7280000000-72c0000000 r--s 00000000 00:00 0 [process_window10]
+72c0000000-7300000000 r--s 00000000 00:00 0 [process_window11]
+7300000000-7340000000 r--s 00000000 00:00 0 [process_window12]
+7340000000-7380000000 r--s 00000000 00:00 0 [process_window13]
+7380000000-73c0000000 r--s 00000000 00:00 0 [process_window14]
+73c0000000-7400000000 r--s 00000000 00:00 0 [process_window15]
+3fdc0000000-3fe00000000 rw-s 00000000 00:00 0 [mmio]
+40338c0000000-4033900000000 rw-p 00000000 00:00 0 [l2atomic1]
+4062880000000-40628c0000000 rw-p 00000000 00:00 0 [l2atomic0]
+5000001500000-5000001600000 rw-s 00000000 00:00 0 [l1p]
+5000001600000-5000001700000 rw-s 00000000 00:00 0 [l2]
+2014-04-17 20:42:53.555 (WARN ) [0x40000a1b970] MIR-00800-33B31-512:519620:ibm.runjob.client.Job: terminated by signal 6
+2014-04-17 20:42:53.555 (WARN ) [0x40000a1b970] MIR-00800-33B31-512:519620:ibm.runjob.client.Job: abnormal termination by signal 6 from rank 0
+2014-04-17 20:42:53.555 (INFO ) [0x40000a1b970] tatu.runjob.client: task terminated by signal 6
+2014-04-17 20:42:53.556 (INFO ) [0x40000403290] 33021:tatu.runjob.monitor: monitor terminating
+2014-04-17 20:42:53.558 (INFO ) [0x40000a1b970] tatu.runjob.client: monitor completed

@@ -1,0 +1,15 @@
+2014-04-17 15:58:10.743 (INFO ) [0x40000a1b970] 2824:ibm.runjob.AbstractOptions: using properties file /bgsys/local/etc/bg.properties
+2014-04-17 15:58:10.745 (INFO ) [0x40000a1b970] 2824:ibm.runjob.AbstractOptions: max open file descriptors: 65536
+2014-04-17 15:58:10.746 (INFO ) [0x40000a1b970] 2824:ibm.runjob.AbstractOptions: core file limit: 0
+2014-04-17 15:58:10.746 (INFO ) [0x40000a1b970] 2824:tatu.runjob.client: scheduler job id is 249999
+2014-04-17 15:58:10.750 (INFO ) [0x40000403290] 2824:tatu.runjob.monitor: monitor started
+2014-04-17 15:58:10.751 (INFO ) [0x40000a1b970] MIR-00800-33B31-512:2824:ibm.runjob.client.options.Parser: set local socket to runjob_mux from properties file
+2014-04-17 15:58:12.857 (INFO ) [0x40000a1b970] MIR-00800-33B31-512:519448:ibm.runjob.client.Job: job 519448 started
+ ERROR: Error in initialize::allocate_banks(), fission_bank already allocated on
+        TID=1
+STOP
+(INEXACT)
+2014-04-17 15:58:22.079 (INFO ) [0x40000a1b970] MIR-00800-33B31-512:519448:ibm.runjob.client.Job: exited with status 0
+2014-04-17 15:58:22.079 (INFO ) [0x40000a1b970] tatu.runjob.client: task exited with status 0
+2014-04-17 15:58:22.080 (INFO ) [0x40000403290] 2824:tatu.runjob.monitor: monitor terminating
+2014-04-17 15:58:22.082 (INFO ) [0x40000a1b970] tatu.runjob.client: monitor completed

@@ -846,8 +846,9 @@ contains
       if (thread_id == i) then
         !$omp critical
         if (allocated(fission_bank)) then
-          message = 'Error in initialize::allocate_banks(), fission_bank already allocated on TID='//to_str(thread_id)
-          call fatal_error()
+          print *, 'Error in initialize::allocate_banks(), fission_bank already allocated on TID='//to_str(thread_id)
+          ! message = 'Error in initialize::allocate_banks(), fission_bank already allocated on TID='//to_str(thread_id)
+          ! call fatal_error()
         else
           !message = 'Message from initialzie::allocate_banks(), fission_bank was sucesfully allocated on TID='//&
           !  to_str(thread_id)
@@ -867,9 +868,11 @@ contains
         end if
         allocate(fission_bank(alloc_size), STAT=alloc_err)
         if (alloc_err /= 0) then
-          message = 'Error in initalize::allocate_banks(), allocate(fission bank...) failed on TID='//&
+          print *, 'Error in initalize::allocate_banks(), allocate(fission bank...) failed on TID='//&
             to_str(thread_id)//', STAT='//to_str(alloc_err)//', alloc_size='//to_str(alloc_size)
-          call fatal_error()
+          ! message = 'Error in initalize::allocate_banks(), allocate(fission bank...) failed on TID='//&
+          !   to_str(thread_id)//', STAT='//to_str(alloc_err)//', alloc_size='//to_str(alloc_size)
+          ! call fatal_error()
         else
           !message = &
           !  'Message from initalize::allocate_banks(), allocate(fission bank...) succeeded on TID='//&

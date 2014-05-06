@@ -776,8 +776,9 @@ contains
         message = "Error in physics.mod::create_fission_sites(), fission_bank was not allocated"
         call fatal_error()
       else
-        message = 'Size of fission bank is '//to_str(size(fission_bank))
-        call write_message()
+        print *, 'Size of fission bank is ', size(fission_bank)
+        ! message = 'Size of fission bank is '//to_str(size(fission_bank))
+        ! call write_message()
       endif
       fission_bank(i) % xyz = p % coord0 % xyz
 

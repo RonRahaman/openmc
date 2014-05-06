@@ -1,0 +1,77 @@
+
+       .d88888b.                             888b     d888  .d8888b.
+      d88P" "Y88b                            8888b   d8888 d88P  Y88b
+      888     888                            88888b.d88888 888    888
+      888     888 88888b.   .d88b.  88888b.  888Y88888P888 888       
+      888     888 888 "88b d8P  Y8b 888 "88b 888 Y888P 888 888       
+      888     888 888  888 88888888 888  888 888  Y8P  888 888    888
+      Y88b. .d88P 888 d88P Y8b.     888  888 888   "   888 Y88b  d88P
+       "Y88888P"  88888P"   "Y8888  888  888 888       888  "Y8888P"
+__________________888______________________________________________________
+                  888
+                  888
+
+      Copyright:     2011-2013 Massachusetts Institute of Technology
+      License:       http://mit-crpg.github.io/openmc/license.html
+      Version:       0.5.3
+      Date/Time:     2014-04-17 15:34:52
+
+ ===========================================================================
+ ========================>     INITIALIZATION     <=========================
+ ===========================================================================
+
+ Reading settings XML file...
+ Reading cross sections XML file...
+ Reading geometry XML file...
+ Reading materials XML file...
+ Reading tallies XML file...
+ Building neighboring cells lists for each surface...
+ Loading ACE cross section table: 8016.70c
+ Creating unionized energy grid...
+
+ ===========================================================================
+ ===============>     FIXED SOURCE TRANSPORT SIMULATION     <===============
+ ===========================================================================
+
+ Simulating batch 1...
+ Simulating batch 2...
+ Simulating batch 3...
+ Simulating batch 4...
+ Simulating batch 5...
+ Simulating batch 6...
+ Simulating batch 7...
+ Simulating batch 8...
+ Simulating batch 9...
+ Simulating batch 10...
+ Creating state point statepoint.10.binary...
+
+ ===========================================================================
+ ======================>     SIMULATION FINISHED     <======================
+ ===========================================================================
+
+
+ =======================>     TIMING STATISTICS     <=======================
+
+ Total time for initialization     =  6.0000E+00 seconds
+   Reading cross sections          =  2.3000E-01 seconds
+   Unionizing energy grid          =  1.0000E-02 seconds
+ Total time in simulation          =  6.6000E-01 seconds
+   Time in transport only          =  6.0000E-01 seconds
+   Time in inactive batches        =  0.0000E+00 seconds
+   Time in active batches          =  6.6000E-01 seconds
+   Time synchronizing fission bank =  0.0000E+00 seconds
+     Sampling source sites         =  0.0000E+00 seconds
+     SEND/RECV source sites        =  0.0000E+00 seconds
+   Time accumulating tallies       =  0.0000E+00 seconds
+ Total time for finalization       =  1.0000E-02 seconds
+ Total time elapsed                =  6.6700E+00 seconds
+ Calculation Rate (active)         =  1515.15 neutrons/second
+
+ ============================>     RESULTS     <============================
+
+ k-effective (Collision)     =  0.00000 +/- -0.00000
+ k-effective (Track-length)  =  0.00000 +/- -0.00000
+ k-effective (Absorption)    =  0.00000 +/- -0.00000
+ Combined k-effective        =  0.00000 +/-  0.00000
+ Leakage Fraction            =  0.98100 +/-  0.00458
+ 
