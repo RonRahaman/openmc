@@ -10,7 +10,7 @@ def setup():
     os.chdir(pwd)
 
 def test_run():
-    proc = Popen([pwd + '/../../src/openmc'], stderr=STDOUT, stdout=PIPE)
+    proc = Popen(['mpiexec', '-n', '4', pwd + '/../../src/openmc'], stderr=STDOUT, stdout=PIPE)
     returncode = proc.wait()
     print(proc.communicate()[0])
     assert returncode == 0

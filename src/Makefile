@@ -17,10 +17,10 @@ include OBJECTS
 #===============================================================================
 
 COMPILER = gnu
-DEBUG    = no
+DEBUG    = yes
 PROFILE  = no
 OPTIMIZE = no
-MPI      = no
+MPI      = yes
 HDF5     = no
 PETSC    = no
 
@@ -168,7 +168,7 @@ endif
 # MPI for distributed-memory parallelism
 
 ifeq ($(MPI),yes)
-  F90 = $(MPI_DIR)/bin/mpif90
+  F90 = mpif90
   F90FLAGS += -DMPI
 endif
 

@@ -1,6 +1,8 @@
 <?xml version="1.0"?>
 <settings>
 
+  <servers>2</servers>
+
   <eigenvalue>
     <batches>10</batches>
     <inactive>5</inactive>

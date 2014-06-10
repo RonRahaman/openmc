@@ -1,0 +1,89 @@
+Opening file: test_filter_mesh_2d.statepoint.binary
+============================================================
+HEADER INFO
+============================================================
+REVISION_STATEPOINT = 8
+VERSION_MAJOR       = 0
+VERSION_MINOR       = 5
+VERSION_RELEASE     = 1
+time_stamp          = 2014-06-09 10:12:14\ÿ
+path                = /home/rahaman/openmc/tests/test_filter_mesh_2d/                                                                                                                                                                                                                
+============================================================
+CALC INFO
+============================================================
+seed          = 1
+run_mode      = 2 (MODE_EIGENVALUE)
+n_particles   = 100
+n_batches     = 10
+current_batch = 10
+============================================================
+EIGNENVALUE INFO
+============================================================
+n_inactive = 5
+gen_per_batch = 1
+K-effective by batch:
+	batch   1: 1.260427
+	batch   2: 0.871401
+	batch   3: 0.965332
+	batch   4: 1.113747
+	batch   5: 1.084684
+	batch   6: 0.837334
+	batch   7: 0.938961
+	batch   8: 0.933285
+	batch   9: 0.831499
+	batch  10: 0.000000
+Shannon Entropy by batch:
+	batch   1: 0.000000
+	batch   2: 0.000000
+	batch   3: 0.000000
+	batch   4: 0.000000
+	batch   5: 0.000000
+	batch   6: 0.000000
+	batch   7: 0.000000
+	batch   8: 0.000000
+	batch   9: 0.000000
+	batch  10: 0.000000
+k_col_abs               = 0.000000
+k_col_tra               = 0.000000
+k_abs_tra               = 0.000000
+k_combined[0] (mean)    = 0.000000
+k_combined[1] (std dev) = 0.000000
+============================================================
+MESH INFO
+============================================================
+n_meshes = 1
+Mesh Data:
+	Mesh ID: 1
+		type: 1
+		n_dimension: 2
+		dimensions =  [ 17 17 ]
+		lower_left =  [ -1.820700e+02 -1.820700e+02 ]
+		upper_right = [ 1.820700e+02 1.820700e+02 ]
+		width =       [ 2.142000e+01 2.142000e+01 ]
+============================================================
+Tally Data
+============================================================
+n_tallies = 1
+Tally ID: 1
+	n_realizations = 0
+	n_score_bins   = 1
+	n_filter_bins  = 289
+	n_filters      = 1
+	Filters:
+	Filter 1:
+		type      = 6 (FILTER_MESH)
+		n_bins      = 289
+		Bin Values:
+			1
+	n_nuclide_bins      = 1
+	Nuclide Bin Values:
+		-1
+	n_score_bins_local      = 1
+	Values of Scoring Bins:
+		-2
+	Scattering Order of Scoring Bins:
+		0
+	n_score_bins (w/o scatter-pn) = 1
+============================================================
+Bytes Read: 450
+============================================================
