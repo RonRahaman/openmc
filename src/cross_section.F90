@@ -11,10 +11,6 @@ module cross_section
   use search,          only: binary_search
 
   implicit none
-  save
-
-  integer :: union_grid_index
-!$omp threadprivate(union_grid_index)
 
 contains
 
@@ -50,7 +46,7 @@ contains
     mat => materials(p % material)
 
     ! Find energy index on unionized grid
-    if (grid_method == GRID_UNION) call find_energy_index(p % E)
+    if (grid_method == GRID_UNION) call find_energy_index(p)
 
     ! Determine if this material has S(a,b) tables
     check_sab = (mat % n_sab > 0)
@@ -92,9 +88,9 @@ contains
 
       ! Calculate microscopic cross section for this nuclide
       if (p % E /= micro_xs(i_nuclide) % last_E) then
-        call calculate_nuclide_xs(i_nuclide, i_sab, p % E)
+        call calculate_nuclide_xs(p, i_nuclide, i_sab, p % E)
       else if (i_sab /= micro_xs(i_nuclide) % last_index_sab) then
-        call calculate_nuclide_xs(i_nuclide, i_sab, p % E)
+        call calculate_nuclide_xs(p, i_nuclide, i_sab, p % E)
       end if
 
       ! ========================================================================
@@ -135,7 +131,9 @@ contains
 ! given index in the nuclides array at the energy of the given particle
 !===============================================================================
 
-  subroutine calculate_nuclide_xs(i_nuclide, i_sab, E)
+  subroutine calculate_nuclide_xs(p, i_nuclide, i_sab, E)
+
+    type(Particle), intent(inout) :: p
 
     integer, intent(in) :: i_nuclide ! index into nuclides array
     integer, intent(in) :: i_sab     ! index into sab_tables array
@@ -155,7 +153,7 @@ contains
       ! If we're using the unionized grid with pointers, finding the index on
       ! the nuclide energy grid is as simple as looking up the pointer
 
-      i_grid = nuc % grid_index(union_grid_index)
+      i_grid = nuc % grid_index(p % union_grid_index)
 
     case (GRID_NUCLIDE)
       ! If we're not using the unionized grid, we have to do a binary search on
@@ -462,18 +460,18 @@ contains
 ! energy
 !===============================================================================
 
-  subroutine find_energy_index(E)
+  subroutine find_energy_index(p)
 
-    real(8), intent(in) :: E ! energy of particle
+    type(Particle), intent(inout) :: p
 
     ! if particle's energy is outside of energy grid range, set to first or last
     ! index. Otherwise, do a binary search through the union energy grid.
-    if (E < e_grid(1)) then
-      union_grid_index = 1
-    elseif (E > e_grid(n_grid)) then
-      union_grid_index = n_grid - 1
+    if (p % E < e_grid(1)) then
+      p % union_grid_index = 1
+    elseif (p % E > e_grid(n_grid)) then
+      p % union_grid_index = n_grid - 1
     else
-      union_grid_index = binary_search(e_grid, n_grid, E)
+      p % union_grid_index = binary_search(e_grid, n_grid, p % E)
     end if
 
   end subroutine find_energy_index

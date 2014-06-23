@@ -79,6 +79,9 @@ module particle_header
     ! Track output
     logical    :: write_track = .false.
 
+    ! Relocated global variables
+    integer :: union_grid_index ! from cross_section.F90
+
   contains
     procedure :: initialize => initialize_particle
     procedure :: clear => clear_particle
