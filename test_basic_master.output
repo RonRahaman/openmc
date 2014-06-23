@@ -1,0 +1,81 @@
+
+       .d88888b.                             888b     d888  .d8888b.
+      d88P" "Y88b                            8888b   d8888 d88P  Y88b
+      888     888                            88888b.d88888 888    888
+      888     888 88888b.   .d88b.  88888b.  888Y88888P888 888       
+      888     888 888 "88b d8P  Y8b 888 "88b 888 Y888P 888 888       
+      888     888 888  888 88888888 888  888 888  Y8P  888 888    888
+      Y88b. .d88P 888 d88P Y8b.     888  888 888   "   888 Y88b  d88P
+       "Y88888P"  88888P"   "Y8888  888  888 888       888  "Y8888P"
+__________________888______________________________________________________
+                  888
+                  888
+
+      Copyright:      2011-2014 Massachusetts Institute of Technology
+      License:        http://mit-crpg.github.io/openmc/license.html
+      Version:        0.5.4
+      Git SHA1:       fea6a80bd12d0eee3d3cf91ddb423cc47e602d04
+      Date/Time:      2014-06-23 15:32:06
+
+ ===========================================================================
+ ========================>     INITIALIZATION     <=========================
+ ===========================================================================
+
+ Reading settings XML file...
+ Reading cross sections XML file...
+ Reading geometry XML file...
+ Reading materials XML file...
+ Building neighboring cells lists for each surface...
+ Loading ACE cross section table: 92235.70c
+ Creating unionized energy grid...
+ Initializing source particles...
+
+ ===========================================================================
+ ====================>     K EIGENVALUE SIMULATION     <====================
+ ===========================================================================
+
+  Bat./Gen.      k            Average k         
+  =========   ========   ====================   
+        1/1    0.36487                       
+        2/1    0.31093                       
+        3/1    0.30756                       
+        4/1    0.30269                       
+        5/1    0.31217                       
+        6/1    0.30098                       
+        7/1    0.30464    0.30281 +/- 0.00183
+        8/1    0.29639    0.30067 +/- 0.00239
+        9/1    0.29114    0.29829 +/- 0.00292
+       10/1    0.29899    0.29843 +/- 0.00227
+ Creating state point statepoint.10.binary...
+
+ ===========================================================================
+ ======================>     SIMULATION FINISHED     <======================
+ ===========================================================================
+
+
+ =======================>     TIMING STATISTICS     <=======================
+
+ Total time for initialization     =  1.1180E+00 seconds
+   Reading cross sections          =  5.3000E-02 seconds
+   Unionizing energy grid          =  1.1000E-02 seconds
+ Total time in simulation          =  7.2000E-02 seconds
+   Time in transport only          =  6.5000E-02 seconds
+   Time in inactive batches        =  3.3000E-02 seconds
+   Time in active batches          =  3.9000E-02 seconds
+   Time synchronizing fission bank =  3.0000E-03 seconds
+     Sampling source sites         =  3.0000E-03 seconds
+     SEND/RECV source sites        =  0.0000E+00 seconds
+   Time accumulating tallies       =  0.0000E+00 seconds
+ Total time for finalization       =  0.0000E+00 seconds
+ Total time elapsed                =  1.1900E+00 seconds
+ Calculation Rate (inactive)       =  1.51515E+05 neutrons/second
+ Calculation Rate (active)         =  1.28205E+05 neutrons/second
+
+ ============================>     RESULTS     <============================
+
+ k-effective (Collision)     =  0.30410 +/-  0.00725
+ k-effective (Track-length)  =  0.29843 +/-  0.00227
+ k-effective (Absorption)    =  0.31724 +/-  0.00577
+ Combined k-effective        =  0.30114 +/-  0.00285
+ Leakage Fraction            =  0.87120 +/-  0.00252
+
