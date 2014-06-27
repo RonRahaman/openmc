@@ -14,7 +14,7 @@ DEBUG    = yes
 PROFILE  = no
 OPTIMIZE = no
 MPI      = no
-OPENMP   = no
+OPENMP   = yes
 HDF5     = no
 PETSC    = no
 

@@ -1,6 +1,6 @@
 module particle_header
 
-  use constants,       only: NEUTRON, ONE, NONE, ZERO
+  use constants,       only: NEUTRON, ONE, NONE, ZERO, N_FILTER_TYPES 
   use geometry_header, only: BASE_UNIVERSE
 
   implicit none
@@ -79,8 +79,11 @@ module particle_header
     ! Track output
     logical    :: write_track = .false.
 
-    ! Relocated global variables
-    integer :: union_grid_index ! from cross_section.F90
+    ! Relocated module/global variables, for energy banding, etc.
+    ! from cross_section.F90
+    integer :: union_grid_index 
+    ! from tally.F90, tally map positioning array
+    integer :: position(N_FILTER_TYPES - 3) = 0 
 
   contains
     procedure :: initialize => initialize_particle

@@ -22,8 +22,8 @@ module tally
   implicit none
 
   ! Tally map positioning array
-  integer :: position(N_FILTER_TYPES - 3) = 0
-!$omp threadprivate(position)
+  ! integer :: position(N_FILTER_TYPES - 3) = 0
+!!$omp threadprivate(position)
 
 contains
 
@@ -35,7 +35,7 @@ contains
 
   subroutine score_analog_tally(p)
 
-    type(Particle), intent(in) :: p
+    type(Particle), intent(inout) :: p
 
     integer :: i
     integer :: i_tally
@@ -361,7 +361,7 @@ contains
     end do TALLY_LOOP
 
     ! Reset tally map positioning
-    position = 0
+    p % position = 0
 
   end subroutine score_analog_tally
 
@@ -374,7 +374,7 @@ contains
 
   subroutine score_fission_eout(p, t, i_score)
 
-    type(Particle), intent(in) :: p
+    type(Particle), intent(inout) :: p
     type(TallyObject), pointer :: t
     integer, intent(in)        :: i_score ! index for score
 
@@ -437,7 +437,7 @@ contains
 
   subroutine score_tracklength_tally(p, distance)
 
-    type(Particle), intent(in) :: p
+    type(Particle), intent(inout) :: p
     real(8),        intent(in) :: distance
 
     integer :: i
@@ -727,7 +727,7 @@ contains
     end do TALLY_LOOP
 
     ! Reset tally map positioning
-    position = 0
+    p % position = 0
 
   end subroutine score_tracklength_tally
 
@@ -738,7 +738,7 @@ contains
 
   subroutine score_all_nuclides(p, i_tally, flux, filter_index)
 
-    type(Particle), intent(in) :: p
+    type(Particle), intent(inout) :: p
     integer,        intent(in) :: i_tally
     real(8),        intent(in) :: flux
     integer,        intent(in) :: filter_index
@@ -969,7 +969,7 @@ contains
 
   subroutine score_tl_on_mesh(p, i_tally, d_track)
 
-    type(Particle), intent(in) :: p
+    type(Particle), intent(inout) :: p
     integer,        intent(in) :: i_tally
     real(8),        intent(in) :: d_track
 
@@ -1045,19 +1045,19 @@ contains
       case (FILTER_UNIVERSE)
         ! determine next universe bin
         ! TODO: Account for multiple universes when performing this filter
-        matching_bins(i) = get_next_bin(FILTER_UNIVERSE, &
+        matching_bins(i) = get_next_bin(p, FILTER_UNIVERSE, &
              p % coord % universe, i_tally)
 
       case (FILTER_MATERIAL)
-        matching_bins(i) = get_next_bin(FILTER_MATERIAL, &
+        matching_bins(i) = get_next_bin(p, FILTER_MATERIAL, &
              p % material, i_tally)
 
       case (FILTER_CELL)
         ! determine next cell bin
         coord => p % coord0
         do while(associated(coord))
-          position(FILTER_CELL) = 0
-          matching_bins(i) = get_next_bin(FILTER_CELL, &
+          p % position(FILTER_CELL) = 0
+          matching_bins(i) = get_next_bin(p, FILTER_CELL, &
                coord % cell, i_tally)
           if (matching_bins(i) /= NO_BIN_FOUND) exit
           coord => coord % next
@@ -1066,12 +1066,12 @@ contains
 
       case (FILTER_CELLBORN)
         ! determine next cellborn bin
-        matching_bins(i) = get_next_bin(FILTER_CELLBORN, &
+        matching_bins(i) = get_next_bin(p, FILTER_CELLBORN, &
              p % cell_born, i_tally)
 
       case (FILTER_SURFACE)
         ! determine next surface bin
-        matching_bins(i) = get_next_bin(FILTER_SURFACE, &
+        matching_bins(i) = get_next_bin(p, FILTER_SURFACE, &
              p % surface, i_tally)
 
       case (FILTER_ENERGYIN)
@@ -1287,7 +1287,7 @@ contains
 
   subroutine get_scoring_bins(p, i_tally, found_bin)
 
-    type(Particle), intent(in)  :: p
+    type(Particle), intent(inout)  :: p
     integer,        intent(in)  :: i_tally
     logical,        intent(out) :: found_bin
 
@@ -1316,19 +1316,19 @@ contains
       case (FILTER_UNIVERSE)
         ! determine next universe bin
         ! TODO: Account for multiple universes when performing this filter
-        matching_bins(i) = get_next_bin(FILTER_UNIVERSE, &
+        matching_bins(i) = get_next_bin(p, FILTER_UNIVERSE, &
              p % coord % universe, i_tally)
 
       case (FILTER_MATERIAL)
-        matching_bins(i) = get_next_bin(FILTER_MATERIAL, &
+        matching_bins(i) = get_next_bin(p, FILTER_MATERIAL, &
              p % material, i_tally)
 
       case (FILTER_CELL)
         ! determine next cell bin
         coord => p % coord0
         do while(associated(coord))
-          position(FILTER_CELL) = 0
-          matching_bins(i) = get_next_bin(FILTER_CELL, &
+          p % position(FILTER_CELL) = 0
+          matching_bins(i) = get_next_bin(p, FILTER_CELL, &
                coord % cell, i_tally)
           if (matching_bins(i) /= NO_BIN_FOUND) exit
           coord => coord % next
@@ -1337,12 +1337,12 @@ contains
 
       case (FILTER_CELLBORN)
         ! determine next cellborn bin
-        matching_bins(i) = get_next_bin(FILTER_CELLBORN, &
+        matching_bins(i) = get_next_bin(p, FILTER_CELLBORN, &
              p % cell_born, i_tally)
 
       case (FILTER_SURFACE)
         ! determine next surface bin
-        matching_bins(i) = get_next_bin(FILTER_SURFACE, &
+        matching_bins(i) = get_next_bin(p, FILTER_SURFACE, &
              p % surface, i_tally)
 
       case (FILTER_ENERGYIN)
@@ -1399,7 +1399,7 @@ contains
 
   subroutine score_surface_current(p)
 
-    type(Particle), intent(in) :: p
+    type(Particle), intent(inout) :: p
 
     integer :: i
     integer :: i_tally
@@ -1718,7 +1718,9 @@ contains
 ! GET_NEXT_BIN determines the next scoring bin for a particular filter variable
 !===============================================================================
 
-  function get_next_bin(filter_type, filter_value, i_tally) result(bin)
+  function get_next_bin(p, filter_type, filter_value, i_tally) result(bin)
+
+    type(Particle), intent(inout) :: p
 
     integer, intent(in) :: filter_type  ! e.g. FILTER_MATERIAL
     integer, intent(in) :: filter_value ! value of filter, e.g. material 3
@@ -1739,29 +1741,29 @@ contains
 
     do
       ! Increment position in elements
-      position(filter_type) = position(filter_type) + 1
+      p % position(filter_type) = p % position(filter_type) + 1
 
       ! If we've reached the end of the array, there is no more bin to score to
-      if (position(filter_type) > n) then
-        position(filter_type) = 0
+      if (p % position(filter_type) > n) then
+        p % position(filter_type) = 0
         bin = NO_BIN_FOUND
         return
       end if
 
       i_tally_check = tally_maps(filter_type) % items(filter_value) % &
-           elements(position(filter_type)) % index_tally
+           elements(p % position(filter_type)) % index_tally
 
       if (i_tally_check > i_tally) then
         ! Since the index being checked against is greater than the index we
         ! need (and the tally indices were added to elements sequentially), we
         ! know that no more bins will be scoring bins for this tally
-        position(filter_type) = 0
+        p % position(filter_type) = 0
         bin = NO_BIN_FOUND
         return
       elseif (i_tally_check == i_tally) then
         ! Found a match
         bin = tally_maps(filter_type) % items(filter_value) % &
-             elements(position(filter_type)) % index_bin
+             elements(p % position(filter_type)) % index_bin
         return
       end if
 
