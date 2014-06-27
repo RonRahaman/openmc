@@ -1,0 +1,42 @@
+src/cross_section.F90:    material_xs % total      = ZERO
+src/cross_section.F90:    material_xs % elastic    = ZERO
+src/cross_section.F90:    material_xs % absorption = ZERO
+src/cross_section.F90:    material_xs % fission    = ZERO
+src/cross_section.F90:    material_xs % nu_fission = ZERO
+src/cross_section.F90:    material_xs % kappa_fission  = ZERO
+src/cross_section.F90:      material_xs % total = material_xs % total + &
+src/cross_section.F90:      material_xs % elastic = material_xs % elastic + &
+src/cross_section.F90:      material_xs % absorption = material_xs % absorption + & 
+src/cross_section.F90:      material_xs % fission = material_xs % fission + &
+src/cross_section.F90:      material_xs % nu_fission = material_xs % nu_fission + &
+src/cross_section.F90:      material_xs % kappa_fission = material_xs % kappa_fission + &
+src/global.F90:  type(MaterialMacroXS)             :: material_xs  ! Cache for current material
+src/global.F90:!$omp threadprivate(micro_xs, material_xs, fission_bank, n_bank, message, &
+src/physics.F90:      cutoff = prn() * material_xs % total
+src/physics.F90:      cutoff = prn() * material_xs % total - material_xs % absorption
+src/physics.F90:      cutoff = prn() * material_xs % fission
+src/tally.F90:            score = last_wgt / material_xs % total
+src/tally.F90:            macro_total = material_xs % total
+src/tally.F90:            macro_scatt = material_xs % total - material_xs % absorption
+src/tally.F90:                score = material_xs % total * flux
+src/tally.F90:                score = (material_xs % total - material_xs % absorption) * flux
+src/tally.F90:                score = material_xs % absorption * flux
+src/tally.F90:                score = material_xs % fission * flux
+src/tally.F90:                score = material_xs % nu_fission * flux
+src/tally.F90:                score = material_xs % kappa_fission * flux
+src/tally.F90:        score = material_xs % total * flux
+src/tally.F90:        score = (material_xs % total - material_xs % absorption) * flux
+src/tally.F90:        score = material_xs % absorption * flux
+src/tally.F90:        score = material_xs % fission * flux
+src/tally.F90:        score = material_xs % nu_fission * flux
+src/tally.F90:        score = material_xs % kappa_fission * flux
+src/tally.F90:                  score = material_xs % total * flux
+src/tally.F90:                  score = (material_xs % total - material_xs % absorption) * flux
+src/tally.F90:                  score = material_xs % absorption * flux
+src/tally.F90:                  score = material_xs % fission * flux
+src/tally.F90:                  score = material_xs % nu_fission * flux
+src/tally.F90:                  score = material_xs % kappa_fission * flux
+src/tracking.F90:      if (material_xs % total == ZERO) then
+src/tracking.F90:        d_collision = -log(prn()) / material_xs % total
+src/tracking.F90:           material_xs % nu_fission
+src/tracking.F90:             material_xs % nu_fission / material_xs % total

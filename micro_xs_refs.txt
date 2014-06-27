@@ -1,0 +1,110 @@
+src/ace.F90:    allocate(micro_xs(n_nuclides_total))
+src/cross_section.F90:      if (p % E /= micro_xs(i_nuclide) % last_E) then
+src/cross_section.F90:      else if (i_sab /= micro_xs(i_nuclide) % last_index_sab) then
+src/cross_section.F90:           atom_density * micro_xs(i_nuclide) % total
+src/cross_section.F90:           atom_density * micro_xs(i_nuclide) % elastic
+src/cross_section.F90:           atom_density * micro_xs(i_nuclide) % absorption
+src/cross_section.F90:           atom_density * micro_xs(i_nuclide) % fission
+src/cross_section.F90:           atom_density * micro_xs(i_nuclide) % nu_fission
+src/cross_section.F90:           atom_density * micro_xs(i_nuclide) % kappa_fission
+src/cross_section.F90:    micro_xs(i_nuclide) % index_grid    = i_grid
+src/cross_section.F90:    micro_xs(i_nuclide) % interp_factor = f
+src/cross_section.F90:    micro_xs(i_nuclide) % index_sab   = NONE
+src/cross_section.F90:    micro_xs(i_nuclide) % elastic_sab = ZERO
+src/cross_section.F90:    micro_xs(i_nuclide) % use_ptable  = .false.
+src/cross_section.F90:    micro_xs(i_nuclide) % fission    = ZERO
+src/cross_section.F90:    micro_xs(i_nuclide) % nu_fission = ZERO
+src/cross_section.F90:    micro_xs(i_nuclide) % kappa_fission  = ZERO
+src/cross_section.F90:    micro_xs(i_nuclide) % total = (ONE - f) * nuc % total(i_grid) &
+src/cross_section.F90:    micro_xs(i_nuclide) % elastic = (ONE - f) * nuc % elastic(i_grid) &
+src/cross_section.F90:    micro_xs(i_nuclide) % absorption = (ONE - f) * nuc % absorption( &
+src/cross_section.F90:      micro_xs(i_nuclide) % fission = (ONE - f) * nuc % fission(i_grid) &
+src/cross_section.F90:      micro_xs(i_nuclide) % nu_fission = (ONE - f) * nuc % nu_fission( &
+src/cross_section.F90:      micro_xs(i_nuclide) % kappa_fission = &
+src/cross_section.F90:           micro_xs(i_nuclide) % fission
+src/cross_section.F90:    micro_xs(i_nuclide) % last_E = E
+src/cross_section.F90:    micro_xs(i_nuclide) % last_index_sab = i_sab
+src/cross_section.F90:    micro_xs(i_nuclide) % index_sab = i_sab
+src/cross_section.F90:    micro_xs(i_nuclide) % total = micro_xs(i_nuclide) % total - &
+src/cross_section.F90:         micro_xs(i_nuclide) % elastic + inelastic + elastic
+src/cross_section.F90:    micro_xs(i_nuclide) % elastic = inelastic + elastic
+src/cross_section.F90:    micro_xs(i_nuclide) % elastic_sab = elastic
+src/cross_section.F90:    micro_xs(i_nuclide) % use_ptable = .true.
+src/cross_section.F90:      i_energy = micro_xs(i_nuclide) % index_grid
+src/cross_section.F90:      f = micro_xs(i_nuclide) % interp_factor
+src/cross_section.F90:      elastic = elastic * micro_xs(i_nuclide) % elastic
+src/cross_section.F90:      capture = capture * (micro_xs(i_nuclide) % absorption - &
+src/cross_section.F90:           micro_xs(i_nuclide) % fission)
+src/cross_section.F90:      fission = fission * micro_xs(i_nuclide) % fission
+src/cross_section.F90:    micro_xs(i_nuclide) % elastic = elastic
+src/cross_section.F90:    micro_xs(i_nuclide) % absorption = capture + fission
+src/cross_section.F90:    micro_xs(i_nuclide) % fission = fission
+src/cross_section.F90:    micro_xs(i_nuclide) % total = elastic + inelastic + capture + fission
+src/cross_section.F90:      micro_xs(i_nuclide) % nu_fission = nu_total(nuc, E) * &
+src/cross_section.F90:           micro_xs(i_nuclide) % fission
+src/global.F90:  type(NuclideMicroXS), allocatable :: micro_xs(:)  ! Cache for each nuclide
+src/global.F90:!$omp threadprivate(micro_xs, material_xs, fission_bank, n_bank, message, &
+src/global.F90:    if (allocated(micro_xs)) deallocate(micro_xs)
+src/physics.F90:        sigma = atom_density * micro_xs(i_nuclide) % total
+src/physics.F90:        sigma = atom_density * (micro_xs(i_nuclide) % total - &
+src/physics.F90:             micro_xs(i_nuclide) % absorption)
+src/physics.F90:        sigma = atom_density * micro_xs(i_nuclide) % fission
+src/physics.F90:    if (micro_xs(i_nuclide) % use_ptable .or. &
+src/physics.F90:    i_grid = micro_xs(i_nuclide) % index_grid
+src/physics.F90:    f      = micro_xs(i_nuclide) % interp_factor
+src/physics.F90:    cutoff = prn() * micro_xs(i_nuclide) % fission
+src/physics.F90:      p % absorb_wgt = p % wgt * micro_xs(i_nuclide) % absorption / &
+src/physics.F90:           micro_xs(i_nuclide) % total
+src/physics.F90:           micro_xs(i_nuclide) % nu_fission / micro_xs(i_nuclide) % absorption
+src/physics.F90:      if (micro_xs(i_nuclide) % absorption > &
+src/physics.F90:           prn() * micro_xs(i_nuclide) % total) then
+src/physics.F90:             micro_xs(i_nuclide) % nu_fission / micro_xs(i_nuclide) % absorption
+src/physics.F90:    i_grid =  micro_xs(i_nuclide) % index_grid
+src/physics.F90:    f      =  micro_xs(i_nuclide) % interp_factor
+src/physics.F90:    cutoff = prn() * (micro_xs(i_nuclide) % total - &
+src/physics.F90:         micro_xs(i_nuclide) % absorption)
+src/physics.F90:    prob = prob + micro_xs(i_nuclide) % elastic
+src/physics.F90:      if (micro_xs(i_nuclide) % index_sab /= NONE) then
+src/physics.F90:        call sab_scatter(i_nuclide, micro_xs(i_nuclide) % index_sab, &
+src/physics.F90:    if (.not. micro_xs(i_nuclide) % use_ptable) then
+src/physics.F90:    integer, intent(in)     :: i_nuclide ! index in micro_xs
+src/physics.F90:    if (prn() < micro_xs(i_nuclide) % elastic_sab / &
+src/physics.F90:         micro_xs(i_nuclide) % elastic) then
+src/physics.F90:    nu_t = p % wgt / keff * weight * micro_xs(i_nuclide) % nu_fission / &
+src/physics.F90:         micro_xs(i_nuclide) % total
+src/tally.F90:              score = p % absorb_wgt * micro_xs(p % event_nuclide) % fission / &
+src/tally.F90:                   micro_xs(p % event_nuclide) % absorption
+src/tally.F90:              score = p % absorb_wgt * micro_xs(p % event_nuclide) % &
+src/tally.F90:                   nu_fission / micro_xs(p % event_nuclide) % absorption
+src/tally.F90:                      micro_xs(p % event_nuclide) % kappa_fission / &
+src/tally.F90:                      micro_xs(p % event_nuclide) % absorption
+src/tally.F90:                score = micro_xs(i_nuclide) % total * &
+src/tally.F90:                score = (micro_xs(i_nuclide) % total - &
+src/tally.F90:                     micro_xs(i_nuclide) % absorption) * &
+src/tally.F90:                score = micro_xs(i_nuclide) % absorption * &
+src/tally.F90:                score = micro_xs(i_nuclide) % fission * &
+src/tally.F90:                score = micro_xs(i_nuclide) % nu_fission * &
+src/tally.F90:                score = micro_xs(i_nuclide) % kappa_fission * &
+src/tally.F90:                      i_energy = micro_xs(i_nuclide) % index_grid
+src/tally.F90:                      f = micro_xs(i_nuclide) % interp_factor
+src/tally.F90:                        i_energy = micro_xs(i_nuc) % index_grid
+src/tally.F90:                        f = micro_xs(i_nuc) % interp_factor
+src/tally.F90:          score = micro_xs(i_nuclide) % total * atom_density * flux
+src/tally.F90:          score = (micro_xs(i_nuclide) % total - &
+src/tally.F90:               micro_xs(i_nuclide) % absorption) * atom_density * flux
+src/tally.F90:          score = micro_xs(i_nuclide) % absorption * atom_density * flux
+src/tally.F90:          score = micro_xs(i_nuclide) % fission * atom_density * flux
+src/tally.F90:          score = micro_xs(i_nuclide) % nu_fission * atom_density * flux
+src/tally.F90:          score = micro_xs(i_nuclide) % kappa_fission * atom_density * flux
+src/tally.F90:                i_energy = micro_xs(i_nuclide) % index_grid
+src/tally.F90:                f = micro_xs(i_nuclide) % interp_factor
+src/tally.F90:                i_energy = micro_xs(i_nuclide) % index_grid
+src/tally.F90:                f = micro_xs(i_nuclide) % interp_factor
+src/tally.F90:                  score = micro_xs(i_nuclide) % total * &
+src/tally.F90:                  score = (micro_xs(i_nuclide) % total - &
+src/tally.F90:                       micro_xs(i_nuclide) % absorption) * &
+src/tally.F90:                  score = micro_xs(i_nuclide) % absorption * &
+src/tally.F90:                  score = micro_xs(i_nuclide) % fission * &
+src/tally.F90:                  score = micro_xs(i_nuclide) % nu_fission * &
+src/tally.F90:                  score = micro_xs(i_nuclide) % kappa_fission * atom_density * flux
+src/tracking.F90:    micro_xs % last_E = ZERO
