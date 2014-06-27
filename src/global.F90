@@ -65,7 +65,7 @@ module global
   type(XsListing),  allocatable, target :: xs_listings(:) ! cross_sections.xml listings 
 
   ! Cross section caches
-  type(NuclideMicroXS), allocatable :: micro_xs(:)  ! Cache for each nuclide
+  ! type(NuclideMicroXS), allocatable :: micro_xs(:)  ! Cache for each nuclide
   type(MaterialMacroXS)             :: material_xs  ! Cache for current material
 
   integer :: n_nuclides_total ! Number of nuclide cross section tables
@@ -374,7 +374,7 @@ module global
   logical :: output_xs      = .false.
   logical :: output_tallies = .true.
 
-!$omp threadprivate(micro_xs, material_xs, fission_bank, n_bank, message, &
+!$omp threadprivate(material_xs, fission_bank, n_bank, message, &
 !$omp&              trace, thread_id, current_work, matching_bins)
 
 contains
@@ -409,7 +409,7 @@ contains
     end if
     if (allocated(sab_tables)) deallocate(sab_tables)
     if (allocated(xs_listings)) deallocate(xs_listings)
-    if (allocated(micro_xs)) deallocate(micro_xs)
+    ! if (allocated(micro_xs)) deallocate(micro_xs)
 
     ! Deallocate external source
     if (allocated(external_source % params_space)) &

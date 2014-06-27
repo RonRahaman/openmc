@@ -91,7 +91,7 @@ contains
     ! absorption (including fission)
 
     if (nuc % fissionable) then
-      call sample_fission(i_nuclide, i_reaction)
+      call sample_fission(p, i_nuclide, i_reaction)
       call create_fission_sites(p, i_nuclide, i_reaction)
     end if
 
@@ -165,12 +165,12 @@ contains
       ! Determine microscopic cross section
       select case (base)
       case ('total')
-        sigma = atom_density * micro_xs(i_nuclide) % total
+        sigma = atom_density * p % micro_xs(i_nuclide) % total
       case ('scatter')
-        sigma = atom_density * (micro_xs(i_nuclide) % total - &
-             micro_xs(i_nuclide) % absorption)
+        sigma = atom_density * (p % micro_xs(i_nuclide) % total - &
+             p % micro_xs(i_nuclide) % absorption)
       case ('fission')
-        sigma = atom_density * micro_xs(i_nuclide) % fission
+        sigma = atom_density * p % micro_xs(i_nuclide) % fission
       end select
 
       ! Increment probability to compare to cutoff
@@ -183,7 +183,9 @@ contains
 ! SAMPLE_FISSION
 !===============================================================================
 
-  subroutine sample_fission(i_nuclide, i_reaction)
+  subroutine sample_fission(p, i_nuclide, i_reaction)
+
+    type(Particle), intent(in) :: p
 
     integer, intent(in)  :: i_nuclide  ! index in nuclides array
     integer, intent(out) :: i_reaction ! index in nuc % reactions array
@@ -204,16 +206,16 @@ contains
     ! default to the first reaction if we know that there are no partial fission
     ! reactions
 
-    if (micro_xs(i_nuclide) % use_ptable .or. &
+    if (p % micro_xs(i_nuclide) % use_ptable .or. &
          .not. nuc % has_partial_fission) then
       i_reaction = nuc % index_fission(1)
       return
     end if
 
     ! Get grid index and interpolatoin factor and sample fission cdf
-    i_grid = micro_xs(i_nuclide) % index_grid
-    f      = micro_xs(i_nuclide) % interp_factor
-    cutoff = prn() * micro_xs(i_nuclide) % fission
+    i_grid = p % micro_xs(i_nuclide) % index_grid
+    f      = p % micro_xs(i_nuclide) % interp_factor
+    cutoff = prn() * p % micro_xs(i_nuclide) % fission
     prob   = ZERO
 
     ! Loop through each partial fission reaction type
@@ -246,8 +248,8 @@ contains
 
     if (survival_biasing) then
       ! Determine weight absorbed in survival biasing
-      p % absorb_wgt = p % wgt * micro_xs(i_nuclide) % absorption / &
-           micro_xs(i_nuclide) % total
+      p % absorb_wgt = p % wgt * p % micro_xs(i_nuclide) % absorption / &
+           p % micro_xs(i_nuclide) % total
 
       ! Adjust weight of particle by probability of absorption
       p % wgt = p % wgt - p % absorb_wgt
@@ -257,18 +259,18 @@ contains
 !$omp critical
       global_tallies(K_ABSORPTION) % value = &
            global_tallies(K_ABSORPTION) % value + p % absorb_wgt * &
-           micro_xs(i_nuclide) % nu_fission / micro_xs(i_nuclide) % absorption
+           p % micro_xs(i_nuclide) % nu_fission / p % micro_xs(i_nuclide) % absorption
 !$omp end critical
 
     else
       ! See if disappearance reaction happens
-      if (micro_xs(i_nuclide) % absorption > &
-           prn() * micro_xs(i_nuclide) % total) then
+      if (p % micro_xs(i_nuclide) % absorption > &
+           prn() * p % micro_xs(i_nuclide) % total) then
         ! Score absorption estimate of keff
 !$omp critical
         global_tallies(K_ABSORPTION) % value = &
              global_tallies(K_ABSORPTION) % value + p % wgt * &
-             micro_xs(i_nuclide) % nu_fission / micro_xs(i_nuclide) % absorption
+             p % micro_xs(i_nuclide) % nu_fission / p % micro_xs(i_nuclide) % absorption
 !$omp end critical
 
         p % alive = .false.
@@ -319,23 +321,23 @@ contains
 
     ! Get pointer to nuclide and grid index/interpolation factor
     nuc    => nuclides(i_nuclide)
-    i_grid =  micro_xs(i_nuclide) % index_grid
-    f      =  micro_xs(i_nuclide) % interp_factor
+    i_grid =  p % micro_xs(i_nuclide) % index_grid
+    f      =  p % micro_xs(i_nuclide) % interp_factor
 
     ! For tallying purposes, this routine might be called directly. In that
     ! case, we need to sample a reaction via the cutoff variable
     prob = ZERO
-    cutoff = prn() * (micro_xs(i_nuclide) % total - &
-         micro_xs(i_nuclide) % absorption)
+    cutoff = prn() * (p % micro_xs(i_nuclide) % total - &
+         p % micro_xs(i_nuclide) % absorption)
 
-    prob = prob + micro_xs(i_nuclide) % elastic
+    prob = prob + p % micro_xs(i_nuclide) % elastic
     if (prob > cutoff) then
       ! =======================================================================
       ! ELASTIC SCATTERING
 
-      if (micro_xs(i_nuclide) % index_sab /= NONE) then
+      if (p % micro_xs(i_nuclide) % index_sab /= NONE) then
         ! S(a,b) scattering
-        call sab_scatter(i_nuclide, micro_xs(i_nuclide) % index_sab, &
+        call sab_scatter(p, i_nuclide, p % micro_xs(i_nuclide) % index_sab, &
              p % E, p % coord0 % uvw, p % mu)
 
       else
@@ -343,7 +345,7 @@ contains
         rxn => nuc % reactions(1)
 
         ! Perform collision physics for elastic scattering
-        call elastic_scatter(i_nuclide, rxn, &
+        call elastic_scatter(p, i_nuclide, rxn, &
              p % E, p % coord0 % uvw, p % mu)
       end if
 
@@ -403,7 +405,9 @@ contains
 ! target.
 !===============================================================================
 
-  subroutine elastic_scatter(i_nuclide, rxn, E, uvw, mu_lab)
+  subroutine elastic_scatter(p, i_nuclide, rxn, E, uvw, mu_lab)
+
+    type(Particle), intent(in) :: p
 
     integer, intent(in)     :: i_nuclide
     type(Reaction), pointer :: rxn
@@ -431,7 +435,7 @@ contains
     v_n = vel * uvw
 
     ! Sample velocity of target nucleus
-    if (.not. micro_xs(i_nuclide) % use_ptable) then
+    if (.not. p % micro_xs(i_nuclide) % use_ptable) then
       call sample_target_velocity(nuc, v_t, E, uvw)
     else
       v_t = ZERO
@@ -477,7 +481,9 @@ contains
 ! according to a specified S(a,b) table.
 !===============================================================================
 
-  subroutine sab_scatter(i_nuclide, i_sab, E, uvw, mu)
+  subroutine sab_scatter(p, i_nuclide, i_sab, E, uvw, mu)
+
+    type(Particle), intent(in) :: p
 
     integer, intent(in)     :: i_nuclide ! index in micro_xs
     integer, intent(in)     :: i_sab     ! index in sab_tables
@@ -514,8 +520,8 @@ contains
     sab => sab_tables(i_sab)
 
     ! Determine whether inelastic or elastic scattering will occur
-    if (prn() < micro_xs(i_nuclide) % elastic_sab / &
-         micro_xs(i_nuclide) % elastic) then
+    if (prn() < p % micro_xs(i_nuclide) % elastic_sab / &
+         p % micro_xs(i_nuclide) % elastic) then
       ! elastic scattering
 
       ! Get index and interpolation factor for elastic grid
@@ -856,8 +862,8 @@ contains
     end if
 
     ! Determine expected number of neutrons produced
-    nu_t = p % wgt / keff * weight * micro_xs(i_nuclide) % nu_fission / &
-         micro_xs(i_nuclide) % total
+    nu_t = p % wgt / keff * weight * p % micro_xs(i_nuclide) % nu_fission / &
+         p % micro_xs(i_nuclide) % total
 
     ! Sample number of neutrons produced
     if (prn() > nu_t - int(nu_t)) then

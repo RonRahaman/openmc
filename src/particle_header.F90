@@ -1,7 +1,9 @@
 module particle_header
 
+  use ace_header,      only: NuclideMicroXS
   use constants,       only: NEUTRON, ONE, NONE, ZERO, N_FILTER_TYPES 
   use geometry_header, only: BASE_UNIVERSE
+  use global,          only: n_nuclides_total
 
   implicit none
 
@@ -84,6 +86,8 @@ module particle_header
     integer :: union_grid_index 
     ! from tally.F90, tally map positioning array
     integer :: position(N_FILTER_TYPES - 3) = 0 
+    ! From global.F90, cache for each nuclide
+    type(NuclideMicroXS), allocatable :: micro_xs(:)  
 
   contains
     procedure :: initialize => initialize_particle
@@ -146,6 +150,9 @@ contains
     this % coord0 % universe = BASE_UNIVERSE
     this % coord             => this % coord0
 
+    ! Allocate micro_xs cache
+    allocate(this % micro_xs(n_nuclides_total))
+
   end subroutine initialize_particle
 
 !===============================================================================
@@ -161,6 +168,9 @@ contains
 
     ! Make sure coord pointer is nullified
     nullify(this % coord)
+
+    ! Deallocate micro_xs cache
+    if (allocated(this % micro_xs)) deallocate(this % micro_xs)
 
   end subroutine clear_particle
 

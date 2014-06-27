@@ -257,8 +257,8 @@ contains
               ! calculate fraction of absorptions that would have resulted in
               ! fission
 
-              score = p % absorb_wgt * micro_xs(p % event_nuclide) % fission / &
-                   micro_xs(p % event_nuclide) % absorption
+              score = p % absorb_wgt * p % micro_xs(p % event_nuclide) % fission / &
+                   p % micro_xs(p % event_nuclide) % absorption
 
             else
               ! Skip any non-fission events
@@ -277,8 +277,8 @@ contains
               ! calculate fraction of absorptions that would have resulted in
               ! nu-fission
 
-              score = p % absorb_wgt * micro_xs(p % event_nuclide) % &
-                   nu_fission / micro_xs(p % event_nuclide) % absorption
+              score = p % absorb_wgt * p % micro_xs(p % event_nuclide) % &
+                   nu_fission / p % micro_xs(p % event_nuclide) % absorption
 
             else
               ! Skip any non-fission events
@@ -313,8 +313,8 @@ contains
               ! fission and multiply by Q
 
               score = p % absorb_wgt * &
-                      micro_xs(p % event_nuclide) % kappa_fission / &
-                      micro_xs(p % event_nuclide) % absorption
+                      p % micro_xs(p % event_nuclide) % kappa_fission / &
+                      p % micro_xs(p % event_nuclide) % absorption
               
             else
               ! Skip any non-fission events
@@ -541,32 +541,32 @@ contains
 
               case (SCORE_TOTAL)
                 ! Total cross section is pre-calculated
-                score = micro_xs(i_nuclide) % total * &
+                score = p % micro_xs(i_nuclide) % total * &
                      atom_density * flux
 
               case (SCORE_SCATTER)
                 ! Scattering cross section is pre-calculated
-                score = (micro_xs(i_nuclide) % total - &
-                     micro_xs(i_nuclide) % absorption) * &
+                score = (p % micro_xs(i_nuclide) % total - &
+                     p % micro_xs(i_nuclide) % absorption) * &
                      atom_density * flux
 
               case (SCORE_ABSORPTION)
                 ! Absorption cross section is pre-calculated
-                score = micro_xs(i_nuclide) % absorption * &
+                score = p % micro_xs(i_nuclide) % absorption * &
                      atom_density * flux
 
               case (SCORE_FISSION)
                 ! Fission cross section is pre-calculated
-                score = micro_xs(i_nuclide) % fission * &
+                score = p % micro_xs(i_nuclide) % fission * &
                      atom_density * flux
 
               case (SCORE_NU_FISSION)
                 ! Nu-fission cross section is pre-calculated
-                score = micro_xs(i_nuclide) % nu_fission * &
+                score = p % micro_xs(i_nuclide) % nu_fission * &
                      atom_density * flux
 
               case (SCORE_KAPPA_FISSION)
-                score = micro_xs(i_nuclide) % kappa_fission * &
+                score = p % micro_xs(i_nuclide) % kappa_fission * &
                      atom_density * flux
 
               case (SCORE_EVENTS)
@@ -595,8 +595,8 @@ contains
                     if (score_bin == rxn % MT) then
                       ! Retrieve index on nuclide energy grid and interpolation
                       ! factor
-                      i_energy = micro_xs(i_nuclide) % index_grid
-                      f = micro_xs(i_nuclide) % interp_factor
+                      i_energy = p % micro_xs(i_nuclide) % index_grid
+                      f = p % micro_xs(i_nuclide) % interp_factor
 
                       if (i_energy >= rxn % threshold) then
                         score = ((ONE - f) * rxn % sigma(i_energy - &
@@ -681,8 +681,8 @@ contains
                       if (score_bin == rxn % MT) then
                         ! Retrieve index on nuclide energy grid and interpolation
                         ! factor
-                        i_energy = micro_xs(i_nuc) % index_grid
-                        f = micro_xs(i_nuc) % interp_factor
+                        i_energy = p % micro_xs(i_nuc) % index_grid
+                        f = p % micro_xs(i_nuc) % interp_factor
 
                         if (i_energy >= rxn % threshold) then
                           score = score + ((ONE - f) * rxn % sigma(i_energy - &
@@ -786,23 +786,23 @@ contains
           score = flux
 
         case (SCORE_TOTAL)
-          score = micro_xs(i_nuclide) % total * atom_density * flux
+          score = p % micro_xs(i_nuclide) % total * atom_density * flux
 
         case (SCORE_SCATTER)
-          score = (micro_xs(i_nuclide) % total - &
-               micro_xs(i_nuclide) % absorption) * atom_density * flux
+          score = (p % micro_xs(i_nuclide) % total - &
+               p % micro_xs(i_nuclide) % absorption) * atom_density * flux
 
         case (SCORE_ABSORPTION)
-          score = micro_xs(i_nuclide) % absorption * atom_density * flux
+          score = p % micro_xs(i_nuclide) % absorption * atom_density * flux
 
         case (SCORE_FISSION)
-          score = micro_xs(i_nuclide) % fission * atom_density * flux
+          score = p % micro_xs(i_nuclide) % fission * atom_density * flux
 
         case (SCORE_NU_FISSION)
-          score = micro_xs(i_nuclide) % nu_fission * atom_density * flux
+          score = p % micro_xs(i_nuclide) % nu_fission * atom_density * flux
 
         case (SCORE_KAPPA_FISSION)
-          score = micro_xs(i_nuclide) % kappa_fission * atom_density * flux
+          score = p % micro_xs(i_nuclide) % kappa_fission * atom_density * flux
 
         case (SCORE_EVENTS)
           score = ONE
@@ -828,8 +828,8 @@ contains
               ! Check if this is the desired MT
               if (score_bin == rxn % MT) then
                 ! Retrieve index on nuclide energy grid and interpolation factor
-                i_energy = micro_xs(i_nuclide) % index_grid
-                f = micro_xs(i_nuclide) % interp_factor
+                i_energy = p % micro_xs(i_nuclide) % index_grid
+                f = p % micro_xs(i_nuclide) % interp_factor
 
                 if (i_energy >= rxn % threshold) then
                   score = ((ONE - f) * rxn % sigma(i_energy - &
@@ -926,8 +926,8 @@ contains
               if (score_bin == rxn % MT) then
                 ! Retrieve index on nuclide energy grid and interpolation
                 ! factor
-                i_energy = micro_xs(i_nuclide) % index_grid
-                f = micro_xs(i_nuclide) % interp_factor
+                i_energy = p % micro_xs(i_nuclide) % index_grid
+                f = p % micro_xs(i_nuclide) % interp_factor
 
                 if (i_energy >= rxn % threshold) then
                   score = score + ((ONE - f) * rxn % sigma(i_energy - &
@@ -1207,23 +1207,23 @@ contains
                 case (SCORE_FLUX)
                   score = flux
                 case (SCORE_TOTAL)
-                  score = micro_xs(i_nuclide) % total * &
+                  score = p % micro_xs(i_nuclide) % total * &
                        atom_density * flux
                 case (SCORE_SCATTER)
-                  score = (micro_xs(i_nuclide) % total - &
-                       micro_xs(i_nuclide) % absorption) * &
+                  score = (p % micro_xs(i_nuclide) % total - &
+                       p % micro_xs(i_nuclide) % absorption) * &
                        atom_density * flux
                 case (SCORE_ABSORPTION)
-                  score = micro_xs(i_nuclide) % absorption * &
+                  score = p % micro_xs(i_nuclide) % absorption * &
                        atom_density * flux
                 case (SCORE_FISSION)
-                  score = micro_xs(i_nuclide) % fission * &
+                  score = p % micro_xs(i_nuclide) % fission * &
                        atom_density * flux
                 case (SCORE_NU_FISSION)
-                  score = micro_xs(i_nuclide) % nu_fission * &
+                  score = p % micro_xs(i_nuclide) % nu_fission * &
                        atom_density * flux
                 case (SCORE_KAPPA_FISSION)
-                  score = micro_xs(i_nuclide) % kappa_fission * atom_density * flux
+                  score = p % micro_xs(i_nuclide) % kappa_fission * atom_density * flux
                 case (SCORE_EVENTS)
                   score = ONE
                 case default
