@@ -74,10 +74,10 @@ contains
         ! LOOP OVER PARTICLES
 !$omp parallel do schedule(static) firstprivate(p)
         PARTICLE_LOOP: do i_work = 1, work
-          current_work = i_work
+          p % current_work = i_work
 
           ! grab source particle from bank
-          call get_source_particle(p, current_work)
+          call get_source_particle(p, p % current_work)
 
           ! transport particle
           call transport(p)

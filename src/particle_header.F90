@@ -92,6 +92,8 @@ module particle_header
     type(MaterialMacroXS)             :: material_xs  
     ! From global.F90, current particle trace
     logical    :: trace
+    ! index in source bank of current history simulated
+    integer(8) :: current_work 
 
   contains
     procedure :: initialize => initialize_particle

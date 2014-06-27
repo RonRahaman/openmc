@@ -1,0 +1,5 @@
+src/eigenvalue.F90:          current_work = i_work
+src/eigenvalue.F90:          call get_source_particle(p, current_work)
+src/global.F90:  integer(8) :: current_work ! index in source bank of current history simulated
+src/global.F90:!$omp&              thread_id, current_work, matching_bins)
+src/particle_restart_write.F90:    src => source_bank(current_work)

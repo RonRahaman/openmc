@@ -42,7 +42,7 @@ contains
     call pr % file_create(filename)
 
     ! Get information about source particle
-    src => source_bank(current_work)
+    src => source_bank(p % current_work)
 
     ! Write data to file
     call pr % write_data(FILETYPE_PARTICLE_RESTART, 'filetype')

@@ -164,7 +164,6 @@ module global
   integer(8) :: n_bank       ! # of sites in fission bank
   integer(8) :: work         ! number of particles per processor
   integer(8), allocatable :: work_index(:) ! starting index in source bank for each process
-  integer(8) :: current_work ! index in source bank of current history simulated
 
   ! Temporary k-effective values
   real(8), allocatable :: k_generation(:) ! single-generation estimates of k
@@ -373,8 +372,7 @@ module global
   logical :: output_xs      = .false.
   logical :: output_tallies = .true.
 
-!$omp threadprivate(fission_bank, n_bank, message, &
-!$omp&              thread_id, current_work, matching_bins)
+!$omp threadprivate(fission_bank, n_bank, message, thread_id, matching_bins)
 
 contains
 
