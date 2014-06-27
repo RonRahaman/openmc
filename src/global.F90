@@ -374,7 +374,7 @@ module global
   logical :: output_xs      = .false.
   logical :: output_tallies = .true.
 
-!$omp threadprivate(material_xs, fission_bank, n_bank, message, &
+!$omp threadprivate(fission_bank, n_bank, message, &
 !$omp&              trace, thread_id, current_work, matching_bins)
 
 contains

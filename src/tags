@@ -2231,7 +2231,7 @@ mesh_intersects_2d	mesh.F90	/^  function mesh_intersects_2d(/;"	f	module:mesh
 mesh_intersects_3d	mesh.F90	/^  function mesh_intersects_3d(/;"	f	module:mesh
 meshes	global.F90	/^  type(StructuredMesh), allocatable, target :: meshes(/;"	v	module:global
 metastable	ace_header.F90	/^    logical       :: metastable /;"	k	type:XsListing
-micro_xs	global.F90	/^  type(NuclideMicroXS), allocatable :: micro_xs(/;"	v	module:global
+micro_xs	particle_header.F90	/^    type(NuclideMicroXS), allocatable :: micro_xs(/;"	k	type:Particle
 mid	initialize.F90	/^    integer :: mid,/;"	L	subroutine:adjust_indices	file:
 mid	input_xml.F90	/^    integer :: mid$/;"	L	subroutine:read_geometry_xml	file:
 mid	matrix_header.F90	/^    integer :: mid /;"	L	subroutine:sort_csr	file:
@@ -2795,6 +2795,8 @@ outside	geometry_header.F90	/^     integer              :: outside /;"	k	type:La
 outside	mesh.F90	/^    logical :: outside /;"	L	subroutine:count_bank_sites	file:
 outside_lattice	geometry.F90	/^    logical :: outside_lattice /;"	L	subroutine:find_cell	file:
 p	cross_section.F90	/^    type/;"	L	subroutine:calculate_nuclide_xs	file:
+p	cross_section.F90	/^    type/;"	L	subroutine:calculate_sab_xs	file:
+p	cross_section.F90	/^    type/;"	L	subroutine:calculate_urr_xs	file:
 p	cross_section.F90	/^    type/;"	L	subroutine:calculate_xs	file:
 p	cross_section.F90	/^    type/;"	L	subroutine:find_energy_index	file:
 p	eigenvalue.F90	/^    type/;"	L	subroutine:run_eigenvalue	file:
@@ -2817,7 +2819,10 @@ p	physics.F90	/^    type/;"	L	function:sample_nuclide	file:
 p	physics.F90	/^    type/;"	L	subroutine:absorption	file:
 p	physics.F90	/^    type/;"	L	subroutine:collision	file:
 p	physics.F90	/^    type/;"	L	subroutine:create_fission_sites	file:
+p	physics.F90	/^    type/;"	L	subroutine:elastic_scatter	file:
 p	physics.F90	/^    type/;"	L	subroutine:russian_roulette	file:
+p	physics.F90	/^    type/;"	L	subroutine:sab_scatter	file:
+p	physics.F90	/^    type/;"	L	subroutine:sample_fission	file:
 p	physics.F90	/^    type/;"	L	subroutine:sample_reaction	file:
 p	physics.F90	/^    type/;"	L	subroutine:scatter	file:
 p	plot.F90	/^    type/;"	L	subroutine:create_3d_dump	file:

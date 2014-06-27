@@ -33,12 +33,12 @@ contains
 !$omp threadprivate(mat)
 
     ! Set all material macroscopic cross sections to zero
-    material_xs % total      = ZERO
-    material_xs % elastic    = ZERO
-    material_xs % absorption = ZERO
-    material_xs % fission    = ZERO
-    material_xs % nu_fission = ZERO
-    material_xs % kappa_fission  = ZERO
+    p % material_xs % total      = ZERO
+    p % material_xs % elastic    = ZERO
+    p % material_xs % absorption = ZERO
+    p % material_xs % fission    = ZERO
+    p % material_xs % nu_fission = ZERO
+    p % material_xs % kappa_fission  = ZERO
 
     ! Exit subroutine if material is void
     if (p % material == MATERIAL_VOID) return
@@ -100,27 +100,27 @@ contains
       atom_density = mat % atom_density(i)
 
       ! Add contributions to material macroscopic total cross section
-      material_xs % total = material_xs % total + &
+      p % material_xs % total = p % material_xs % total + &
            atom_density * p % micro_xs(i_nuclide) % total
 
       ! Add contributions to material macroscopic scattering cross section
-      material_xs % elastic = material_xs % elastic + &
+      p % material_xs % elastic = p % material_xs % elastic + &
            atom_density * p % micro_xs(i_nuclide) % elastic
 
       ! Add contributions to material macroscopic absorption cross section
-      material_xs % absorption = material_xs % absorption + & 
+      p % material_xs % absorption = p % material_xs % absorption + & 
            atom_density * p % micro_xs(i_nuclide) % absorption
 
       ! Add contributions to material macroscopic fission cross section
-      material_xs % fission = material_xs % fission + &
+      p % material_xs % fission = p % material_xs % fission + &
            atom_density * p % micro_xs(i_nuclide) % fission
 
       ! Add contributions to material macroscopic nu-fission cross section
-      material_xs % nu_fission = material_xs % nu_fission + &
+      p % material_xs % nu_fission = p % material_xs % nu_fission + &
            atom_density * p % micro_xs(i_nuclide) % nu_fission
            
       ! Add contributions to material macroscopic energy release from fission
-      material_xs % kappa_fission = material_xs % kappa_fission + &
+      p % material_xs % kappa_fission = p % material_xs % kappa_fission + &
            atom_density * p % micro_xs(i_nuclide) % kappa_fission
     end do
 

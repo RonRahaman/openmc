@@ -139,7 +139,7 @@ contains
             ! estimator since there is no way to count 'events' exactly for
             ! the flux
 
-            score = last_wgt / material_xs % total
+            score = last_wgt / p % material_xs % total
 
           case (SCORE_TOTAL)
             ! All events will score to the total reaction rate. We can just
@@ -215,8 +215,8 @@ contains
             if (p % event /= EVENT_SCATTER) cycle SCORE_LOOP
 
             ! get material macros
-            macro_total = material_xs % total
-            macro_scatt = material_xs % total - material_xs % absorption
+            macro_total = p % material_xs % total
+            macro_scatt = p % material_xs % total - p % material_xs % absorption
 
             ! Score total rate - p1 scatter rate Note estimator needs to be
             ! adjusted since tallying is only occuring when a scatter has
@@ -625,26 +625,26 @@ contains
 
               case (SCORE_TOTAL)
                 ! Total cross section is pre-calculated
-                score = material_xs % total * flux
+                score = p % material_xs % total * flux
 
               case (SCORE_SCATTER)
                 ! Scattering cross section is pre-calculated
-                score = (material_xs % total - material_xs % absorption) * flux
+                score = (p % material_xs % total - p % material_xs % absorption) * flux
 
               case (SCORE_ABSORPTION)
                 ! Absorption cross section is pre-calculated
-                score = material_xs % absorption * flux
+                score = p % material_xs % absorption * flux
 
               case (SCORE_FISSION)
                 ! Fission cross section is pre-calculated
-                score = material_xs % fission * flux
+                score = p % material_xs % fission * flux
 
               case (SCORE_NU_FISSION)
                 ! Nu-fission cross section is pre-calculated
-                score = material_xs % nu_fission * flux
+                score = p % material_xs % nu_fission * flux
 
               case (SCORE_KAPPA_FISSION)
-                score = material_xs % kappa_fission * flux
+                score = p % material_xs % kappa_fission * flux
 
               case (SCORE_EVENTS)
                 ! For number of events, just score unity
@@ -875,22 +875,22 @@ contains
         score = flux
 
       case (SCORE_TOTAL)
-        score = material_xs % total * flux
+        score = p % material_xs % total * flux
 
       case (SCORE_SCATTER)
-        score = (material_xs % total - material_xs % absorption) * flux
+        score = (p % material_xs % total - p % material_xs % absorption) * flux
 
       case (SCORE_ABSORPTION)
-        score = material_xs % absorption * flux
+        score = p % material_xs % absorption * flux
 
       case (SCORE_FISSION)
-        score = material_xs % fission * flux
+        score = p % material_xs % fission * flux
 
       case (SCORE_NU_FISSION)
-        score = material_xs % nu_fission * flux
+        score = p % material_xs % nu_fission * flux
 
       case (SCORE_KAPPA_FISSION)
-        score = material_xs % kappa_fission * flux
+        score = p % material_xs % kappa_fission * flux
 
       case (SCORE_EVENTS)
         score = ONE
@@ -1238,17 +1238,17 @@ contains
                 case (SCORE_FLUX)
                   score = flux
                 case (SCORE_TOTAL)
-                  score = material_xs % total * flux
+                  score = p % material_xs % total * flux
                 case (SCORE_SCATTER)
-                  score = (material_xs % total - material_xs % absorption) * flux
+                  score = (p % material_xs % total - p % material_xs % absorption) * flux
                 case (SCORE_ABSORPTION)
-                  score = material_xs % absorption * flux
+                  score = p % material_xs % absorption * flux
                 case (SCORE_FISSION)
-                  score = material_xs % fission * flux
+                  score = p % material_xs % fission * flux
                 case (SCORE_NU_FISSION)
-                  score = material_xs % nu_fission * flux
+                  score = p % material_xs % nu_fission * flux
                 case (SCORE_KAPPA_FISSION)
-                  score = material_xs % kappa_fission * flux
+                  score = p % material_xs % kappa_fission * flux
                 case (SCORE_EVENTS)
                   score = ONE
                 case default

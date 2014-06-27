@@ -1,6 +1,6 @@
 module particle_header
 
-  use ace_header,      only: NuclideMicroXS
+  use ace_header,      only: NuclideMicroXS, MaterialMacroXS
   use constants,       only: NEUTRON, ONE, NONE, ZERO, N_FILTER_TYPES 
   use geometry_header, only: BASE_UNIVERSE
   use global,          only: n_nuclides_total
@@ -88,6 +88,8 @@ module particle_header
     integer :: position(N_FILTER_TYPES - 3) = 0 
     ! From global.F90, cache for each nuclide
     type(NuclideMicroXS), allocatable :: micro_xs(:)  
+    ! From global.F90, cache for current material
+    type(MaterialMacroXS)             :: material_xs  
 
   contains
     procedure :: initialize => initialize_particle

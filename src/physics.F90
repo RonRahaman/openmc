@@ -139,11 +139,11 @@ contains
     ! Sample cumulative distribution function
     select case (base)
     case ('total')
-      cutoff = prn() * material_xs % total
+      cutoff = prn() * p % material_xs % total
     case ('scatter')
-      cutoff = prn() * material_xs % total - material_xs % absorption
+      cutoff = prn() * p % material_xs % total - p % material_xs % absorption
     case ('fission')
-      cutoff = prn() * material_xs % fission
+      cutoff = prn() * p % material_xs % fission
     end select
 
     i = 0

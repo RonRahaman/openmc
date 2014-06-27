@@ -91,10 +91,10 @@ contains
       call distance_to_boundary(p, d_boundary, surface_crossed, lattice_crossed)
 
       ! Sample a distance to collision
-      if (material_xs % total == ZERO) then
+      if (p % material_xs % total == ZERO) then
         d_collision = INFINITY
       else
-        d_collision = -log(prn()) / material_xs % total
+        d_collision = -log(prn()) / p % material_xs % total
       end if
 
       ! Select smaller of the two distances
@@ -115,7 +115,7 @@ contains
 !$omp critical
       global_tallies(K_TRACKLENGTH) % value = &
            global_tallies(K_TRACKLENGTH) % value + p % wgt * distance * &
-           material_xs % nu_fission
+           p % material_xs % nu_fission
 !$omp end critical
 
       if (d_collision > d_boundary) then
@@ -143,7 +143,7 @@ contains
 !$omp critical
         global_tallies(K_COLLISION) % value = &
              global_tallies(K_COLLISION) % value + p % wgt * &
-             material_xs % nu_fission / material_xs % total
+             p % material_xs % nu_fission / p % material_xs % total
 !$omp end critical
 
         ! score surface current tallies -- this has to be done before the collision
