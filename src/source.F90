@@ -219,9 +219,9 @@ contains
     call set_particle_seed(particle_seed)
 
     ! set particle trace
-    trace = .false.
+    p % trace = .false.
     if (current_batch == trace_batch .and. current_gen == trace_gen .and. &
-         p % id == trace_particle) trace = .true.
+         p % id == trace_particle) p % trace = .true.
 
     ! Set particle track.
     p % write_track = .false.

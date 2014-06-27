@@ -38,7 +38,7 @@ contains
 !$omp threadprivate(coord)
 
     ! Display message if high verbosity or trace is on
-    if (verbosity >= 9 .or. trace) then
+    if (verbosity >= 9 .or. p % trace) then
       message = "Simulating Particle " // trim(to_str(p % id))
       call write_message()
     end if

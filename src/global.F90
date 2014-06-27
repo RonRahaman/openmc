@@ -280,7 +280,6 @@ module global
   integer(8), allocatable  :: overlap_check_cnt(:)
 
   ! Trace for single particle
-  logical    :: trace
   integer    :: trace_batch
   integer    :: trace_gen
   integer(8) :: trace_particle
@@ -375,7 +374,7 @@ module global
   logical :: output_tallies = .true.
 
 !$omp threadprivate(fission_bank, n_bank, message, &
-!$omp&              trace, thread_id, current_work, matching_bins)
+!$omp&              thread_id, current_work, matching_bins)
 
 contains
 

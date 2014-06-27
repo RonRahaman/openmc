@@ -44,7 +44,7 @@ contains
     call sample_reaction(p)
 
     ! Display information about collision
-    if (verbosity >= 10 .or. trace) then
+    if (verbosity >= 10 .or. p % trace) then
       message = "    " // trim(reaction_name(p % event_MT)) // " with " // &
            trim(adjustl(nuclides(p % event_nuclide) % name)) // &
            ". Energy = " // trim(to_str(p % E * 1e6_8)) // " eV."

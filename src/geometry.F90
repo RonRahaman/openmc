@@ -178,7 +178,7 @@ contains
         p % coord % cell = index_cell
 
         ! Show cell information on trace
-        if (verbosity >= 10 .or. trace) then
+        if (verbosity >= 10 .or. p % trace) then
           message = "    Entering cell " // trim(to_str(c % id))
           call write_message()
         end if
@@ -383,7 +383,7 @@ contains
 
     i_surface = abs(p % surface)
     surf => surfaces(i_surface)
-    if (verbosity >= 10 .or. trace) then
+    if (verbosity >= 10 .or. p % trace) then
       message = "    Crossing surface " // trim(to_str(surf % id))
       call write_message()
     end if
@@ -416,7 +416,7 @@ contains
       end if
 
       ! Display message
-      if (verbosity >= 10 .or. trace) then
+      if (verbosity >= 10 .or. p % trace) then
         message = "    Leaked out of surface " // trim(to_str(surf % id))
         call write_message()
       end if
@@ -593,7 +593,7 @@ contains
       p % last_xyz = p % coord0 % xyz + TINY_BIT * p % coord0 % uvw
 
       ! Diagnostic message
-      if (verbosity >= 10 .or. trace) then
+      if (verbosity >= 10 .or. p % trace) then
         message = "    Reflected from surface " // trim(to_str(surf%id))
         call write_message()
       end if
@@ -671,7 +671,7 @@ contains
 
     lat => lattices(p % coord % lattice)
 
-    if (verbosity >= 10 .or. trace) then
+    if (verbosity >= 10 .or. p % trace) then
       message = "    Crossing lattice " // trim(to_str(lat % id)) // &
            ". Current position (" // trim(to_str(p % coord % lattice_x)) &
            // "," // trim(to_str(p % coord % lattice_y)) // "," // &

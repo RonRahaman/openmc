@@ -90,6 +90,8 @@ module particle_header
     type(NuclideMicroXS), allocatable :: micro_xs(:)  
     ! From global.F90, cache for current material
     type(MaterialMacroXS)             :: material_xs  
+    ! From global.F90, current particle trace
+    logical    :: trace
 
   contains
     procedure :: initialize => initialize_particle

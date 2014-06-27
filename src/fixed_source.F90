@@ -59,7 +59,7 @@ contains
         p % id = (current_batch - 1)*n_particles + work_index(rank) + i
 
         ! set particle trace
-        trace = .false.
+        p % trace = .false.
         if (current_batch == trace_batch .and. current_gen == trace_gen .and. &
              work_index(rank) + i == trace_particle) trace = .true.
 
