@@ -880,6 +880,7 @@ current	cmfd_header.F90	/^    real(8), allocatable :: current(/;"	k	type:cmfd_ty
 current	energy_grid.F90	/^    integer :: current /;"	L	subroutine:add_grid_points	file:
 current_time	output.F90	/^    character(19) :: current_time /;"	L	function:time_stamp	file:
 current_time	state_point.F90	/^    character(19)           :: current_time$/;"	L	subroutine:load_state_point	file:
+current_work	particle_header.F90	/^    integer(8) :: current_work /;"	k	type:Particle
 cutoff	physics.F90	/^    real(8) :: cutoff$/;"	L	function:sample_nuclide	file:
 cutoff	physics.F90	/^    real(8) :: cutoff$/;"	L	subroutine:sample_fission	file:
 cutoff	physics.F90	/^    real(8) :: cutoff$/;"	L	subroutine:scatter	file:
@@ -2201,6 +2202,7 @@ material	particle_header.F90	/^    integer    :: material /;"	k	type:Particle
 material_dict	global.F90	/^  type(DictIntInt) :: material_dict$/;"	v	module:global
 material_header	material_header.F90	/^module material_header$/;"	m
 material_xs	global.F90	/^  type(MaterialMacroXS)             :: material_xs /;"	v	module:global
+material_xs	particle_header.F90	/^    type(MaterialMacroXS)             :: material_xs /;"	k	type:Particle
 materials	global.F90	/^  type(Material),  allocatable, target :: materials(/;"	v	module:global
 math	math.F90	/^module math$/;"	m
 matidx	cmfd_execute.F90	/^    integer :: matidx /;"	L	function:get_matrix_idx	file:
@@ -3457,6 +3459,7 @@ total_score_bins	tally_header.F90	/^    integer :: total_score_bins$/;"	k	type:T
 totalxs	cmfd_header.F90	/^    real(8), allocatable :: totalxs(/;"	k	type:cmfd_type
 totxs	cmfd_loss_operator.F90	/^    real(8) :: totxs /;"	L	subroutine:build_loss_matrix	file:
 tr	initialize.F90	/^    type(TallyResult) :: tr$/;"	L	subroutine:initialize_mpi	file:
+trace	particle_header.F90	/^    logical    :: trace$/;"	k	type:Particle
 track_output	track_output.F90	/^module track_output$/;"	m
 tracking	tracking.F90	/^module tracking$/;"	m
 translation	geometry_header.F90	/^     real(8), allocatable :: translation(/;"	k	type:Cell

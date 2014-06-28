@@ -27,11 +27,12 @@ contains
 
   subroutine initialize_source()
 
-    integer(8) :: i          ! loop index over bank sites
+    integer(8) :: i, j       ! loop index over bank sites
     integer(8) :: id         ! particle id
     integer(4) :: itmp       ! temporary integer
     type(Bank), pointer :: src => null() ! source bank site
     type(BinaryOutput) :: sp ! statepoint/source binary file
+    type(Bank) :: temp_src   ! temporary copy of a source site
 
     message = "Initializing source particles..."
     call write_message(6)
@@ -74,6 +75,23 @@ contains
         ! sample external source distribution
         call sample_external_source(src)
       end do
+    end if
+
+    ! Sort source bank -- simple insertion sort, based on ace.F90
+    message = "Sorting source particles..."
+    call write_message(6)
+    if (work > 1) then
+      SORT_SOURCE: do i = 2, work
+        temp_src = source_bank(i)
+        j = i
+        MOVE_OVER: do
+          if (temp_src % E >= source_bank(j-1) % E) exit
+          source_bank(j) = source_bank(j-1)
+          j = j - 1
+          if (j == 1) exit
+        end do MOVE_OVER
+        source_bank(j) = temp_src
+      end do SORT_SOURCE
     end if
 
   end subroutine initialize_source
