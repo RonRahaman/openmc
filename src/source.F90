@@ -27,12 +27,11 @@ contains
 
   subroutine initialize_source()
 
-    integer(8) :: i, j       ! loop index over bank sites
+    integer(8) :: i          ! loop index over bank sites
     integer(8) :: id         ! particle id
     integer(4) :: itmp       ! temporary integer
     type(Bank), pointer :: src => null() ! source bank site
     type(BinaryOutput) :: sp ! statepoint/source binary file
-    type(Bank) :: temp_src   ! temporary copy of a source site
 
     message = "Initializing source particles..."
     call write_message(6)
@@ -77,22 +76,8 @@ contains
       end do
     end if
 
-    ! Sort source bank -- simple insertion sort, based on ace.F90
-    message = "Sorting source particles..."
-    call write_message(6)
-    if (work > 1) then
-      SORT_SOURCE: do i = 2, work
-        temp_src = source_bank(i)
-        j = i
-        MOVE_OVER: do
-          if (temp_src % E >= source_bank(j-1) % E) exit
-          source_bank(j) = source_bank(j-1)
-          j = j - 1
-          if (j == 1) exit
-        end do MOVE_OVER
-        source_bank(j) = temp_src
-      end do SORT_SOURCE
-    end if
+    ! Sort source particles (required for energy banding)
+    call sort_source()
 
   end subroutine initialize_source
 
@@ -277,5 +262,39 @@ contains
     p % last_E      = src % E
 
   end subroutine copy_source_attributes
+
+!===============================================================================
+! SORT_SOURCE
+!===============================================================================
+
+  subroutine sort_source()
+    integer(8) :: i, j        ! loop index over bank sites
+    type(Bank) :: temp_src   ! temporary copy of a source site
+
+    message = "Sorting source particles..."
+    call write_message(6)
+
+    ! Sort source bank by energy -- simple insertion sort, based on ace.F90
+    if (work > 1) then
+      do i = 2, work
+        temp_src = source_bank(i)
+        j = i
+        do
+          if (temp_src % E >= source_bank(j-1) % E) exit
+          source_bank(j) = source_bank(j-1)
+          j = j - 1
+          if (j == 1) exit
+        end do 
+        source_bank(j) = temp_src
+      end do 
+    end if
+
+    ! Dump to file, for debugging only
+    ! open(unit=857, file='source_E.txt', status='replace')
+    ! do i = 1, work
+    !   write(857, *) source_bank(i) % E
+    ! end do
+
+  end subroutine sort_source
 
 end module source
