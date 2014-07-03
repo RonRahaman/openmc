@@ -207,7 +207,7 @@ contains
 
       ! **** TEMPORARY IMPLEMENTATION OF ENERGY BANDING -- 
       !    JUST BANKS PARTICLES AFTER A CERTAIN NUMBER OF STEPS ****
-      if (p % alive == .false. .and. n_event >= 1) then
+      if (p % alive == .true. .and. n_event >= 1) then
         ! **** KILL IT, FOR NOW (it will be resurrected in eigenvalue.F90)
         p % alive = .false.
         ! **** ADD p TO NEXT_EBAND_BANK ****
