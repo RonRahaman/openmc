@@ -272,7 +272,8 @@ module global
 
   ! The verbosity controls how much information will be printed to the
   ! screen and in logs
-  integer :: verbosity = 7
+  ! integer :: verbosity = 7
+  integer :: verbosity = 10
 
   ! Flag for enabling cell overlap checking during transport
   logical                  :: check_overlaps = .false.
@@ -373,6 +374,8 @@ module global
   logical :: output_tallies = .true.
 
 !$omp threadprivate(fission_bank, n_bank, message, thread_id, matching_bins)
+
+
 
 contains
 

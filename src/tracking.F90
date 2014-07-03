@@ -1,6 +1,7 @@
 module tracking
 
   use cross_section,   only: calculate_xs
+  use energy_banding
   use error,           only: fatal_error, warning
   use geometry,        only: find_cell, distance_to_boundary, cross_surface, &
                              cross_lattice, check_cell_overlap
@@ -50,7 +51,7 @@ contains
 
       ! Particle couldn't be located
       if (.not. found_cell) then
-        message = "Could not locate particle " // trim(to_str(p % id))
+        message = "(tracking.F90, 54) Could not locate particle " // trim(to_str(p % id))
         call fatal_error()
       end if
 
@@ -202,6 +203,16 @@ contains
              &number of events."
         call warning()
         p % alive = .false.
+      end if
+
+      ! **** TEMPORARY IMPLEMENTATION OF ENERGY BANDING -- 
+      !    JUST BANKS PARTICLES AFTER A CERTAIN NUMBER OF STEPS ****
+      if (p % alive == .false. .and. n_event >= 1) then
+        ! **** KILL IT, FOR NOW (it will be resurrected in eigenvalue.F90)
+        p % alive = .false.
+        ! **** ADD p TO NEXT_EBAND_BANK ****
+        n_next_eband_bank = n_next_eband_bank + 1
+        next_eband_bank(n_next_eband_bank) = p
       end if
 
     end do

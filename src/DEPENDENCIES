@@ -91,6 +91,7 @@ doppler.o: constants.o
 
 eigenvalue.o: cmfd_execute.o
 eigenvalue.o: constants.o
+eigenvalue.o: energy_banding.o
 eigenvalue.o: error.o
 eigenvalue.o: global.o
 eigenvalue.o: math.o
@@ -108,6 +109,8 @@ eigenvalue.o: tracking.o
 
 endf.o: constants.o
 endf.o: string.o
+
+energy_banding.o: particle_header.o
 
 energy_grid.o: constants.o
 energy_grid.o: global.o
@@ -180,6 +183,7 @@ initialize.o: ace.o
 initialize.o: bank_header.o
 initialize.o: constants.o
 initialize.o: dict_header.o
+initialize.o: energy_banding.o
 initialize.o: energy_grid.o
 initialize.o: error.o
 initialize.o: geometry.o
@@ -379,6 +383,7 @@ track_output.o: particle_header.o
 track_output.o: string.o
 
 tracking.o: cross_section.o
+tracking.o: energy_banding.o
 tracking.o: error.o
 tracking.o: geometry.o
 tracking.o: geometry_header.o

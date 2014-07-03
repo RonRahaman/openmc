@@ -6,6 +6,7 @@ module eigenvalue
 
   use cmfd_execute, only: cmfd_init_batch, execute_cmfd
   use constants,    only: ZERO
+  use energy_banding
   use error,        only: fatal_error, warning
   use global
   use math,         only: t_percentile
@@ -16,7 +17,7 @@ module eigenvalue
   use particle_header, only: Particle
   use random_lcg,   only: prn, set_particle_seed, prn_skip
   use search,       only: binary_search
-  use source,       only: get_source_particle
+  use source,       only: get_source_particle, sort_source
   use state_point,  only: write_state_point, write_source_point
   use string,       only: to_str
   use tally,        only: synchronize_tallies, setup_active_usertallies, &
@@ -70,20 +71,54 @@ contains
         ! Start timer for transport
         call time_transport % start()
 
-        ! ====================================================================
-        ! LOOP OVER PARTICLES
-!$omp parallel do schedule(static) firstprivate(p)
-        PARTICLE_LOOP: do i_work = 1, work
-          p % current_work = i_work
+        ! **** SORT SOURCE ****
+        ! call sort_source()
+        ! **** COPY SOURCE TO EBAND_BANK
+        do i_work = 1, work
+          call get_source_particle(eband_bank(i_work), i_work)
+        end do
+        n_eband_bank = work
 
-          ! grab source particle from bank
-          call get_source_particle(p, p % current_work)
+        EBAND_LOOP: do while (n_eband_bank > 0)
 
-          ! transport particle
-          call transport(p)
+          ! ====================================================================
+          ! LOOP OVER PARTICLES
+  !$omp parallel do schedule(static) firstprivate(p)
+          PARTICLE_LOOP: do i_work = 1, n_eband_bank
 
-        end do PARTICLE_LOOP
-!$omp end parallel do
+            ! **** GET P FROM E_BAND_BANK
+            p = eband_bank(i_work)
+            p % current_work = i_work
+
+            ! **** BRING IT BACK TO LIFE (it was killed in tracking.F90)
+            p % alive = .true.
+
+            ! *** RESET ITS COORDINATES (not-optimal, need to figure out how to
+            ! store coords between iterations of the eband loop)
+            ! p % coord0 % universe = BASE_UNIVERSE
+            ! p % coord             => p % coord0
+
+            ! *** CLEAR E_BAND_BANK ENTRY
+            ! call clear_particle(eband_bank(i_work))
+
+            ! transport particle
+            call transport(p)
+
+            ! **** CLEAR p
+            ! call clear_particle(p)
+
+          end do PARTICLE_LOOP
+  !$omp end parallel do
+
+          ! **** SWAP NEXT_EBAND_BANK and E_BAND_BANK ****
+          tmp_ptr_eband_bank => eband_bank
+          eband_bank => next_eband_bank
+          next_eband_bank => tmp_ptr_eband_bank
+
+          n_eband_bank = n_next_eband_bank
+          n_next_eband_bank = 0
+
+        end do EBAND_LOOP
 
         ! Accumulate time for transport
         call time_transport % stop()

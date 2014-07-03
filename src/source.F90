@@ -76,8 +76,8 @@ contains
       end do
     end if
 
-    ! Sort source particles (required for energy banding)
-    call sort_source()
+    ! Sort source particles (helps with energy banding?)
+    ! call sort_source()
 
   end subroutine initialize_source
 

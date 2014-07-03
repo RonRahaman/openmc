@@ -739,7 +739,7 @@ contains
       ! Search for particle
       call find_cell(p, found)
       if (.not. found) then
-        message = "Could not locate particle " // trim(to_str(p % id)) // &
+        message = "(geometry.F90, 742) Could not locate particle " // trim(to_str(p % id)) // &
              " after crossing a lattice boundary."
         call handle_lost_particle(p)
         return
@@ -762,7 +762,7 @@ contains
         ! Search for particle
         call find_cell(p, found)
         if (.not. found) then
-          message = "Could not locate particle " // trim(to_str(p % id)) // &
+          message = "(geometry.F90, 765) Could not locate particle " // trim(to_str(p % id)) // &
                " after crossing a lattice boundary."
           call handle_lost_particle(p)
           return

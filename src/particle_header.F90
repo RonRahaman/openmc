@@ -95,6 +95,9 @@ module particle_header
     ! index in source bank of current history simulated
     integer(8) :: current_work 
 
+    ! New variables for energy banding
+    integer :: eband_index  !current band index
+
   contains
     procedure :: initialize => initialize_particle
     procedure :: clear => clear_particle
@@ -150,6 +153,9 @@ contains
     this % wgt_bank      = ZERO
     this % n_collision   = 0
     this % fission       = .false.
+
+    ! Temporary implementation for simple ebanding
+    this % eband_index    = 0
 
     ! Set up base level coordinates
     allocate(this % coord0)

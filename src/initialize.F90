@@ -4,6 +4,7 @@ module initialize
   use bank_header,      only: Bank
   use constants
   use dict_header,      only: DictIntInt, ElemKeyValueII
+  use energy_banding
   use energy_grid,      only: unionized_grid
   use error,            only: fatal_error, warning
   use geometry,         only: neighbor_lists
@@ -64,6 +65,8 @@ contains
 
     ! Read command line arguments
     call read_command_line()
+
+    print *, 'nbands is ', nbands
 
     if (master) then
       ! Display title and initialization header
@@ -157,6 +160,12 @@ contains
       message = "Cell overlap checking is ON"
       call warning()
     end if
+
+    ! **** ALLOCATE ENERGY BAND BANKS
+    allocate(eband_bank(1:work))
+    allocate(next_eband_bank(1:work))
+    n_eband_bank = 0
+    n_next_eband_bank = 0
 
     ! Stop initialization timer
     call time_initialize % stop()
@@ -439,6 +448,9 @@ contains
         case ('-t', '-track', '--track')
           write_all_tracks = .true.
           i = i + 1
+        case ('-b', '--bands')
+          i = i + 1
+          nbands = str_to_int(argv(i))
         case default
           message = "Unknown command line option: " // argv(i)
           call fatal_error()
