@@ -8,7 +8,7 @@ module tracking
   use geometry_header, only: Universe, BASE_UNIVERSE
   use global
   use output,          only: write_message
-  use particle_header, only: LocalCoord, Particle
+  use particle_header, only: LocalCoord, Particle, copy_particle
   use physics,         only: collision
   use random_lcg,      only: prn
   use string,          only: to_str
@@ -42,13 +42,25 @@ contains
     if (verbosity >= 9 .or. p % trace) then
       message = "Simulating Particle " // trim(to_str(p % id))
       call write_message()
+      coord => p % coord
+      do while (associated( coord))
+        print *, 'coord % cell = ', coord % cell
+        print *, 'coord % universe = ', coord % universe
+        coord => coord % next
+      end do
+
+      coord => p % coord0
+      do while (associated( coord))
+        print *, 'coord0 % cell = ', coord % cell
+        print *, 'coord0 % universe = ', coord % universe
+        coord => coord % next
+      end do
     end if
 
     ! If the cell hasn't been determined based on the particle's location,
     ! initiate a search for the current cell
     if (p % coord % cell == NONE) then
       call find_cell(p, found_cell)
-
       ! Particle couldn't be located
       if (.not. found_cell) then
         message = "(tracking.F90, 54) Could not locate particle " // trim(to_str(p % id))
@@ -207,12 +219,13 @@ contains
 
       ! **** TEMPORARY IMPLEMENTATION OF ENERGY BANDING -- 
       !    JUST BANKS PARTICLES AFTER A CERTAIN NUMBER OF STEPS ****
-      if (p % alive == .true. .and. n_event >= 1) then
+      if (p % alive .and. n_event >= 1) then
         ! **** KILL IT, FOR NOW (it will be resurrected in eigenvalue.F90)
         p % alive = .false.
         ! **** ADD p TO NEXT_EBAND_BANK ****
         n_next_eband_bank = n_next_eband_bank + 1
-        next_eband_bank(n_next_eband_bank) = p
+        ! next_eband_bank(n_next_eband_bank) = p
+        call copy_particle(p, next_eband_bank(n_next_eband_bank))
       end if
 
     end do

@@ -32,3 +32,6 @@ results_error.dat
 
 # HDF5 files
 *.h5
+
+# vim backups
+*.swp

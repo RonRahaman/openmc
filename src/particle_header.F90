@@ -179,11 +179,35 @@ contains
     call deallocate_coord(this % coord0)
 
     ! Make sure coord pointer is nullified
-    nullify(this % coord)
+    if (associated(this % coord)) nullify(this % coord)
 
     ! Deallocate micro_xs cache
     if (allocated(this % micro_xs)) deallocate(this % micro_xs)
 
   end subroutine clear_particle
+
+!===============================================================================
+! COPY_PARTICLE
+!===============================================================================
+
+subroutine copy_particle(source, dest)
+    type(Particle), intent(in) :: source
+    type(Particle), intent(inout) :: dest
+    dest = source
+    dest % coord0 => copy_coord(source % coord0)
+    dest % coord => copy_coord(source % coord)
+end subroutine copy_particle
+
+recursive function copy_coord(old_head) result(new_head)
+  type(LocalCoord), pointer, intent(in) :: old_head
+  type(LocalCoord), pointer :: new_head
+  nullify(new_head)
+  allocate(new_head)
+  new_head = old_head
+  if (associated(old_head % next)) then
+    new_head % next => copy_coord(old_head % next)
+  end if
+end function copy_coord
+
 
 end module particle_header

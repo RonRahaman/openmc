@@ -14,7 +14,7 @@ module eigenvalue
   use mesh_header,  only: StructuredMesh
   use output,       only: write_message, header, print_columns,              &
                           print_batch_keff, print_generation
-  use particle_header, only: Particle
+  use particle_header, only: Particle, clear_particle, copy_particle
   use random_lcg,   only: prn, set_particle_seed, prn_skip
   use search,       only: binary_search
   use source,       only: get_source_particle, sort_source
@@ -88,6 +88,7 @@ contains
 
             ! **** GET P FROM E_BAND_BANK
             p = eband_bank(i_work)
+            ! call copy_particle(eband_bank(i_work), p)
             p % current_work = i_work
 
             ! **** BRING IT BACK TO LIFE (it was killed in tracking.F90)
@@ -98,14 +99,14 @@ contains
             ! p % coord0 % universe = BASE_UNIVERSE
             ! p % coord             => p % coord0
 
-            ! *** CLEAR E_BAND_BANK ENTRY
-            ! call clear_particle(eband_bank(i_work))
-
             ! transport particle
             call transport(p)
 
             ! **** CLEAR p
             ! call clear_particle(p)
+
+            ! *** CLEAR E_BAND_BANK ENTRY
+            ! call clear_particle(eband_bank(i_work))
 
           end do PARTICLE_LOOP
   !$omp end parallel do
