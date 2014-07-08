@@ -1,3 +1,12 @@
+==================================================
+Energy Banding with Domain-decompositon Semantics
+==================================================
+
+This is an implementation of the energy banding algorithm described by Andrew
+Siegel et al.  For particle banking, it makes use of data structures and
+subroutines from domain-decomposed OpenMC, kindly provided by Nick Horelik.
+
+
 ==========================================
 OpenMC Monte Carlo Particle Transport Code
 ==========================================
