@@ -109,6 +109,9 @@ eigenvalue.o: tracking.o
 endf.o: constants.o
 endf.o: string.o
 
+energy_banding.o: error.o
+energy_banding.o: global.o
+
 energy_grid.o: constants.o
 energy_grid.o: global.o
 energy_grid.o: list_header.o
@@ -181,6 +184,7 @@ initialize.o: ace.o
 initialize.o: bank_header.o
 initialize.o: constants.o
 initialize.o: dict_header.o
+initialize.o: energy_banding.o
 initialize.o: energy_grid.o
 initialize.o: error.o
 initialize.o: geometry.o

@@ -66,6 +66,8 @@ contains
         GENERATION_LOOP: do current_gen = 1, gen_per_batch
 
           call initialize_generation()
+
+          ! call copy_source_to_eband_bank()
           ! **** COPY SOURCE INTO EBAND_BANK USING GET_SOURCE_PARTICLE
 
           ! Start timer for transport
