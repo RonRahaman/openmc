@@ -9,6 +9,7 @@ module global
   use geometry_header,  only: Cell, Universe, Lattice, Surface
   use material_header,  only: Material
   use mesh_header,      only: StructuredMesh
+  use particle_header,  only: SendParticle
   use plot_header,      only: ObjectPlot
   use set_header,       only: SetInt
   use source_header,    only: ExtSource
@@ -376,6 +377,27 @@ module global
 
 !$omp threadprivate(micro_xs, material_xs, fission_bank, n_bank, message, &
 !$omp&              trace, thread_id, current_work, matching_bins)
+
+!===============================================================================
+! ENERGY BANDING VARIABLES
+!===============================================================================
+
+! Number of energy bands
+integer, parameter :: n_ebands = 5
+
+! Bank for Particles in energy bands.  
+! Will be allocated to eband(1:work, 1:n_eband). Note the column-major ordering.
+type(SendParticle), allocatable :: eband_bank(:,:)
+
+! Lowest energy of energy band.
+! I.e, for every particle p in in eband(:,i_eband), eband_min_E(i_band) <= p % E
+! Will be allocated to eband_min_E(1:n_ebands)
+real(8), allocatable :: eband_min_E(:)
+
+! Lowest index of energy band on UEG
+! I.e, for every particle p in in eband(:,i_eband), e_grid(eband_min_i(i_band)) <= p % E
+! Will be allocated to eband_min_i(1:n_ebands)
+integer, allocatable :: eband_min_i(:)
 
 contains
 

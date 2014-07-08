@@ -158,6 +158,7 @@ global.o: geometry_header.o
 global.o: hdf5_interface.o
 global.o: material_header.o
 global.o: mesh_header.o
+global.o: particle_header.o
 global.o: plot_header.o
 global.o: set_header.o
 global.o: source_header.o

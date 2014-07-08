@@ -84,6 +84,49 @@ module particle_header
     procedure :: clear => clear_particle
   end type Particle
 
+!===============================================================================
+! SENDPARTICLE was implemented by Nick Horelik for domain-decomposed OpenMC.
+! 
+! In DD OpenMC, it is a copy of the particle data structure for sending to other
+! processes via MPI - it's needed to get proper alignment of fields, and it
+! provides a way to cut down on some of the info we need to send
+!
+! In Eband OpenMC, it similarly provides a flat, lower-memory structure for
+! banking particles that leave the energy band. The 'sequence' attribute is not
+! strictly needed for on-node energy-banding.  
+!===============================================================================
+
+  type SendParticle
+  
+    sequence
+
+    integer(8) :: id
+    integer(8) :: prn_seed
+    integer(8) :: xs_seed
+    real(8)    :: wgt
+    real(8)    :: E
+    real(8)    :: mu
+    real(8)    :: last_wgt
+    real(8)    :: last_E
+    real(8)    :: absorb_wgt
+    real(8)    :: wgt_bank
+    real(8)    :: stored_distance
+    real(8)    :: last_xyz(3)
+    real(8)    :: stored_xyz(3)
+    real(8)    :: stored_uvw(3)
+    integer    :: type
+    integer    :: event
+    integer    :: event_nuclide
+    integer    :: event_MT
+    integer    :: n_bank
+    integer    :: surface
+    integer    :: cell_born
+    integer    :: n_collision
+    integer    :: material
+    integer    :: last_material
+
+  end type SendParticle
+
 contains
 
 !===============================================================================
