@@ -9,7 +9,7 @@ module global
   use geometry_header,  only: Cell, Universe, Lattice, Surface
   use material_header,  only: Material
   use mesh_header,      only: StructuredMesh
-  use particle_header,  only: SendParticle
+  use particle_header,  only: Particle, SendParticle
   use plot_header,      only: ObjectPlot
   use set_header,       only: SetInt
   use source_header,    only: ExtSource
@@ -274,7 +274,7 @@ module global
 
   ! The verbosity controls how much information will be printed to the
   ! screen and in logs
-  integer :: verbosity = 7
+  integer :: verbosity = 10
 
   ! Flag for enabling cell overlap checking during transport
   logical                  :: check_overlaps = .false.
@@ -383,11 +383,14 @@ module global
 !===============================================================================
 
 ! Number of energy bands
-integer, parameter :: n_ebands = 5
+integer, parameter :: n_ebands = 20
 
 ! Bank for Particles in energy bands.  
 ! Will be allocated to eband(1:work, 1:n_eband). Note the column-major ordering.
-type(SendParticle), allocatable :: eband_bank(:,:)
+type(Particle), allocatable :: eband_bank(:,:)
+
+! len_eband(i) is the length of Particles in the eband_bank(:,i)
+integer, allocatable :: len_eband(:)
 
 ! Lowest energy of energy band.
 ! I.e, for every particle p in in eband(:,i_eband), eband_min_E(i_band) <= p % E

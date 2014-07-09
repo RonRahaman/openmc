@@ -2,6 +2,7 @@ module source
 
   use bank_header,      only: Bank
   use constants
+  use energy_banding,   only: get_eband_index
   use error,            only: fatal_error
   use geometry,         only: find_cell
   use geometry_header,  only: BASE_UNIVERSE
@@ -237,6 +238,13 @@ contains
         end if
       end do
     end if
+
+    ! Set eband
+    p % eband = get_eband_index(p % E)
+    if (verbosity >= 10) then
+      print *, 'Particle ', p % id, '; energy ', p % E, '; eband ', p % eband
+    end if
+
 
   end subroutine get_source_particle
 

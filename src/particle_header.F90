@@ -79,6 +79,15 @@ module particle_header
     ! Track output
     logical    :: write_track = .false.
 
+    ! Data needed to restart a particle stored in a bank after changing domains
+    real(8)    :: stored_xyz(3)
+    real(8)    :: stored_uvw(3)
+    integer(8) :: prn_seed        ! the  next random number seed 
+    integer(8) :: xs_seed         ! the previously seed used for xs gen
+
+    ! Index of eband
+    integer :: eband
+
   contains
     procedure :: initialize => initialize_particle
     procedure :: clear => clear_particle
@@ -110,7 +119,6 @@ module particle_header
     real(8)    :: last_E
     real(8)    :: absorb_wgt
     real(8)    :: wgt_bank
-    real(8)    :: stored_distance
     real(8)    :: last_xyz(3)
     real(8)    :: stored_xyz(3)
     real(8)    :: stored_uvw(3)
@@ -124,6 +132,10 @@ module particle_header
     integer    :: n_collision
     integer    :: material
     integer    :: last_material
+
+    ! New addtions, added since Nick's version
+    logical    :: fission
+    integer    :: eband
 
   end type SendParticle
 
@@ -200,5 +212,93 @@ contains
     nullify(this % coord)
 
   end subroutine clear_particle
+
+!============================================================================
+! PARTICLE_TO_BUFFER copies particle information to the SendParticle data type
+! for sending via MPI
+! (originally implemented in Nick Horelik's domain-decomposed OpenMP)
+!===============================================================================
+
+  subroutine particle_to_buffer(part, buf)
+  
+    type(Particle),     intent(in)  :: part
+    type(SendParticle), intent(out) :: buf
+    
+    buf % id              = part % id
+    buf % type            = part % type
+    buf % wgt             = part % wgt
+    buf % E               = part % E
+    buf % mu              = part % mu
+    buf % last_xyz        = part % last_xyz
+    buf % last_wgt        = part % last_wgt
+    buf % last_E          = part % last_E
+    buf % absorb_wgt      = part % absorb_wgt
+    buf % event           = part % event
+    buf % event_nuclide   = part % event_nuclide
+    buf % event_MT        = part % event_MT
+    buf % n_bank          = part % n_bank
+    buf % wgt_bank        = part % wgt_bank
+    buf % surface         = part % surface
+    buf % cell_born       = part % cell_born
+    buf % n_collision     = part % n_collision
+    buf % stored_xyz      = part % stored_xyz
+    buf % stored_uvw      = part % stored_uvw
+    buf % material        = part % material
+    buf % last_material   = part % last_material
+    
+    buf % prn_seed        = part % prn_seed
+    buf % xs_seed         = part % xs_seed
+
+    ! New addtions, since Nick's version
+    buf % fission         = part % fission
+    buf % eband           = part % eband
+  
+  end subroutine particle_to_buffer
+
+!===============================================================================
+! BUFFER_TO_PARTICLE copies particle information out of SendParticle buffer
+! received via MPI back into a particle data type
+! (originally implemented in Nick Horelik's domain-decomposed OpenMP)
+!===============================================================================
+
+  subroutine buffer_to_particle(buf, part)
+  
+    type(SendParticle), intent(in)  :: buf
+    type(Particle),     intent(out) :: part
+  
+    part % id              = buf % id
+    part % type            = buf % type
+    part % wgt             = buf % wgt
+    part % E               = buf % E
+    part % mu              = buf % mu
+    part % alive           = .true.
+    part % last_xyz        = buf % last_xyz
+    part % last_wgt        = buf % last_wgt
+    part % last_E          = buf % last_E
+    part % absorb_wgt      = buf % absorb_wgt
+    part % event           = buf % event
+    part % event_nuclide   = buf % event_nuclide
+    part % event_MT        = buf % event_MT
+    part % n_bank          = buf % n_bank
+    part % wgt_bank        = buf % wgt_bank
+    part % surface         = NONE
+    part % cell_born       = buf % cell_born
+    part % material        = NONE
+    part % last_material   = NONE
+    part % n_collision     = buf % n_collision
+    part % stored_xyz      = buf % stored_xyz
+    part % stored_uvw      = buf % stored_uvw
+    part % material        = buf % material
+    part % last_material   = buf % last_material
+
+    part % prn_seed        = buf % prn_seed
+    part % xs_seed         = buf % xs_seed
+
+    ! New addtions, since Nick's version
+    part % fission         = buf % fission
+    part % eband           = buf % eband
+
+  end subroutine buffer_to_particle
+
 
 end module particle_header

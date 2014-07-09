@@ -1,62 +1,130 @@
 module energy_banding
   use error,   only: fatal_error
   use global
+  use source,  only: get_source_particle
 
   implicit none
-  contains
+contains
 
-!===============================================================================
-! ALLOCATE_EBAND_BANK allocates memory for the energy-banding bank
-!===============================================================================
+  !===============================================================================
+  ! ALLOCATE_EBAND_BANK allocates memory for the energy-banding bank
+  !===============================================================================
 
-subroutine allocate_eband_bank()
+  subroutine allocate_eband_bank()
 
-    integer :: alloc_err  ! allocation error code
+      integer :: alloc_err  ! allocation error code
 
-    ! Allocate eband_bank bank
-    allocate(eband_bank(work, n_ebands), STAT=alloc_err)
-    if (alloc_err /= 0) then
-      message = "Failed to allocate energy-banding bank."
-      call fatal_error()
-    end if
+      ! Allocate eband_bank bank
+      allocate(eband_bank(work, n_ebands), STAT=alloc_err)
+      if (alloc_err /= 0) then
+        message = "Failed to allocate energy-banding bank."
+        call fatal_error()
+      end if
 
-end subroutine allocate_eband_bank
+      ! Allocate and initialize len_eband
+      allocate(len_eband(n_ebands), STAT=alloc_err)
+      if (alloc_err /= 0) then
+        message = "Failed to allocate len_ebands."
+        call fatal_error()
+      end if
 
-!===============================================================================
-! INIT_EBAND_BOUNDS initializes the bounds for the energy bands, based on the
-! unionized energy grid
-!===============================================================================
+      len_eband = 0
 
-subroutine init_eband_bounds()
+  end subroutine allocate_eband_bank
 
-    integer :: i, j          ! loop control
-    integer :: alloc_err     ! allocation error code
+  !===============================================================================
+  ! INIT_EBAND_BOUNDS initializes the bounds for the energy bands, based on the
+  ! unionized energy grid
+  !===============================================================================
 
-    allocate(eband_min_E(n_ebands), STAT=alloc_err)
-    if (alloc_err /= 0) then
-      message = "Failed to allocate eband bounds."
-      call fatal_error()
-    end if
+  subroutine init_eband_bounds()
 
-    allocate(eband_min_i(n_ebands), STAT=alloc_err)
-    if (alloc_err /= 0) then
-      message = "Failed to allocate eband bounds."
-      call fatal_error()
-    end if
+      integer :: i, j          ! loop control
+      integer :: alloc_err     ! allocation error code
 
-    do i = 1, n_ebands
-      j = real(n_ebands - i) / n_ebands * n_grid + 1
-      eband_min_i(i) = j
-      eband_min_E(i) = e_grid(j)
-    end do
+      allocate(eband_min_E(n_ebands), STAT=alloc_err)
+      if (alloc_err /= 0) then
+        message = "Failed to allocate eband bounds."
+        call fatal_error()
+      end if
 
-    print *, 'Egrid has ', n_grid, 'elements and ranges from ', e_grid(1), ' to ', e_grid(n_grid)
-    print *, 'eband_min_i is ', eband_min_i
-    print *, 'eband_min_E is ', eband_min_E
+      allocate(eband_min_i(n_ebands), STAT=alloc_err)
+      if (alloc_err /= 0) then
+        message = "Failed to allocate eband bounds."
+        call fatal_error()
+      end if
 
-    stop
+      do i = 1, n_ebands
+        j = real(n_ebands - i) / n_ebands * n_grid + 1
+        eband_min_i(i) = j
+        eband_min_E(i) = e_grid(j)
+      end do
 
-end subroutine init_eband_bounds
+      if (verbosity >= 10) then
+        print *, 'Egrid has ', n_grid, 'elements and ranges from ', e_grid(1), ' to ', e_grid(n_grid)
+        print *, 'eband_min_i is ', eband_min_i
+        print *, 'eband_min_E is ', eband_min_E
+      end if
+
+  end subroutine init_eband_bounds
+
+  !===============================================================================
+  ! COPY_SOURCE_TO_EBAND_BANK 
+  !===============================================================================
+
+  subroutine copy_source_to_eband_bank()
+
+      type(Particle) :: p
+      integer(8) :: i  
+
+      do i = 1, work
+
+        ! Get the source particle and copy it to the eband bank.          
+        call get_source_particle(p, i)
+        call add_to_eband_bank(p)
+
+      end do
+
+      if (verbosity >= 10) then
+        do i = 1, n_ebands
+          print *, 'Eband ', i, '; len_eband ', len_eband(i)
+        end do
+        print *, 'Total len_eband ', sum(len_eband)
+      end if
+
+  end subroutine copy_source_to_eband_bank
+
+  !===============================================================================
+  ! GET_EBAND_INDEX gets the index of the energy band, given an energy value
+  !===============================================================================
+
+  function get_eband_index(E) result(i)
+      integer :: i
+      real(8) :: E ! the energy
+
+      ! Can't use OpenMC's binary_search, since eband_min_E is sorted in inverse
+      ! order.  Using linear search for now (OK since n_eband is small), but
+      ! need to optimize.
+
+      ! If loop doesn't exit early, i will equal (ngrid-1)+1
+      do i = 1, n_ebands-1
+        if (eband_min_E(i) <= E) exit
+      end do
+
+  end function get_eband_index
+
+  !===============================================================================
+  ! ADD_TO_EBAND_BANK 
+  !===============================================================================
+
+  subroutine add_to_eband_bank(p)
+      type(Particle), intent(in) :: p
+      len_eband(p % eband) = len_eband(p % eband) + 1
+      eband_bank(len_eband(p % eband), p % eband) = p
+  end subroutine add_to_eband_bank
+
+
+
 
 
 

@@ -6,6 +6,7 @@ module eigenvalue
 
   use cmfd_execute, only: cmfd_init_batch, execute_cmfd
   use constants,    only: ZERO
+  use energy_banding
   use error,        only: fatal_error, warning
   use global
   use math,         only: t_percentile
@@ -67,7 +68,8 @@ contains
 
           call initialize_generation()
 
-          ! call copy_source_to_eband_bank()
+          call copy_source_to_eband_bank()
+          stop
           ! **** COPY SOURCE INTO EBAND_BANK USING GET_SOURCE_PARTICLE
 
           ! Start timer for transport
