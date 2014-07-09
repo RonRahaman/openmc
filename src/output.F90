@@ -75,6 +75,11 @@ contains
          trim(to_str(omp_get_max_threads()))
 #endif
 
+    ! Write number of energy bands 
+    write(UNIT=OUTPUT_UNIT, FMT='(6X,"Energy Bands:",3X,A)') &
+         trim(to_str(n_ebands))
+
+
   end subroutine title
 
 !===============================================================================

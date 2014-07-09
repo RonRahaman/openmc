@@ -383,7 +383,7 @@ module global
 !===============================================================================
 
 ! Number of energy bands
-integer, parameter :: n_ebands = 20
+integer :: n_ebands = 10
 
 ! Bank for Particles in energy bands.  
 ! Will be allocated to eband(1:work, 1:n_eband). Note the column-major ordering.

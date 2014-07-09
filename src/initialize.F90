@@ -423,7 +423,6 @@ contains
         case ('-s', '--threads')
           ! Read number of threads
           i = i + 1
-
 #ifdef _OPENMP          
           ! Read and set number of OpenMP threads
           n_threads = str_to_int(argv(i))
@@ -449,6 +448,11 @@ contains
         case ('-t', '-track', '--track')
           write_all_tracks = .true.
           i = i + 1
+        case ('-b', '--ebands')
+          i = i + 1
+          n_ebands = str_to_int(argv(i))
+          message = "Number of energy bands: " // to_str(n_ebands)
+          call write_message()
         case default
           message = "Unknown command line option: " // argv(i)
           call fatal_error()
