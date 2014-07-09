@@ -23,6 +23,8 @@ module eigenvalue
   use tally,        only: synchronize_tallies, setup_active_usertallies, &
       reset_result
   use tracking,     only: transport
+  
+  implicit none
 
   private
   public :: run_eigenvalue
@@ -40,7 +42,7 @@ contains
   subroutine run_eigenvalue()
 
       type(Particle) :: p
-      integer        :: i_work
+      integer        :: i_work, i_eband
 
       if (master) call header("K EIGENVALUE SIMULATION", level=1)
 
@@ -68,43 +70,37 @@ contains
 
           call initialize_generation()
 
+          ! Copy the particles in source to the energy band bank
+          ! (this sorts the source particles into energy bands)
           call copy_source_to_eband_bank()
-          stop
-          ! **** COPY SOURCE INTO EBAND_BANK USING GET_SOURCE_PARTICLE
 
           ! Start timer for transport
           call time_transport % start()
 
-          ! ! =======================================================================
-          ! ! LOOP OVER ALL EBANDS UNTIL ALL PARTILCES ARE DONE (HANDLES UPSCATTERING)
+          ! =======================================================================
+          ! LOOP OVER ALL EBANDS UNTIL ALL PARTILCES ARE DONE (HANDLES UPSCATTERING)
           ! UPSCATTER_EBAND_LOOP: do while (sum(len_eband) >= 0)
 
-          !   ! =======================================================================
-          !   ! LOOP OVER EACH EBAND FROM HIGH TO LOW ENERGY (HANDLES DOWNSCATTERING)
-          !   DOWNSCATTER_EBAND_LOOP: do current_eband = 1, n_ebands
+            ! =======================================================================
+            ! LOOP OVER EACH EBAND FROM HIGH TO LOW ENERGY (HANDLES DOWNSCATTERING)
+            DOWNSCATTER_EBAND_LOOP: do i_eband = 1, n_ebands
 
-          !     ! ====================================================================
-          !     ! LOOP OVER PARTICLES
-          !     !$omp parallel do schedule(static) firstprivate(p)
-          !     PARTICLE_LOOP: do i_eband = 1, len_eband(current_eband)
+              ! ====================================================================
+              ! LOOP OVER PARTICLES
+              !$omp parallel do schedule(static) firstprivate(p)
+              PARTICLE_LOOP: do i_work = 1, len_eband(i_eband)
 
-          !       ! current_work = i_work
+                ! current_work = i_work
 
-          !       ! grab source particle from bank
-          !       ! call get_source_particle(p, current_work)
+                call get_particle_from_eband_bank(p, i_work, i_eband)
 
-          !       call get_eband_particle(p, current_eband, i_eband)
-          !       ! **** INSTEAD OF GETTING P FROM SOURCE_BANK, GET IT FROM
-          !       ! EBAND_BANK.  MAKE SURE TO USE NICK'S INITIALIZATION FROM
-          !       ! GET_SOURCE_PARTICLE.
+                ! transport particle
+                call transport(p)
 
-          !       ! transport particle
-          !       call transport(p)
+              end do PARTICLE_LOOP
+              !$omp end parallel do
 
-          !     end do PARTICLE_LOOP
-          !     !$omp end parallel do
-
-          !   end do DOWNSCATTER_EBAND_LOOP
+            end do DOWNSCATTER_EBAND_LOOP
 
           ! end do UPSCATTER_EBAND_LOOP
 

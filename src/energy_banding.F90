@@ -1,7 +1,10 @@
 module energy_banding
-  use error,  only: fatal_error
+  use error,           only: fatal_error
+  use geometry_header, only: BASE_UNIVERSE
   use global
-  use source, only: get_source_particle
+  use particle_header, only: deallocate_coord
+  ! use random_lcg,      only: prn_seed
+  use source,          only: get_source_particle
 
   implicit none
 contains
@@ -77,10 +80,18 @@ contains
       type(Particle) :: p
       integer(8) :: i  
 
+      ! Empty the eband bank
+      len_eband = 0
+
       do i = 1, work
 
         ! Get the source particle and copy it to the eband bank.          
         call get_source_particle(p, i)
+
+        p % stored_xyz = p % coord0 % xyz
+        p % stored_uvw = p % coord0 % uvw
+        call deallocate_coord(p % coord0)
+
         call add_to_eband_bank(p)
 
       end do
@@ -122,6 +133,29 @@ contains
       len_eband(p % eband) = len_eband(p % eband) + 1
       eband_bank(len_eband(p % eband), p % eband) = p
   end subroutine add_to_eband_bank
+
+  !===============================================================================
+  ! GET_PARTICLE_FROM_EBAND_BANK 
+  !===============================================================================
+
+  subroutine get_particle_from_eband_bank(p, i_work, i_eband)
+      type(Particle), intent(inout) :: p
+      integer,     intent(in)       :: i_work
+      integer,     intent(in)       :: i_eband
+
+      p = eband_bank(i_work, i_eband)
+
+      call deallocate_coord(p % coord0)
+      allocate(p % coord0)
+      p % coord0 % universe =  BASE_UNIVERSE
+      p % coord             => p % coord0
+      p % coord0 % xyz      =  p % stored_xyz
+      p % coord0 % uvw      =  p % stored_uvw
+
+      ! prn_seed = p % prn_seed
+
+  end subroutine get_particle_from_eband_bank
+
 
 
 
