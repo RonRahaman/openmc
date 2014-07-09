@@ -451,8 +451,6 @@ contains
         case ('-b', '--ebands')
           i = i + 1
           n_ebands = str_to_int(argv(i))
-          message = "Number of energy bands: " // to_str(n_ebands)
-          call write_message()
         case default
           message = "Unknown command line option: " // argv(i)
           call fatal_error()

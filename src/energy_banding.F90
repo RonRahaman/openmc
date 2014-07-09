@@ -1,7 +1,7 @@
 module energy_banding
-  use error,   only: fatal_error
+  use error,  only: fatal_error
   use global
-  use source,  only: get_source_particle
+  use source, only: get_source_particle
 
   implicit none
 contains

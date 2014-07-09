@@ -242,7 +242,11 @@ contains
     ! Set eband
     p % eband = get_eband_index(p % E)
     if (verbosity >= 10) then
-      print *, 'Particle ', p % id, '; energy ', p % E, '; eband ', p % eband
+      print '(A, I8, A, E12.3, A, I5)', &
+          'Particle ', p % id, ' ; energy ', p % E,' ; eband ', p % eband
+      ! message = '    Particle  ' // trim(to_str(p % id)) // '  ;  energy  ' // &
+      !   trim(to_str(p % E)) // '  ;  eband  ' // trim(to_str(p % eband))
+      ! call write_message()
     end if
 
 
