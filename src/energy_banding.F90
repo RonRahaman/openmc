@@ -4,6 +4,7 @@ module energy_banding
   use global
   use particle_header, only: deallocate_coord
   ! use random_lcg,      only: prn_seed
+  use search,          only: binary_search
   use source,          only: get_source_particle
 
   implicit none
@@ -57,8 +58,14 @@ contains
         call fatal_error()
       end if
 
+      ! do i = 1, n_ebands
+      !   j = real(n_ebands - i) / n_ebands * n_grid + 1
+      !   eband_min_i(i) = j
+      !   eband_min_E(i) = e_grid(j)
+      ! end do
+
       do i = 1, n_ebands
-        j = real(n_ebands - i) / n_ebands * n_grid + 1
+        j = real(i-1) / n_ebands * n_grid + 1
         eband_min_i(i) = j
         eband_min_E(i) = e_grid(j)
       end do
@@ -113,14 +120,18 @@ contains
       integer :: i
       real(8) :: E ! the energy
 
-      ! Can't use OpenMC's binary_search, since eband_min_E is sorted in inverse
-      ! order.  Using linear search for now (OK since n_eband is small), but
-      ! need to optimize.
+      ! Linear search
+      ! If loop doesn't exit early, i will equal 1
+      ! do i = n_ebands, 2, -1
+      !   if (eband_min_E(i) <= E) exit
+      ! end do
 
-      ! If loop doesn't exit early, i will equal (ngrid-1)+1
-      do i = 1, n_ebands-1
-        if (eband_min_E(i) <= E) exit
-      end do
+      ! Binary search -- needs some modificaitons because of bounds
+      if (E >= eband_min_E(n_ebands)) then
+        i = n_ebands
+      else
+        i = binary_search(eband_min_E, n_ebands, E)
+      endif
 
   end function get_eband_index
 

@@ -83,7 +83,7 @@ contains
 
             ! =======================================================================
             ! LOOP OVER EACH EBAND FROM HIGH TO LOW ENERGY (HANDLES DOWNSCATTERING)
-            DOWNSCATTER_EBAND_LOOP: do i_eband = 1, n_ebands
+            DOWNSCATTER_EBAND_LOOP: do i_eband = n_ebands, 1, -1
 
               ! ====================================================================
               ! LOOP OVER PARTICLES

@@ -114,6 +114,7 @@ energy_banding.o: error.o
 energy_banding.o: geometry_header.o
 energy_banding.o: global.o
 energy_banding.o: particle_header.o
+energy_banding.o: search.o
 energy_banding.o: source.o
 
 energy_grid.o: constants.o

@@ -76,6 +76,24 @@ contains
 
     do while (p % alive)
 
+      ! ! If the particle has left the eband, it will be banked.
+      ! if (p % E < eband_min_E(p % eband) .or. &
+      !       (p % eband > 1 .and. p % E >= eband_min_E(p % eband - 1) then
+
+      !   ! Find the next eband
+      !   ! First, check if the particlce has moved to the next lower eband --
+      !   ! this is an easy case that could eliminate a search
+      !   if (p % E < eband_min_E(p % eband) .and. &
+      !         p % eband < n_ebands .and. &
+      !         p % E >= eband_min_E(p % eband + 1)) then
+
+      !   endif
+
+    
+
+      !   exit
+      ! endif
+
       ! Write particle track.
       if (p % write_track) call write_particle_track(p)
 
