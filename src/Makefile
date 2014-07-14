@@ -9,7 +9,7 @@ xml_lib = -Lxml/lib -lxml
 # User Options
 #===============================================================================
 
-COMPILER = intel
+COMPILER = gnu
 DEBUG    = yes
 PROFILE  = no
 OPTIMIZE = no

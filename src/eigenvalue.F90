@@ -100,6 +100,9 @@ contains
               end do PARTICLE_LOOP
               !$omp end parallel do
 
+              ! Empty this band
+              len_eband(i_eband) = 0
+
             end do DOWNSCATTER_EBAND_LOOP
 
           ! end do UPSCATTER_EBAND_LOOP

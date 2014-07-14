@@ -2,6 +2,7 @@ module energy_banding
   use error,           only: fatal_error
   use geometry_header, only: BASE_UNIVERSE
   use global
+  use output,           only: write_message
   use particle_header, only: deallocate_coord
   ! use random_lcg,      only: prn_seed
   use search,          only: binary_search
@@ -95,6 +96,16 @@ contains
         ! Get the source particle and copy it to the eband bank.          
         call get_source_particle(p, i)
 
+        ! Set eband
+        p % eband = get_eband_index(p % E)
+        if (verbosity >= 10) then
+          print '(A, I8, A, E12.3, A, I5)', &
+              'Particle ', p % id, ' ; energy ', p % E,' ; eband ', p % eband
+          ! message = '    Particle  ' // trim(to_str(p % id)) // '  ;  energy  ' // &
+          !   trim(to_str(p % E)) // '  ;  eband  ' // trim(to_str(p % eband))
+          ! call write_message()
+        end if
+
         p % stored_xyz = p % coord0 % xyz
         p % stored_uvw = p % coord0 % uvw
         call deallocate_coord(p % coord0)
@@ -167,6 +178,30 @@ contains
 
   end subroutine get_particle_from_eband_bank
 
+  !===============================================================================
+  ! IS_IN_EBAND
+  !===============================================================================
+
+  function is_in_eband(p)
+      logical :: is_in_eband
+      type(Particle), intent(in) :: p
+
+      if (p % E < eband_min_E(p % eband)) then
+        is_in_eband = .false.
+        return
+      else if (p % eband < n_ebands) then
+        if (p % E >= eband_min_E(p % eband + 1)) then
+          is_in_eband = .false.
+          return
+        endif
+      endif
+
+      is_in_eband = .true.
+
+  end function is_in_eband
+
+
+  
 
 
 
