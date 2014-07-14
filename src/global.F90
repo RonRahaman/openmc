@@ -274,7 +274,7 @@ module global
 
   ! The verbosity controls how much information will be printed to the
   ! screen and in logs
-  integer :: verbosity = 10
+  integer :: verbosity = 7
 
   ! Flag for enabling cell overlap checking during transport
   logical                  :: check_overlaps = .false.

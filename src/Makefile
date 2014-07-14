@@ -11,8 +11,8 @@ xml_lib = -Lxml/lib -lxml
 
 COMPILER = gnu
 DEBUG    = yes
-PROFILE  = no
-OPTIMIZE = no
+PROFILE  = yes
+OPTIMIZE = yes
 MPI      = no
 OPENMP   = no
 HDF5     = no

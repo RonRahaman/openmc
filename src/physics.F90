@@ -1067,6 +1067,12 @@ contains
       call sample_energy(rxn%edist, E_in, E)
     end if
 
+    if (E < ZERO) then
+      message = 'Negative energy resulted from sample_energy during inelastic_scatter'
+      call warning()
+      return
+    endif
+
     ! if scattering system is in center-of-mass, transfer cosine of scattering
     ! angle and outgoing energy from CM to LAB
     if (rxn % scatter_in_cm) then
