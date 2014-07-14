@@ -1568,7 +1568,7 @@ contains
 
     ! Print warning and write lost particle file
     call warning(force = .true.)
-    call write_particle_restart(p)
+    ! call write_particle_restart(p)
 
     ! Increment number of lost particles
     p % alive = .false.

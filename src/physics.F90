@@ -153,7 +153,7 @@ contains
 
       ! Check to make sure that a nuclide was sampled
       if (i > mat % n_nuclides) then
-        call write_particle_restart(p)
+        ! call write_particle_restart(p)
         message = "Did not sample any nuclide during collision."
         call fatal_error()
       end if
@@ -361,7 +361,7 @@ contains
 
         ! Check to make sure inelastic scattering reaction sampled
         if (i > nuc % n_reaction) then
-          call write_particle_restart(p)
+          ! call write_particle_restart(p)
           message = "Did not sample any reaction for nuclide " // &
                trim(nuc % name)
           call fatal_error()
@@ -841,7 +841,7 @@ contains
       ! Determine indices on ufs mesh for current location
       call get_mesh_indices(ufs_mesh, p % coord0 % xyz, ijk, in_mesh)
       if (.not. in_mesh) then
-        call write_particle_restart(p)
+        ! call write_particle_restart(p)
         message = "Source site outside UFS mesh!"
         call fatal_error()
       end if
