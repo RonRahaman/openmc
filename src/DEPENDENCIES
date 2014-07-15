@@ -117,6 +117,7 @@ energy_banding.o: output.o
 energy_banding.o: particle_header.o
 energy_banding.o: search.o
 energy_banding.o: source.o
+energy_banding.o: string.o
 
 energy_grid.o: constants.o
 energy_grid.o: global.o

@@ -7,6 +7,7 @@ module energy_banding
   ! use random_lcg,      only: prn_seed
   use search,          only: binary_search
   use source,          only: get_source_particle
+  use string,          only: to_str
 
   implicit none
 contains
@@ -71,10 +72,21 @@ contains
         eband_min_E(i) = e_grid(j)
       end do
 
-      if (verbosity >= 10) then
-        print *, 'Egrid has ', n_grid, 'elements and ranges from ', e_grid(1), ' to ', e_grid(n_grid)
-        print *, 'eband_min_i is ', eband_min_i
-        print *, 'eband_min_E is ', eband_min_E
+      if (verbosity >= 9) then
+
+        print *, 'Unionized energy grid has ' // trim(to_str(n_grid)) // ' elements and ranges from ' // &
+           trim(to_str(e_grid(1))) // ' to ' // trim(to_str(e_grid(n_grid)))
+
+        print *, 'eband_min_i is: '
+        do i=1,n_ebands
+          print *, '     ' // trim(to_str(eband_min_i(i)))
+        end do
+
+        print *, 'eband_min_E is: '
+        do i=1,n_ebands
+          print *, '     ' // trim(to_str(eband_min_E(i)))
+        end do
+
       end if
 
   end subroutine init_eband_bounds
@@ -114,7 +126,7 @@ contains
 
       end do
 
-      if (verbosity >= 10) then
+      if (verbosity >= 11) then
         do i = 1, n_ebands
           print *, 'Eband ', i, '; len_eband ', len_eband(i)
         end do

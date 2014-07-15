@@ -6,6 +6,25 @@ This is an implementation of the energy banding algorithm described by Andrew
 Siegel et al.  For particle banking, it makes use of data structures and
 subroutines from domain-decomposed OpenMC, kindly provided by Nick Horelik.
 
+------------------
+Verbosity Settings
+------------------
+
+For debugging tracking, we introduced the ability to change the output
+verbosity using a command-line option at runtime.  You may now use the '-V VERBOSITY' or
+'--verbosity VERBOSITY' where VERBOSITY is an integer value:
+
+* VERBOSITY >= 7:  Prints batch results (default)
+
+* VERBOSITY >= 9:  Additonally prints the boundaries of the energy bands; the
+  energy of each particle at each iteration of tracking; and shows when each
+  particles leave the energy band
+
+* VERBOSITY >= 10: Additionally prints collsion events for each particle
+
+* VERBOSITY >= 11: Additionally shows the number of particles in each eband at
+  the beginning of each generation
+
 
 ==========================================
 OpenMC Monte Carlo Particle Transport Code

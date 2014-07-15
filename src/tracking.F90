@@ -42,7 +42,7 @@ contains
 
       ! Display message if high verbosity or trace is on
       if (verbosity >= 9 .or. trace) then
-        message = "Simulating Particle " // trim(to_str(p % id))
+        message = "Simulating particle " // trim(to_str(p % id)) // ' in eband ' // trim(to_str(p % eband))
         call write_message()
       end if
 
@@ -88,16 +88,16 @@ contains
         if (.not. is_in_eband(p)) then
 
           ! Find the next eband
-          next_eband = get_eband_index(p % E)
+          p % eband = get_eband_index(p % E)
           
           if (verbosity >= 9) then
-            message = '    Leaving eband ' // trim(to_str(p % eband)) // ', banking in eband ' // trim(to_str(next_eband))
+            message = '    Banking in eband ' // trim(to_str(p % eband))
             call write_message()
           endif
 
-          ! Update eband and add it to the correct band bank
-          p % eband = next_eband
+          ! Add it to eband bank
           call add_to_eband_bank(p)
+
 
           ! Exit tracking loop
           exit
