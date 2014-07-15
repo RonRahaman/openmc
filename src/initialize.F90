@@ -451,6 +451,9 @@ contains
         case ('-b', '--ebands')
           i = i + 1
           n_ebands = str_to_int(argv(i))
+        case ('-V', '--verbosity')
+          i = i + 1
+          verbosity = str_to_int(argv(i)) 
         case default
           message = "Unknown command line option: " // argv(i)
           call fatal_error()
