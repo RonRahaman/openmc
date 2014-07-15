@@ -77,6 +77,16 @@ contains
         call initialize_particle_track()
       endif
 
+      ! if we normally wouldn't have to recalculate the cross
+      ! section after a scatter then we need to make sure that we recalculate it
+      ! here with the same random number seed so we get the same thing as before
+      ! (because URR ptables)
+      if (p % material == p % last_material .and. p % material /= NONE) then
+        ! prn_seed = p % xs_seed
+        call calculate_xs(p)
+        ! prn_seed = p % prn_seed
+      end if
+
       do while (p % alive)
 
         if (verbosity >= 9 .or. trace) then
