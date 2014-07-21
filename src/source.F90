@@ -95,7 +95,8 @@ contains
     real(8) :: a          ! Arbitrary parameter 'a'
     real(8) :: b          ! Arbitrary parameter 'b'
     logical :: found      ! Does the source particle exist within geometry?
-    type(Particle) :: p   ! Temporary particle for using find_cell
+    type(Particle), target :: p        ! Temporary particle for using find_cell
+    type(Particle), pointer :: p_ptr   ! Pointer to temporary particle for using find_cell
     integer, save :: num_resamples = 0 ! Number of resamples encountered
 
     ! Set weight to one by default
@@ -120,7 +121,8 @@ contains
         p % coord0 % uvw = [ ONE, ZERO, ZERO ]
 
         ! Now search to see if location exists in geometry
-        call find_cell(p, found)
+        p_ptr => p
+        call find_cell(p_ptr, found)
         if (.not. found) then
           num_resamples = num_resamples + 1
           if (num_resamples == MAX_EXTSRC_RESAMPLES) then

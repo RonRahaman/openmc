@@ -41,7 +41,7 @@ contains
 
   subroutine run_eigenvalue()
 
-      type(Particle) :: p
+      type(Particle), pointer :: p
       integer        :: i_work, i_eband
 
       if (master) call header("K EIGENVALUE SIMULATION", level=1)
@@ -92,7 +92,7 @@ contains
 
                 ! current_work = i_work
 
-                call get_particle_from_eband_bank(p, i_work, i_eband)
+                p => get_particle_from_eband_bank(i_work, i_eband)
 
                 ! transport particle
                 call transport(p)

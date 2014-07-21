@@ -19,7 +19,8 @@ contains
   subroutine run_fixedsource()
 
     integer(8)     :: i ! index over histories in single cycle
-    type(Particle) :: p
+    type(Particle), target :: p
+    type(Particle), pointer :: p_ptr
 
     if (master) call header("FIXED SOURCE TRANSPORT SIMULATION", level=1)
 
@@ -70,7 +71,8 @@ contains
         call sample_source_particle(p)
 
         ! transport particle
-        call transport(p)
+        p_ptr => p
+        call transport(p_ptr)
 
       end do PARTICLE_LOOP
 !$omp end parallel do

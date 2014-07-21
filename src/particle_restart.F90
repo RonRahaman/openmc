@@ -28,7 +28,8 @@ contains
   subroutine run_particle_restart()
 
     integer(8) :: particle_seed
-    type(Particle) :: p
+    type(Particle), target :: p
+    type(Particle), pointer :: p_ptr
 
     ! Set verbosity high
     verbosity = 10
@@ -48,10 +49,11 @@ contains
     call set_particle_seed(particle_seed)
 
     ! Transport neutron
-    call transport(p)
+    p_ptr => p
+    call transport(p_ptr)
 
     ! Write output if particle made it
-    call print_particle(p)
+    call print_particle(p_ptr)
 
   end subroutine run_particle_restart
 

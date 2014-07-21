@@ -25,7 +25,7 @@ contains
 
   subroutine calculate_xs(p)
 
-    type(Particle), intent(inout) :: p
+    type(Particle), pointer :: p
 
     integer :: i             ! loop index over nuclides
     integer :: i_nuclide     ! index into nuclides array

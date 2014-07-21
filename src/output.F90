@@ -255,7 +255,7 @@ contains
 
   subroutine print_particle(p)
 
-    type(Particle), intent(in) :: p
+    type(Particle), pointer :: p
 
     integer :: i ! index for coordinate levels
     type(Cell),       pointer :: c => null()

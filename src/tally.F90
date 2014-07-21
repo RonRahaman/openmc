@@ -35,7 +35,7 @@ contains
 
   subroutine score_analog_tally(p)
 
-    type(Particle), intent(in) :: p
+    type(Particle), pointer :: p
 
     integer :: i
     integer :: i_tally
@@ -374,7 +374,7 @@ contains
 
   subroutine score_fission_eout(p, t, i_score)
 
-    type(Particle), intent(in) :: p
+    type(Particle), pointer :: p
     type(TallyObject), pointer :: t
     integer, intent(in)        :: i_score ! index for score
 
@@ -437,7 +437,7 @@ contains
 
   subroutine score_tracklength_tally(p, distance)
 
-    type(Particle), intent(in) :: p
+    type(Particle), pointer :: p
     real(8),        intent(in) :: distance
 
     integer :: i
@@ -738,7 +738,7 @@ contains
 
   subroutine score_all_nuclides(p, i_tally, flux, filter_index)
 
-    type(Particle), intent(in) :: p
+    type(Particle), pointer :: p
     integer,        intent(in) :: i_tally
     real(8),        intent(in) :: flux
     integer,        intent(in) :: filter_index
@@ -969,7 +969,7 @@ contains
 
   subroutine score_tl_on_mesh(p, i_tally, d_track)
 
-    type(Particle), intent(in) :: p
+    type(Particle), pointer :: p
     integer,        intent(in) :: i_tally
     real(8),        intent(in) :: d_track
 
@@ -1287,7 +1287,7 @@ contains
 
   subroutine get_scoring_bins(p, i_tally, found_bin)
 
-    type(Particle), intent(in)  :: p
+    type(Particle), pointer  :: p
     integer,        intent(in)  :: i_tally
     logical,        intent(out) :: found_bin
 
@@ -1399,7 +1399,7 @@ contains
 
   subroutine score_surface_current(p)
 
-    type(Particle), intent(in) :: p
+    type(Particle), pointer :: p
 
     integer :: i
     integer :: i_tally

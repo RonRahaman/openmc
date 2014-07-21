@@ -97,7 +97,8 @@ contains
 
   subroutine copy_source_to_eband_bank()
 
-      type(Particle) :: p
+      type(Particle), target :: p
+      type(Particle), pointer :: p_ptr
       integer(8) :: i  
 
       ! Empty the eband bank
@@ -122,7 +123,8 @@ contains
         p % stored_uvw = p % coord0 % uvw
         call deallocate_coord(p % coord0)
 
-        call add_to_eband_bank(p)
+        p_ptr => p
+        call add_to_eband_bank(p_ptr)
 
       end do
 
@@ -163,7 +165,7 @@ contains
   !===============================================================================
 
   subroutine add_to_eband_bank(p)
-      type(Particle), intent(in) :: p
+      type(Particle), pointer :: p
       len_eband(p % eband) = len_eband(p % eband) + 1
       eband_bank(len_eband(p % eband), p % eband) = p
   end subroutine add_to_eband_bank
@@ -172,12 +174,12 @@ contains
   ! GET_PARTICLE_FROM_EBAND_BANK 
   !===============================================================================
 
-  subroutine get_particle_from_eband_bank(p, i_work, i_eband)
-      type(Particle), intent(inout) :: p
+  function get_particle_from_eband_bank(i_work, i_eband) result(p)
+      type(Particle), pointer :: p
       integer,     intent(in)       :: i_work
       integer,     intent(in)       :: i_eband
 
-      p = eband_bank(i_work, i_eband)
+      p => eband_bank(i_work, i_eband)
 
       call deallocate_coord(p % coord0)
       allocate(p % coord0)
@@ -188,7 +190,7 @@ contains
 
       ! prn_seed = p % prn_seed
 
-  end subroutine get_particle_from_eband_bank
+  end function get_particle_from_eband_bank
 
   !===============================================================================
   ! IS_IN_EBAND

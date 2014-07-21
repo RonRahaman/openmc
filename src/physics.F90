@@ -31,7 +31,7 @@ contains
 
   subroutine collision(p)
 
-    type(Particle), intent(inout) :: p
+    type(Particle), pointer :: p
 
     ! Store pre-collision particle properties
     p % last_wgt = p % wgt
@@ -70,7 +70,7 @@ contains
 
   subroutine sample_reaction(p)
 
-    type(Particle), intent(inout) :: p
+    type(Particle), pointer :: p
 
     integer :: i_nuclide    ! index in nuclides array
     integer :: i_reaction   ! index in nuc % reactions array
@@ -121,7 +121,7 @@ contains
 
   function sample_nuclide(p, base) result(i_nuclide)
 
-    type(Particle), intent(in) :: p
+    type(Particle), pointer :: p
     character(7),   intent(in) :: base      ! which reaction to sample based on
     integer                    :: i_nuclide
 
@@ -241,7 +241,7 @@ contains
 
   subroutine absorption(p, i_nuclide)
 
-    type(Particle), intent(inout) :: p
+    type(Particle), pointer :: p
     integer,        intent(in)    :: i_nuclide
 
     if (survival_biasing) then
@@ -285,7 +285,7 @@ contains
 
   subroutine russian_roulette(p)
 
-    type(Particle), intent(inout) :: p
+    type(Particle), pointer :: p
 
     if (p % wgt < weight_cutoff) then
       if (prn() < p % wgt / weight_survive) then
@@ -305,7 +305,7 @@ contains
 
   subroutine scatter(p, i_nuclide)
 
-    type(Particle), intent(inout) :: p
+    type(Particle), pointer :: p
     integer,        intent(in)    :: i_nuclide
 
     integer :: i
@@ -812,7 +812,7 @@ contains
 
   subroutine create_fission_sites(p, i_nuclide, i_reaction)
 
-    type(Particle), intent(inout) :: p
+    type(Particle), pointer :: p
     integer,        intent(in)    :: i_nuclide
     integer,        intent(in)    :: i_reaction
 

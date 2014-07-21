@@ -31,7 +31,7 @@ contains
 !===============================================================================
 
   subroutine write_particle_track(p)
-    type(Particle), intent(in)  :: p
+    type(Particle), pointer  :: p
 
     real(8), allocatable :: new_coords(:, :)
 
@@ -54,7 +54,7 @@ contains
 !===============================================================================
 
   subroutine finalize_particle_track(p)
-    type(Particle), intent(in)  :: p
+    type(Particle), pointer  :: p
 
     integer                  :: length(2)
     character(MAX_FILE_LEN)  :: fname

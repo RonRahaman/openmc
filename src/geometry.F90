@@ -22,7 +22,7 @@ contains
   function simple_cell_contains(c, p) result(in_cell)
 
     type(Cell),     pointer       :: c
-    type(Particle), intent(inout) :: p
+    type(Particle), pointer :: p
     logical                       :: in_cell
 
     integer :: i               ! index of surfaces in cell
@@ -72,7 +72,7 @@ contains
 
   subroutine check_cell_overlap(p)
 
-    type(Particle), intent(inout) :: p
+    type(Particle), pointer :: p
 
     integer :: i                       ! cell loop index on a level
     integer :: n                       ! number of cells to search on a level
@@ -127,7 +127,7 @@ contains
 
   recursive subroutine find_cell(p, found, search_cells)
 
-    type(Particle), intent(inout) :: p
+    type(Particle), pointer :: p
     logical,        intent(inout) :: found
     integer,        optional      :: search_cells(:)
 
@@ -361,7 +361,7 @@ contains
 
   subroutine cross_surface(p, last_cell)
 
-    type(Particle), intent(inout) :: p
+    type(Particle), pointer :: p
     integer,        intent(in)    :: last_cell  ! last cell particle was in
 
     real(8) :: x         ! x-x0 for sphere
@@ -659,7 +659,7 @@ contains
 
   subroutine cross_lattice(p, lattice_crossed)
 
-    type(Particle), intent(inout) :: p
+    type(Particle), pointer :: p
     integer,        intent(in)    :: lattice_crossed
 
     integer :: i_x, i_y, i_z ! indices in lattice
@@ -780,7 +780,7 @@ contains
 
   subroutine distance_to_boundary(p, dist, surface_crossed, lattice_crossed)
 
-    type(Particle), intent(inout) :: p
+    type(Particle), pointer :: p
     real(8),        intent(out)   :: dist
     integer,        intent(out)   :: surface_crossed
     integer,        intent(out)   :: lattice_crossed
@@ -1361,7 +1361,7 @@ contains
 
   recursive function sense(p, surf) result(s)
 
-    type(Particle), intent(inout) :: p
+    type(Particle), pointer :: p
     type(Surface),  pointer       :: surf   ! surface
     logical                       :: s      ! sense of particle
 
@@ -1564,7 +1564,7 @@ contains
 
   subroutine handle_lost_particle(p)
 
-    type(Particle), intent(inout) :: p
+    type(Particle), pointer :: p
 
     ! Print warning and write lost particle file
     call warning(force = .true.)

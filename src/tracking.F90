@@ -25,7 +25,7 @@ contains
 
   subroutine transport(p)
 
-      type(Particle), intent(inout) :: p
+      type(Particle), pointer :: p
 
       integer :: surface_crossed ! surface which particle is on
       integer :: lattice_crossed ! lattice boundary which particle crossed

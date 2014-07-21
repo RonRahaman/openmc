@@ -50,7 +50,7 @@ contains
 
   subroutine position_rgb(p, pl, rgb, id)
 
-    type(Particle), intent(inout)         :: p
+    type(Particle), pointer         :: p
     type(ObjectPlot), pointer, intent(in) :: pl
     integer, intent(out)                  :: rgb(3)
     integer, intent(out)                  :: id
@@ -110,7 +110,8 @@ contains
     real(8) :: out_pixel
     real(8) :: xyz(3)
     type(Image) :: img
-    type(Particle) :: p
+    type(Particle), target :: p
+    type(Particle), pointer :: p_ptr
 
     ! Initialize and allocate space for image
     call init_image(img)
@@ -152,7 +153,8 @@ contains
       do x = 1, img % width
 
         ! get pixel color
-        call position_rgb(p, pl, rgb, id)
+        p_ptr => p
+        call position_rgb(p_ptr, pl, rgb, id)
 
         ! Create a pixel at (x,y) with color (r,g,b)
         call set_pixel(img, x, y, rgb(1), rgb(2), rgb(3))
@@ -228,7 +230,8 @@ contains
     integer :: id           ! id of cell or material
     real(8) :: vox(3)       ! x, y, and z voxel widths
     real(8) :: ll(3)        ! lower left starting point for each sweep direction
-    type(Particle) :: p
+    type(Particle), target :: p
+    type(Particle), pointer :: p_ptr
 
     ! compute voxel widths in each direction
     vox = pl % width/dble(pl % pixels)
@@ -256,8 +259,9 @@ contains
       do y = 1, pl % pixels(2)
         do z = 1, pl % pixels(3)
 
+          p_ptr => p
           ! get voxel color
-          call position_rgb(p, pl, rgb, id)
+          call position_rgb(p_ptr, pl, rgb, id)
 
           ! write to plot file
           write(UNIT_PLOT) id

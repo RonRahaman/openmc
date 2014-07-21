@@ -387,7 +387,7 @@ integer :: n_ebands = 10
 
 ! Bank for Particles in energy bands.  
 ! Will be allocated to eband(1:work, 1:n_eband). Note the column-major ordering.
-type(Particle), allocatable :: eband_bank(:,:)
+type(Particle), allocatable, target :: eband_bank(:,:)
 
 ! len_eband(i) is the length of Particles in the eband_bank(:,i)
 integer, allocatable :: len_eband(:)
