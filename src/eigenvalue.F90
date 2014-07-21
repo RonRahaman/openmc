@@ -79,7 +79,7 @@ contains
 
           ! =======================================================================
           ! LOOP OVER ALL EBANDS UNTIL ALL PARTILCES ARE DONE (HANDLES UPSCATTERING)
-          ! UPSCATTER_EBAND_LOOP: do while (sum(len_eband) >= 0)
+          UPSCATTER_EBAND_LOOP: do while (sum(len_eband) > 0)
 
             ! =======================================================================
             ! LOOP OVER EACH EBAND FROM HIGH TO LOW ENERGY (HANDLES DOWNSCATTERING)
@@ -105,7 +105,9 @@ contains
 
             end do DOWNSCATTER_EBAND_LOOP
 
-          ! end do UPSCATTER_EBAND_LOOP
+            ! print *, 'len_eband is', len_eband
+
+          end do UPSCATTER_EBAND_LOOP
 
           ! Accumulate time for transport
           call time_transport % stop()
