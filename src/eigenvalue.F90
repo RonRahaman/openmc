@@ -92,7 +92,7 @@ contains
 
                 ! current_work = i_work
 
-                p => get_particle_from_eband_bank(i_work, i_eband)
+                p => get_particle_from_eband_ptrs(i_work, i_eband)
 
                 ! transport particle
                 call transport(p)

@@ -10,6 +10,8 @@ module energy_banding
   use string,          only: to_str
 
   implicit none
+
+
 contains
 
   !===============================================================================
@@ -20,10 +22,10 @@ contains
 
       integer :: alloc_err  ! allocation error code
 
-      ! Allocate eband_bank bank
-      allocate(eband_bank(work, n_ebands), STAT=alloc_err)
+      ! Allocate psource_bank
+      allocate(psource_bank(work), STAT=alloc_err)
       if (alloc_err /= 0) then
-        message = "Failed to allocate energy-banding bank."
+        message = "Failed to allocate psouce_bank."
         call fatal_error()
       end if
 
@@ -35,6 +37,13 @@ contains
       end if
 
       len_eband = 0
+
+      ! Allocate and initialize eband_ptrs
+      allocate(eband_ptrs(work,n_ebands), STAT=alloc_err)
+      if (alloc_err /= 0) then
+        message = "Failed to allocate eband_ptrs."
+        call fatal_error()
+      end if
 
   end subroutine allocate_eband_bank
 
@@ -97,8 +106,7 @@ contains
 
   subroutine copy_source_to_eband_bank()
 
-      type(Particle), target :: p
-      type(Particle), pointer :: p_ptr
+      type(Particle), pointer :: p
       integer(8) :: i  
 
       ! Empty the eband bank
@@ -106,8 +114,16 @@ contains
 
       do i = 1, work
 
-        ! Get the source particle and copy it to the eband bank.          
+        ! Get pointer into eband_bank
+        p => psource_bank(i)
+
+        ! Get the source particle
         call get_source_particle(p, i)
+
+        ! Initialize coords
+        p % stored_xyz = p % coord0 % xyz
+        p % stored_uvw = p % coord0 % uvw
+        call deallocate_coord(p % coord0)
 
         ! Set eband
         p % eband = get_eband_index(p % E)
@@ -119,12 +135,8 @@ contains
           ! call write_message()
         end if
 
-        p % stored_xyz = p % coord0 % xyz
-        p % stored_uvw = p % coord0 % uvw
-        call deallocate_coord(p % coord0)
-
-        p_ptr => p
-        call add_to_eband_bank(p_ptr)
+        ! Add to eband_indices
+        call add_eband_ptr(p)
 
       end do
 
@@ -164,22 +176,32 @@ contains
   ! ADD_TO_EBAND_BANK 
   !===============================================================================
 
-  subroutine add_to_eband_bank(p)
+  ! subroutine add_to_eband_bank(p)
+  !     type(Particle), pointer :: p
+  !     len_eband(p % eband) = len_eband(p % eband) + 1
+  !     eband_bank(len_eband(p % eband), p % eband) = p
+  ! end subroutine add_to_eband_bank
+
+  !===============================================================================
+  ! ADD_EBAND_INDEX
+  !===============================================================================
+
+  subroutine add_eband_ptr(p)
       type(Particle), pointer :: p
       len_eband(p % eband) = len_eband(p % eband) + 1
-      eband_bank(len_eband(p % eband), p % eband) = p
-  end subroutine add_to_eband_bank
+      eband_ptrs(len_eband(p % eband), p % eband) % ptr => p
+  end subroutine add_eband_ptr
 
   !===============================================================================
   ! GET_PARTICLE_FROM_EBAND_BANK 
   !===============================================================================
 
-  function get_particle_from_eband_bank(i_work, i_eband) result(p)
+  function get_particle_from_eband_ptrs(i_work, i_eband) result(p)
       type(Particle), pointer :: p
       integer,     intent(in)       :: i_work
       integer,     intent(in)       :: i_eband
 
-      p => eband_bank(i_work, i_eband)
+      p => eband_ptrs(i_work, i_eband) % ptr
 
       call deallocate_coord(p % coord0)
       allocate(p % coord0)
@@ -190,7 +212,7 @@ contains
 
       ! prn_seed = p % prn_seed
 
-  end function get_particle_from_eband_bank
+  end function get_particle_from_eband_ptrs
 
   !===============================================================================
   ! IS_IN_EBAND

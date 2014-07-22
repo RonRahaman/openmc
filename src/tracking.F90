@@ -1,7 +1,7 @@
 module tracking
 
   use cross_section,   only: calculate_xs
-  use energy_banding,  only: get_eband_index, add_to_eband_bank, is_in_eband
+  use energy_banding,  only: get_eband_index, add_eband_ptr, is_in_eband
   use error,           only: fatal_error, warning
   use geometry,        only: find_cell, distance_to_boundary, cross_surface, &
       cross_lattice, check_cell_overlap
@@ -106,8 +106,7 @@ contains
           endif
 
           ! Add it to eband bank
-          call add_to_eband_bank(p)
-
+          call add_eband_ptr(p)
 
           ! Exit tracking loop
           exit

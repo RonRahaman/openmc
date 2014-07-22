@@ -94,6 +94,15 @@ module particle_header
   end type Particle
 
 !===============================================================================
+! PARTICLEPOINTER is a pointer to a particle.  Necessary to create an array of
+! pointers.
+!===============================================================================
+
+type ParticlePointer
+  type(Particle), pointer :: ptr => null()
+end type ParticlePointer
+
+!===============================================================================
 ! SENDPARTICLE was implemented by Nick Horelik for domain-decomposed OpenMC.
 ! 
 ! In DD OpenMC, it is a copy of the particle data structure for sending to other
