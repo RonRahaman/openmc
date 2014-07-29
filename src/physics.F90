@@ -5,6 +5,7 @@ module physics
   use endf,                   only: reaction_name
   use error,                  only: fatal_error, warning
   use fission,                only: nu_total, nu_delayed
+  use fission_bank_lib,       only: fission_bank, n_bank
   use global
   use interpolation,          only: interpolate_tab1
   use material_header,        only: Material
@@ -776,7 +777,7 @@ contains
         message = "Error in physics.mod::create_fission_sites(), fission_bank was not allocated"
         call fatal_error()
       else
-        print *, 'Size of fission bank is ', size(fission_bank)
+        print *, 'On thread '//to_str(thread_id)//' the size of fission bank is '//to_str(size(fission_bank))
         ! message = 'Size of fission bank is '//to_str(size(fission_bank))
         ! call write_message()
       endif

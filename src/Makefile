@@ -222,7 +222,7 @@ endif
 # IBM Blue Gene/P ANL supercomputer
 
 ifeq ($(MACHINE),bluegene)
-  F90 = /bgsys/drivers/ppcfloor/comm/xl/bin/mpixlf2003
+  F90 = mpixlf2003
   F90FLAGS = -WF,-DNO_F2008,-DMPI -O3
   LDFLAGS = -lmpich.cnkf90
 endif
@@ -244,13 +244,13 @@ ifeq ($(MACHINE),bluegeneq)
     LDFLAGS += -pg
   endif
   ifeq ($(OPENMP), yes)
-    F90 = /bgsys/drivers/ppcfloor/comm/xl/bin/mpixlf2003_r
-    F90FLAGS += -qsmp=omp:noostls -O0 -g -WF,-DNO_F2008,-DOPENMP
-    LDFLAGS += -qsmp=omp:noostls -O0 -g
-    # F90FLAGS += -qsmp=omp:noopt:noauto -O0 -g -WF,-DNO_F2008,-DOPENMP
-    # LDFLAGS += -qsmp=omp:noopt:noauto -O0 -g
+    F90 = mpixlf2003_r
+    # F90FLAGS += -qsmp=omp:noostls -O0 -g -WF,-DNO_F2008,-DOPENMP
+    # LDFLAGS += -qsmp=omp:noostls -O0 -g
+    F90FLAGS += -qsmp=omp:noopt:noauto -O0 -g -WF,-DNO_F2008,-DOPENMP
+    LDFLAGS += -qsmp=omp:noopt:noauto -O0 -g
   else
-    F90 = /bgsys/drivers/ppcfloor/comm/xl/bin/mpixlf2003
+    F90 = mpixlf2003
     F90FLAGS += -WF,-DNO_F2008 -O0 -g
     LDFLAGS += -O0 -g
   endif

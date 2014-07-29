@@ -157,11 +157,6 @@ module global
 
   ! Source and fission bank
   type(Bank), allocatable, target :: source_bank(:)
-  type(Bank), allocatable :: fission_bank(:)
-#ifdef OPENMP
-  type(Bank), allocatable, target :: master_fission_bank(:)
-#endif
-  integer(8) :: n_bank       ! # of sites in fission bank
   integer(8) :: work         ! number of particles per processor
   integer(8), allocatable :: work_index(:) ! starting index in source bank for each process
   integer(8) :: current_work ! index in source bank of current history simulated
@@ -364,7 +359,7 @@ module global
   logical :: output_xs      = .false.
   logical :: output_tallies = .true.
 
-!$omp threadprivate(micro_xs, material_xs, fission_bank, n_bank, message, &
+!$omp threadprivate(micro_xs, material_xs, message, &
 !$omp&              trace, thread_id, current_work, matching_bins)
 
 contains
@@ -432,10 +427,10 @@ contains
 
     ! Deallocate fission and source bank and entropy
 !$omp parallel
-    if (allocated(fission_bank)) deallocate(fission_bank)
+    ! if (allocated(fission_bank)) deallocate(fission_bank)
 !$omp end parallel
 #ifdef OPENMP
-    if (allocated(master_fission_bank)) deallocate(master_fission_bank)
+    ! if (allocated(master_fission_bank)) deallocate(master_fission_bank)
 #endif
     if (allocated(source_bank)) deallocate(source_bank)
     if (allocated(entropy_p)) deallocate(entropy_p)

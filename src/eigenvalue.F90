@@ -8,6 +8,7 @@ module eigenvalue
   use constants,    only: ZERO
   use error,        only: fatal_error, warning
   use global
+  use fission_bank_lib, only: fission_bank, master_fission_bank, n_bank
   use math,         only: t_percentile
   use mesh,         only: count_bank_sites
   use mesh_header,  only: StructuredMesh
