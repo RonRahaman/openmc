@@ -24,11 +24,12 @@ module random_lcg
 !$omp threadprivate(prn_seed)
 
   public :: prn
+  public :: prn_seed
   public :: initialize_prng
   public :: set_particle_seed
   public :: prn_skip
   public :: prn_set_stream
-  public :: STREAM_TRACKING, STREAM_TALLIES
+  public :: N_STREAMS, STREAM_TRACKING, STREAM_TALLIES
 
 contains
 

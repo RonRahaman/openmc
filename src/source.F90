@@ -10,7 +10,7 @@ module source
   use output,           only: write_message
   use output_interface, only: BinaryOutput
   use particle_header,  only: Particle
-  use random_lcg,       only: prn, set_particle_seed
+  use random_lcg,       only: prn, set_particle_seed, prn_seed
   use string,           only: to_str
 
 #ifdef MPI
@@ -219,6 +219,8 @@ contains
     ! set random number seed
     particle_seed = (overall_gen - 1)*n_particles + p % id
     call set_particle_seed(particle_seed)
+
+    p % prn_seed = prn_seed
 
     ! set particle trace
     trace = .false.

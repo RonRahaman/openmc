@@ -2,6 +2,7 @@ module particle_header
 
   use constants,       only: NEUTRON, ONE, NONE, ZERO
   use geometry_header, only: BASE_UNIVERSE
+  use random_lcg,      only: N_STREAMS
 
   implicit none
 
@@ -82,8 +83,8 @@ module particle_header
     ! Data needed to restart a particle stored in a bank after changing domains
     real(8)    :: stored_xyz(3)
     real(8)    :: stored_uvw(3)
-    integer(8) :: prn_seed        ! the  next random number seed 
-    integer(8) :: xs_seed         ! the previously seed used for xs gen
+    integer(8) :: prn_seed(N_STREAMS)        ! the  next random number seed 
+    integer(8) :: xs_seed(N_STREAMS)         ! the previously seed used for xs gen
 
     ! Index of eband
     integer :: eband
@@ -119,8 +120,8 @@ end type ParticlePointer
     sequence
 
     integer(8) :: id
-    integer(8) :: prn_seed
-    integer(8) :: xs_seed
+    integer(8) :: prn_seed(N_STREAMS)
+    integer(8) :: xs_seed(N_STREAMS)
     real(8)    :: wgt
     real(8)    :: E
     real(8)    :: mu
@@ -270,44 +271,44 @@ contains
 ! (originally implemented in Nick Horelik's domain-decomposed OpenMP)
 !===============================================================================
 
-  subroutine buffer_to_particle(buf, part)
+  ! subroutine buffer_to_particle(buf, part)
   
-    type(SendParticle), intent(in)  :: buf
-    type(Particle),     intent(out) :: part
+  !   type(SendParticle), intent(in)  :: buf
+  !   type(Particle),     intent(out) :: part
   
-    part % id              = buf % id
-    part % type            = buf % type
-    part % wgt             = buf % wgt
-    part % E               = buf % E
-    part % mu              = buf % mu
-    part % alive           = .true.
-    part % last_xyz        = buf % last_xyz
-    part % last_wgt        = buf % last_wgt
-    part % last_E          = buf % last_E
-    part % absorb_wgt      = buf % absorb_wgt
-    part % event           = buf % event
-    part % event_nuclide   = buf % event_nuclide
-    part % event_MT        = buf % event_MT
-    part % n_bank          = buf % n_bank
-    part % wgt_bank        = buf % wgt_bank
-    part % surface         = NONE
-    part % cell_born       = buf % cell_born
-    part % material        = NONE
-    part % last_material   = NONE
-    part % n_collision     = buf % n_collision
-    part % stored_xyz      = buf % stored_xyz
-    part % stored_uvw      = buf % stored_uvw
-    part % material        = buf % material
-    part % last_material   = buf % last_material
+  !   part % id              = buf % id
+  !   part % type            = buf % type
+  !   part % wgt             = buf % wgt
+  !   part % E               = buf % E
+  !   part % mu              = buf % mu
+  !   part % alive           = .true.
+  !   part % last_xyz        = buf % last_xyz
+  !   part % last_wgt        = buf % last_wgt
+  !   part % last_E          = buf % last_E
+  !   part % absorb_wgt      = buf % absorb_wgt
+  !   part % event           = buf % event
+  !   part % event_nuclide   = buf % event_nuclide
+  !   part % event_MT        = buf % event_MT
+  !   part % n_bank          = buf % n_bank
+  !   part % wgt_bank        = buf % wgt_bank
+  !   part % surface         = NONE
+  !   part % cell_born       = buf % cell_born
+  !   part % material        = NONE
+  !   part % last_material   = NONE
+  !   part % n_collision     = buf % n_collision
+  !   part % stored_xyz      = buf % stored_xyz
+  !   part % stored_uvw      = buf % stored_uvw
+  !   part % material        = buf % material
+  !   part % last_material   = buf % last_material
 
-    part % prn_seed        = buf % prn_seed
-    part % xs_seed         = buf % xs_seed
+  !   part % prn_seed        = buf % prn_seed
+  !   part % xs_seed         = buf % xs_seed
 
-    ! New addtions, since Nick's version
-    part % fission         = buf % fission
-    part % eband           = buf % eband
+  !   ! New addtions, since Nick's version
+  !   part % fission         = buf % fission
+  !   part % eband           = buf % eband
 
-  end subroutine buffer_to_particle
+  ! end subroutine buffer_to_particle
 
 
 end module particle_header

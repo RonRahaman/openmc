@@ -4,7 +4,7 @@ module energy_banding
   use global
   use output,           only: write_message
   use particle_header, only: deallocate_coord
-  ! use random_lcg,      only: prn_seed
+  use random_lcg,      only: prn_seed
   use search,          only: binary_search
   use source,          only: get_source_particle
   use string,          only: to_str
@@ -125,6 +125,8 @@ contains
         p % stored_uvw = p % coord0 % uvw
         call deallocate_coord(p % coord0)
 
+        ! Set prn
+
         ! Set eband
         p % eband = get_eband_index(p % E)
         if (verbosity >= 10) then
@@ -183,11 +185,21 @@ contains
   ! end subroutine add_to_eband_bank
 
   !===============================================================================
-  ! ADD_EBAND_INDEX
+  ! ADD_EBAND_PTR stores necessary info to respart particlea and adds a pointer
+  ! to the eband bank
   !===============================================================================
 
   subroutine add_eband_ptr(p)
       type(Particle), pointer :: p
+
+      ! Store necessary info
+      if (associated(p % coord0)) then
+        p % stored_xyz      = p % coord0 % xyz
+        p % stored_uvw      = p % coord0 % uvw
+      endif
+      p % prn_seed        = prn_seed
+
+      ! Add to eband_bank
       len_eband(p % eband) = len_eband(p % eband) + 1
       eband_ptrs(len_eband(p % eband), p % eband) % ptr => p
   end subroutine add_eband_ptr
@@ -210,7 +222,7 @@ contains
       p % coord0 % xyz      =  p % stored_xyz
       p % coord0 % uvw      =  p % stored_uvw
 
-      ! prn_seed = p % prn_seed
+      prn_seed = p % prn_seed
 
   end function get_particle_from_eband_ptrs
 

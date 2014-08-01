@@ -18,6 +18,7 @@ module bank_header
     real(8)    :: xyz(3) ! location of bank particle
     real(8)    :: uvw(3) ! diretional cosines
     real(8)    :: E      ! energy
+
   end type Bank
 
 end module bank_header

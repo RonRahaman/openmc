@@ -10,7 +10,7 @@ module tracking
   use output,          only: write_message
   use particle_header, only: LocalCoord, Particle
   use physics,         only: collision
-  use random_lcg,      only: prn
+  use random_lcg,      only: prn, prn_seed
   use string,          only: to_str
   use tally,           only: score_analog_tally, score_tracklength_tally, &
       score_surface_current
@@ -82,9 +82,9 @@ contains
       ! here with the same random number seed so we get the same thing as before
       ! (because URR ptables)
       if (p % material == p % last_material .and. p % material /= NONE) then
-        ! prn_seed = p % xs_seed
+        prn_seed = p % xs_seed
         call calculate_xs(p)
-        ! prn_seed = p % prn_seed
+        prn_seed = p % prn_seed
       end if
 
       do while (p % alive)
