@@ -7,6 +7,12 @@ Siegel et al.  For particle banking, it makes use of data structures and
 subroutines from domain-decomposed OpenMC, kindly provided by Nick Horelik.
 
 ------------------
+Number of Energy Bands
+------------------
+
+You can specify the number of energy bands with the -b or --ebands argument.
+
+------------------
 Verbosity Settings
 ------------------
 
