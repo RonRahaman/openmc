@@ -386,4 +386,11 @@ module constants
   ! constant for writing out no residual
   real(8), parameter :: CMFD_NORES = 99999.0_8
 
+  ! random_lcg constants
+
+  ! Random number streams
+  integer, parameter :: N_STREAMS = 2
+  integer, parameter :: STREAM_TRACKING = 1
+  integer, parameter :: STREAM_TALLIES  = 2
+
 end module constants

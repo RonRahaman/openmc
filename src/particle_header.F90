@@ -1,8 +1,7 @@
 module particle_header
 
-  use constants,       only: NEUTRON, ONE, NONE, ZERO
+  use constants,       only: NEUTRON, ONE, NONE, ZERO, N_STREAMS
   use geometry_header, only: BASE_UNIVERSE
-  use random_lcg,      only: N_STREAMS
 
   implicit none
 

@@ -1,14 +1,11 @@
 module random_lcg
+  use constants, only: N_STREAMS, STREAM_TRACKING, STREAM_TALLIES
 
   implicit none
 
   private
   save
 
-  ! Random number streams
-  integer, parameter :: N_STREAMS = 2
-  integer, parameter :: STREAM_TRACKING = 1
-  integer, parameter :: STREAM_TALLIES  = 2
 
   integer(8) :: prn_seed0  ! original seed
   integer(8) :: prn_seed(N_STREAMS) ! current seed
@@ -29,7 +26,6 @@ module random_lcg
   public :: set_particle_seed
   public :: prn_skip
   public :: prn_set_stream
-  public :: N_STREAMS, STREAM_TRACKING, STREAM_TALLIES
 
 contains
 
