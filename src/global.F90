@@ -157,11 +157,6 @@ module global
 
   ! Source and fission bank
   type(Bank), allocatable, target :: source_bank(:)
-  type(Bank), allocatable, target :: fission_bank(:)
-#ifdef _OPENMP
-  type(Bank), allocatable, target :: master_fission_bank(:)
-#endif
-  integer(8) :: n_bank       ! # of sites in fission bank
   integer(8) :: work         ! number of particles per processor
   integer(8), allocatable :: work_index(:) ! starting index in source bank for each process
   integer(8) :: current_work ! index in source bank of current history simulated
@@ -374,7 +369,7 @@ module global
   logical :: output_xs      = .false.
   logical :: output_tallies = .true.
 
-!$omp threadprivate(micro_xs, material_xs, fission_bank, n_bank, message, &
+!$omp threadprivate(micro_xs, material_xs, message, &
 !$omp&              trace, thread_id, current_work, matching_bins)
 
 contains

@@ -4,24 +4,25 @@ module eigenvalue
   use mpi
 #endif
 
-  use cmfd_execute, only: cmfd_init_batch, execute_cmfd
-  use constants,    only: ZERO
-  use error,        only: fatal_error, warning
+  use cmfd_execute,     only: cmfd_init_batch, execute_cmfd
+  use constants,        only: ZERO
+  use error,            only: fatal_error, warning
+  use fission_bank_lib, only: fission_bank, master_fission_bank, n_bank
   use global
-  use math,         only: t_percentile
-  use mesh,         only: count_bank_sites
-  use mesh_header,  only: StructuredMesh
-  use output,       only: write_message, header, print_columns,              &
+  use math,             only: t_percentile
+  use mesh,             only: count_bank_sites
+  use mesh_header,      only: StructuredMesh
+  use output,           only: write_message, header, print_columns,&
                           print_batch_keff, print_generation
-  use particle_header, only: Particle
-  use random_lcg,   only: prn, set_particle_seed, prn_skip
-  use search,       only: binary_search
-  use source,       only: get_source_particle
-  use state_point,  only: write_state_point, write_source_point
-  use string,       only: to_str
-  use tally,        only: synchronize_tallies, setup_active_usertallies, &
+  use particle_header,  only: Particle
+  use random_lcg,       only: prn, set_particle_seed, prn_skip
+  use search,           only: binary_search
+  use source,           only: get_source_particle
+  use state_point,      only: write_state_point, write_source_point
+  use string,           only: to_str
+  use tally,            only: synchronize_tallies, setup_active_usertallies,&
                           reset_result
-  use tracking,     only: transport
+  use tracking,         only: transport
 
   private
   public :: run_eigenvalue

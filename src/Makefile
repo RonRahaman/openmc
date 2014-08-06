@@ -9,14 +9,15 @@ xml_lib = -Lxml/lib -lxml
 # User Options
 #===============================================================================
 
-COMPILER = gnu
+COMPILER = ibm
 DEBUG    = no
 PROFILE  = no
-OPTIMIZE = no
+OPTIMIZE = yes
 MPI      = no
-OPENMP   = no
+OPENMP   = yes
 HDF5     = no
 PETSC    = no
+MACHINE  = bluegeneq
 
 #===============================================================================
 # External Library Paths
@@ -232,8 +233,39 @@ endif
 # IBM Blue Gene/Q ANL supercomputer
 
 ifeq ($(MACHINE),bluegeneq)
-  F90 = mpixlf2003
-  F90FLAGS = -WF,-DNO_F2008,-DMPI,-DRESTRICTED_ASSOCIATED_BUG -O5
+
+  F90FLAGS =
+  LDFLAGS =
+
+  ifeq ($(OPENMP), yes)
+    F90 = mpixlf2008_r
+  else
+    F90 = mpixlf2008
+  endif
+
+  ifeq ($(MPI), yes)
+    F90FLAGS += -WF,-DMPI,-DRESTRICTED_ASSOCIATED_BUG
+  else
+    F90FLAGS += -WF,-DRESTRICTED_ASSOCIATED_BUG
+  endif
+
+  # Debugging
+  ifeq ($(DEBUG),yes)
+    F90FLAGS += -g
+    LDFLAGS  += -g
+  endif
+
+  # Profiling
+  ifeq ($(PROFILE),yes)
+    F90FLAGS += -p
+    LDFLAGS  += -p
+  endif
+
+  # Optimization
+  ifeq ($(OPTIMIZE),yes)
+    F90FLAGS += -O5
+  endif
+
 endif
 
 #===============================================================================

@@ -6,6 +6,7 @@ module initialize
   use dict_header,      only: DictIntInt, ElemKeyValueII
   use energy_grid,      only: unionized_grid
   use error,            only: fatal_error, warning
+  use fission_bank_lib, only: allocate_banks
   use geometry,         only: neighbor_lists
   use geometry_header,  only: Cell, Universe, Lattice, BASE_UNIVERSE
   use global
@@ -855,51 +856,5 @@ contains
 
   end subroutine calculate_work
 
-!===============================================================================
-! ALLOCATE_BANKS allocates memory for the fission and source banks
-!===============================================================================
-
-  subroutine allocate_banks()
-
-    integer :: alloc_err  ! allocation error code
-
-    ! Allocate source bank
-    allocate(source_bank(work), STAT=alloc_err)
-
-    ! Check for allocation errors 
-    if (alloc_err /= 0) then
-      message = "Failed to allocate source bank."
-      call fatal_error()
-    end if
-
-#ifdef _OPENMP
-    ! If OpenMP is being used, each thread needs its own private fission
-    ! bank. Since the private fission banks need to be combined at the end of a
-    ! generation, there is also a 'master_fission_bank' that is used to collect
-    ! the sites from each thread.
-
-    n_threads = omp_get_max_threads()
-
-!$omp parallel
-    thread_id = omp_get_thread_num()
-
-    if (thread_id == 0) then
-       allocate(fission_bank(3*work))
-    else
-       allocate(fission_bank(3*work/n_threads))
-    end if
-!$omp end parallel
-    allocate(master_fission_bank(3*work), STAT=alloc_err)
-#else
-    allocate(fission_bank(3*work), STAT=alloc_err)
-#endif
-
-    ! Check for allocation errors 
-    if (alloc_err /= 0) then
-      message = "Failed to allocate fission bank."
-      call fatal_error()
-    end if
-
-  end subroutine allocate_banks
 
 end module initialize

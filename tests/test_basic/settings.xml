@@ -1,6 +1,8 @@
 <?xml version="1.0"?>
 <settings>
 
+  <cross_sections>/home/rrahaman/data/cross_sections.xml</cross_sections>
+
   <eigenvalue>
     <batches>10</batches>
     <inactive>5</inactive>

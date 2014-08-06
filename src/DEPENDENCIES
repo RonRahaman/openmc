@@ -92,6 +92,7 @@ doppler.o: constants.o
 eigenvalue.o: cmfd_execute.o
 eigenvalue.o: constants.o
 eigenvalue.o: error.o
+eigenvalue.o: fission_bank_lib.o
 eigenvalue.o: global.o
 eigenvalue.o: math.o
 eigenvalue.o: mesh.o
@@ -127,6 +128,10 @@ fission.o: error.o
 fission.o: global.o
 fission.o: interpolation.o
 fission.o: search.o
+
+fission_bank_lib.o: bank_header.o
+fission_bank_lib.o: global.o
+fission_bank_lib.o: error.o
 
 fixed_source.o: constants.o
 fixed_source.o: global.o
@@ -182,6 +187,7 @@ initialize.o: constants.o
 initialize.o: dict_header.o
 initialize.o: energy_grid.o
 initialize.o: error.o
+initialize.o: fission_bank_lib.o
 initialize.o: geometry.o
 initialize.o: geometry_header.o
 initialize.o: global.o
@@ -288,6 +294,7 @@ physics.o: constants.o
 physics.o: endf.o
 physics.o: error.o
 physics.o: fission.o
+physics.o: fission_bank_lib.o
 physics.o: global.o
 physics.o: interpolation.o
 physics.o: material_header.o
@@ -353,6 +360,7 @@ string.o: global.o
 tally.o: ace_header.o
 tally.o: constants.o
 tally.o: error.o
+tally.o: fission_bank_lib.o
 tally.o: global.o
 tally.o: math.o
 tally.o: mesh.o
