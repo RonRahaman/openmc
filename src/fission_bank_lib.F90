@@ -1,7 +1,7 @@
 module fission_bank_lib
   use bank_header, only: Bank
   use error,       only: fatal_error
-  use global
+  use global,      only: source_bank, work, message, n_threads, thread_id
 
 #ifdef _OPENMP
   use omp_lib
@@ -65,6 +65,21 @@ module fission_bank_lib
     end if
 
   end subroutine allocate_banks
+
+!===============================================================================
+! FREE_BANKS deallocates and clears the allocatables in this module
+! (fission_bank and master_fission_bank)
+!===============================================================================
+
+  subroutine free_banks
+!$omp parallel
+    if (allocated(fission_bank)) deallocate(fission_bank)
+!$omp end parallel
+#ifdef _OPENMP
+    if (allocated(master_fission_bank)) deallocate(master_fission_bank)
+#endif
+  end subroutine free_banks
+
 
 end module fission_bank_lib
 

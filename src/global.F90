@@ -435,13 +435,7 @@ contains
     ! Deallocate energy grid
     if (allocated(e_grid)) deallocate(e_grid)
 
-    ! Deallocate fission and source bank and entropy
-!$omp parallel
-    if (allocated(fission_bank)) deallocate(fission_bank)
-!$omp end parallel
-#ifdef _OPENMP
-    if (allocated(master_fission_bank)) deallocate(master_fission_bank)
-#endif
+    ! Deallocate source bank and entropy
     if (allocated(source_bank)) deallocate(source_bank)
     if (allocated(entropy_p)) deallocate(entropy_p)
 

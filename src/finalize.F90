@@ -1,9 +1,10 @@
 module finalize
 
   use global
-  use output,         only: print_runtime, print_results, &
+  use fission_bank_lib, only: free_banks
+  use output,           only: print_runtime, print_results, &
                             print_overlap_check, write_tallies
-  use tally,          only: tally_statistics
+  use tally,            only: tally_statistics
 
 #ifdef MPI
   use mpi
@@ -55,6 +56,7 @@ contains
 
     ! Deallocate arrays
     call free_memory()
+    call free_banks()
 
 #ifdef HDF5
     ! Release compound datatypes
