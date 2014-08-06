@@ -7,7 +7,7 @@ module eigenvalue
   use cmfd_execute,     only: cmfd_init_batch, execute_cmfd
   use constants,        only: ZERO
   use error,            only: fatal_error, warning
-  use fission_bank_lib, only: fission_bank, master_fission_bank, n_bank
+  use fission_bank_lib
   use global
   use math,             only: t_percentile
   use mesh,             only: count_bank_sites

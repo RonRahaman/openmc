@@ -1,7 +1,7 @@
 module fission_bank_lib
   use bank_header, only: Bank
   use error,       only: fatal_error
-  use global,      only: source_bank, work, message, n_threads, thread_id
+  use global
 
 #ifdef _OPENMP
   use omp_lib
