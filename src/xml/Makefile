@@ -4,15 +4,21 @@ xml_lib = lib/libxml.a
 # Targets
 #===============================================================================
 
+# Force use of mpixlf2008.  The thread-safe wrapper (mpixlf2008_r) fails to
+# compile the xml parser
+ifeq ($(MACHINE),bluegeneq)
+  override F90 = mpixlf2008
+endif
+
 $(xml_lib):
 	mkdir -p include
 	mkdir -p lib
-	cd fsys; make MACHINE=$(MACHINE) F90=$(F90) F90FLAGS="$(F90FLAGS)"
-	cd utils; make MACHINE=$(MACHINE) F90=$(F90) F90FLAGS="$(F90FLAGS)"
-	cd common; make MACHINE=$(MACHINE) F90=$(F90) F90FLAGS="$(F90FLAGS)"
-	cd wxml; make MACHINE=$(MACHINE) F90=$(F90) F90FLAGS="$(F90FLAGS)"
-	cd sax; make MACHINE=$(MACHINE) F90=$(F90) F90FLAGS="$(F90FLAGS)"
-	cd dom; make MACHINE=$(MACHINE) F90=$(F90) F90FLAGS="$(F90FLAGS)"
+	cd fsys; make MACHINE=$(MACHINE) F90=$(F90) F90FLAGS="$(filter-out -qsmp=omp, $(F90FLAGS))"
+	cd utils; make MACHINE=$(MACHINE) F90=$(F90) F90FLAGS="$(filter-out -qsmp=omp, $(F90FLAGS))"
+	cd common; make MACHINE=$(MACHINE) F90=$(F90) F90FLAGS="$(filter-out -qsmp=omp, $(F90FLAGS))"
+	cd wxml; make MACHINE=$(MACHINE) F90=$(F90) F90FLAGS="$(filter-out -qsmp=omp, $(F90FLAGS))"
+	cd sax; make MACHINE=$(MACHINE) F90=$(F90) F90FLAGS="$(filter-out -qsmp=omp, $(F90FLAGS))"
+	cd dom; make MACHINE=$(MACHINE) F90=$(F90) F90FLAGS="$(filter-out -qsmp=omp, $(F90FLAGS))"
 	cd lib; ar rcs libxml.a *.o; rm -f *.o
 
 clean:
