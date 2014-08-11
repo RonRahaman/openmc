@@ -45,6 +45,15 @@ contains
         call fatal_error()
       end if
 
+      ! Allocate and initialize eband_lookups
+      allocate(eband_lookups(n_ebands), STAT=alloc_err)
+      if (alloc_err /= 0) then
+        message = "Failed to allocate eband_lookups."
+        call fatal_error()
+      end if
+
+      eband_lookups = 0
+
   end subroutine allocate_eband_bank
 
   !===============================================================================

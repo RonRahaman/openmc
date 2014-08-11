@@ -11,8 +11,8 @@ xml_lib = -Lxml/lib -lxml
 
 COMPILER = intel
 DEBUG    = no
-PROFILE  = yes
-OPTIMIZE = no
+PROFILE  = no
+OPTIMIZE = yes
 MPI      = no
 OPENMP   = no
 HDF5     = no

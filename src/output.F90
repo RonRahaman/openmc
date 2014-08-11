@@ -1560,6 +1560,12 @@ contains
     end if
     write(ou,*)
 
+    call header("Energy Banding")
+
+    write(ou,*) "Energy Banding Loads"
+    write(ou,*) eband_lookups
+
+
 102 format (1X,A,T30,"= ",F8.5," +/- ",F8.5)
 103 format (1X,A,T30,"= ",F8.5)
 

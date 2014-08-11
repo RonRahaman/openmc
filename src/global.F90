@@ -408,6 +408,10 @@ real(8), allocatable :: eband_min_E(:)
 ! Will be allocated to eband_min_i(1:n_ebands)
 integer, allocatable :: eband_min_i(:)
 
+! Number of lookups in each energy band
+! eband_load(i) is the number of lookups in eband i
+integer, allocatable :: eband_lookups(:)
+
 contains
 
 !===============================================================================
