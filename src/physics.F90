@@ -5,6 +5,7 @@ module physics
   use endf,                   only: reaction_name
   use error,                  only: fatal_error, warning
   use fission,                only: nu_total, nu_delayed
+  use fission_bank_lib,       only: fission_bank, n_bank
   use global
   use interpolation,          only: interpolate_tab1
   use material_header,        only: Material

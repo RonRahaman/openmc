@@ -1,6 +1,7 @@
 module finalize
 
   use global
+  use fission_bank_lib, only: free_banks
   use output,         only: print_runtime, print_results, &
                             print_overlap_check, write_tallies
   use tally,          only: tally_statistics
@@ -55,6 +56,7 @@ contains
 
     ! Deallocate arrays
     call free_memory()
+    call free_banks()
 
 #ifdef HDF5
     ! Release compound datatypes

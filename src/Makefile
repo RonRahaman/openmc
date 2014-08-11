@@ -12,15 +12,15 @@ xml_fort = xml-fortran/xmlparse.o \
 # User Options
 #===============================================================================
 
-COMPILER = ibm
+COMPILER = intel
 DEBUG    = no
 PROFILE  = no
 OPTIMIZE = yes
-MPI      = yes
-OPENMP   = no
+MPI      = no
+OPENMP   = yes
 HDF5     = no
 PETSC    = no
-MACHINE  = bluegeneq
+# MACHINE  = bluegeneq
 
 #===============================================================================
 # External Library Paths
@@ -220,9 +220,9 @@ endif
 
 # IBM Blue Gene/P ANL supercomputer
 
-ifeq ($(MACHINE),bluegene)
+ifeq ($(MACHINE),bluegenep)
   F90 = /bgsys/drivers/ppcfloor/comm/xl/bin/mpixlf2003
-  F90FLAGS = -WF,-DNO_F2008,-DMPI -O3
+  F90FLAGS = -WF,-DNO_F2008,-DMPI,-DRESTRICTED_ASSOCIATED_BUG -O3
   LDFLAGS = -lmpich.cnkf90
 endif
 
@@ -234,22 +234,49 @@ ifeq ($(MACHINE),crayxk6)
 endif
 
 # IBM Blue Gene/Q ANL supercomputer
-
 ifeq ($(MACHINE),bluegeneq)
+
+	# Unset compiler and flags
+  F90 =
   F90FLAGS = 
   LDFLAGS = 
-  ifeq ($(PROFILE), yes)
-    F90FLAGS += -pg
-    LDFLAGS += -pg
-  endif
+
+	# OpenMP for shared-memory parallelism
   ifeq ($(OPENMP), yes)
-    F90 = /bgsys/drivers/ppcfloor/comm/xl/bin/mpixlf2003_r
-    F90FLAGS += -qsmp=omp:noopt:noauto -O0 -g -WF,-DNO_F2008,-DMPI,-DOPENMP
-    LDFLAGS += -qsmp=omp:noopt:noauto -O0 -g
+	  # Use thread-safe compiler wrapper
+    F90       = mpixlf2008_r
+    F90FLAGS += -qsmp=omp
+    LDFLAGS  += -qsmp=omp
   else
-    F90 = /bgsys/drivers/ppcfloor/comm/xl/bin/mpixlf2003
-    F90FLAGS += -WF,-DNO_F2008,-DMPI -O5
+	  # Use default compiler wrapper
+    F90 = mpixlf2008
   endif
+
+	# MPI for distributed-memory parallelism 
+	# (HDF5 for parallel I/O has been untested on BG/Q)
+  ifeq ($(MPI), yes)
+    F90FLAGS += -WF,-DMPI,-DRESTRICTED_ASSOCIATED_BUG
+  else
+    F90FLAGS += -WF,-DRESTRICTED_ASSOCIATED_BUG
+  endif
+
+  # Debugging
+  ifeq ($(DEBUG),yes)
+    F90FLAGS += -g
+    LDFLAGS  += -g
+  endif
+
+  # Profiling
+  ifeq ($(PROFILE),yes)
+    F90FLAGS += -p
+    LDFLAGS  += -p
+  endif
+
+  # Optimization
+  ifeq ($(OPTIMIZE),yes)
+    F90FLAGS += -O5
+  endif
+
 endif
 
 #===============================================================================

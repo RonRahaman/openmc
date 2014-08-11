@@ -3,6 +3,7 @@ module tally
   use ace_header,       only: Reaction
   use constants
   use error,            only: fatal_error
+  use fission_bank_lib, only: fission_bank, n_bank
   use global
   use math,             only: t_percentile, calc_pn
   use mesh,             only: get_mesh_bin, bin_to_mesh_indices, &
