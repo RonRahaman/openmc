@@ -980,6 +980,7 @@ subroutine resize_egrid()
 
     ! Write messages
     print *, 'Begin reconstructing egrid...' 
+    print *, '  Number of nuclides:             '//to_str(n_nuclides_total)
     print *, '  Egrid interpolation threshold:  '//to_str(thresh)
     !message = 'Begin reconstructing egrid...' 
     !call write_message()
@@ -990,15 +991,19 @@ subroutine resize_egrid()
     do i = 1, n_nuclides_total
       nuc => nuclides(i)
       sum_ngrid_old = sum_ngrid_old + nuc % n_grid 
-      call inv_stack_recon(nuc)
+      if (thresh > 0.) call inv_stack_recon(nuc)
       sum_ngrid_new = sum_ngrid_new + nuc % n_grid
     enddo
 
     ! Write more messages
-    print *, '...Finished reconstructing egrid'
+
     print *, '  Original sum(nuc % ngrid):      '//to_str(sum_ngrid_old)
+    print *, '  Original size xs (MB):          '//to_str(real(sum_ngrid_old*8.*6./1048576.,8))
+
     print *, '  Reconstructed sum(nuc % ngrid): '//to_str(sum_ngrid_new)
-    print *, '  Reconstructed size xs (MB): '//to_str(real(sum_ngrid_new*8.*6./1048576.,8))
+    print *, '  Reconstructed size xs (MB):     '//to_str(real(sum_ngrid_new*8.*6./1048576.,8))
+    print *, '  ...Finished reconstructing egrid'
+
     !message = '...Finished reconstructing egrid'
     !call write_message()
     !message = '  Original sum(nuc % ngrid):      '//to_str(sum_ngrid_old)
