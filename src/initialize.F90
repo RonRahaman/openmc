@@ -404,6 +404,21 @@ contains
           i = i + 1
           thresh = str_to_real(argv(i))
 
+        case ('-energy-grid', '--energy-grid')
+          i = i + 1
+          select case (argv(i))
+          case ('nuclide')
+            grid_method = GRID_NUCLIDE
+          case ('union')
+            grid_method = GRID_UNION
+          case ('lethargy')
+            message = "Lethargy mapped energy grid not yet supported."
+            call fatal_error()
+          case default
+            message = "Unknown energy grid method: " // argv(i)
+            call fatal_error()
+          end select
+
         case ('-?', '-help', '--help')
           call print_usage()
           stop

@@ -192,18 +192,18 @@ contains
     if (seed_ > 0) seed = seed_
 
     ! Energy grid methods
-    select case (energy_grid_)
-    case ('nuclide')
-      grid_method = GRID_NUCLIDE
-    case ('union')
-      grid_method = GRID_UNION
-    case ('lethargy')
-      message = "Lethargy mapped energy grid not yet supported."
-      call fatal_error()
-    case default
-      message = "Unknown energy grid method: " // energy_grid_
-      call fatal_error()
-    end select
+    ! select case (energy_grid_)
+    ! case ('nuclide')
+    !   grid_method = GRID_NUCLIDE
+    ! case ('union')
+    !   grid_method = GRID_UNION
+    ! case ('lethargy')
+    !   message = "Lethargy mapped energy grid not yet supported."
+    !   call fatal_error()
+    ! case default
+    !   message = "Unknown energy grid method: " // energy_grid_
+    !   call fatal_error()
+    ! end select
 
     ! Verbosity
     if (verbosity_ > 0) verbosity = verbosity_

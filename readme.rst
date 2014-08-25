@@ -17,6 +17,17 @@ It is most appropriate to run thse functions during initialize.mod ::
 initialize_run().  Thus, the DEPENDENCIES and include statements have been
 written to include data_dump.mod in initialize.mod.
 
+--------------------------
+Specifying the energy grid
+--------------------------
+
+There is a command line flag to specify the energy grid:
+
+--energy-grid [union | nuclide]
+
+The <energy_grid> tag in settings.xml is not read at all, so make sure to use
+command-line arg.
+
 ------------------------
 Resizing the energy grid
 ------------------------
