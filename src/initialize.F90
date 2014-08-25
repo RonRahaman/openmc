@@ -126,6 +126,9 @@ contains
         call time_unionize % stop()
       end if
 
+      ! Display sizes of energy grids
+      call display_grid_sizes()
+
       ! Allocate and setup tally stride, matching_bins, and tally maps
       call configure_tallies()
 
@@ -995,7 +998,7 @@ subroutine resize_egrid()
 
     ! Write messages
     print *, 'Begin reconstructing egrid...' 
-    print *, '  Number of nuclides:             '//to_str(n_nuclides_total)
+    ! print *, '  Number of nuclides:             '//to_str(n_nuclides_total)
     print *, '  Egrid interpolation threshold:  '//to_str(thresh)
     !message = 'Begin reconstructing egrid...' 
     !call write_message()
@@ -1012,11 +1015,11 @@ subroutine resize_egrid()
 
     ! Write more messages
 
-    print *, '  Original sum(nuc % ngrid):      '//to_str(sum_ngrid_old)
-    print *, '  Original size xs (MB):          '//to_str(real(sum_ngrid_old*8.*6./1048576.,8))
+    ! print *, '  Original sum(nuc % ngrid):      '//to_str(sum_ngrid_old)
+    ! print *, '  Original size xs (MB):          '//to_str(real(sum_ngrid_old*8.*6./1048576.,8))
 
-    print *, '  Reconstructed sum(nuc % ngrid): '//to_str(sum_ngrid_new)
-    print *, '  Reconstructed size xs (MB):     '//to_str(real(sum_ngrid_new*8.*6./1048576.,8))
+    ! print *, '  Reconstructed sum(nuc % ngrid): '//to_str(sum_ngrid_new)
+    ! print *, '  Reconstructed size xs (MB):     '//to_str(real(sum_ngrid_new*8.*6./1048576.,8))
     print *, '  ...Finished reconstructing egrid'
 
     !message = '...Finished reconstructing egrid'
@@ -1183,5 +1186,38 @@ real(8) function interp_on_grid(X, Y, p, q, r)
     endif
 
 end function interp_on_grid
+
+subroutine display_grid_sizes()
+    integer :: i
+    integer :: n_bytes = 0
+    integer :: n_nuclide_gridpoints = 0
+
+    if (grid_method == GRID_UNION) n_bytes = n_grid * 4
+
+    do i = 1, n_nuclides_total
+      if (grid_method == GRID_UNION) n_bytes = n_bytes + n_grid * 4
+      n_bytes = n_bytes + nuclides(i) % n_grid * 8 * 6
+      n_nuclide_gridpoints = n_nuclide_gridpoints + nuclides(i) % n_grid
+    end do
+
+    print *, 'Microscopic Cross-section Info'
+
+    if (grid_method == GRID_UNION) then
+      print *, ' Grid method:                  union'
+    else if (grid_method == GRID_NUCLIDE) then
+      print *, ' Grid method:                  nuclide'
+    else
+      print *, ' Grid method:                  unspecified'
+    end if
+
+    print *, ' Number of nuclides:           ' // to_str(n_nuclides_total)
+    print *, ' Number of nuclide gridpoints: ' // to_str(n_nuclide_gridpoints)
+    if (grid_method == GRID_UNION) then
+      print *, ' Number of union gridpoints:   ' // to_str(n_grid)
+    end if
+    print *, ' Size of micro xs data (MB):   ' // to_str(real(n_bytes, 8) / 1048576.)
+
+end subroutine display_grid_sizes
+
 
 end module initialize
