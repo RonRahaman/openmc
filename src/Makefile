@@ -12,15 +12,15 @@ xml_fort = xml-fortran/xmlparse.o \
 # User Options
 #===============================================================================
 
-COMPILER = intel
+COMPILER = ibm
 DEBUG    = no
-PROFILE  = no
+PROFILE  = yes
 OPTIMIZE = yes
 MPI      = no
-OPENMP   = yes
+OPENMP   = no
 HDF5     = no
 PETSC    = no
-# MACHINE  = bluegeneq
+MACHINE  = bluegeneq
 
 #===============================================================================
 # External Library Paths
@@ -269,8 +269,8 @@ ifeq ($(MACHINE),bluegeneq)
 
   # Profiling
   ifeq ($(PROFILE),yes)
-    F90FLAGS += -p
-    LDFLAGS  += -p
+    F90FLAGS += -pg
+    LDFLAGS  += -pg
   endif
 
   # Optimization
