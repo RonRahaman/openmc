@@ -14,10 +14,10 @@ xml_fort = xml-fortran/xmlparse.o \
 
 COMPILER = ibm
 DEBUG    = no
-PROFILE  = yes
+PROFILE  = no
 OPTIMIZE = yes
 MPI      = no
-OPENMP   = no
+OPENMP   = yes
 HDF5     = no
 PETSC    = no
 MACHINE  = bluegeneq
@@ -256,9 +256,17 @@ ifeq ($(MACHINE),bluegeneq)
 	# MPI for distributed-memory parallelism 
 	# (HDF5 for parallel I/O has been untested on BG/Q)
   ifeq ($(MPI), yes)
-    F90FLAGS += -WF,-DMPI,-DRESTRICTED_ASSOCIATED_BUG
+    ifeq ($(OPENMP), yes)
+      F90FLAGS += -WF,-DOPENMP,-DMPI,-DRESTRICTED_ASSOCIATED_BUG
+    else
+      F90FLAGS += -WF,-DMPI,-DRESTRICTED_ASSOCIATED_BUG
+    endif
   else
-    F90FLAGS += -WF,-DRESTRICTED_ASSOCIATED_BUG
+    ifeq ($(OPENMP), yes)
+      F90FLAGS += -WF,-DOPENMP,-DRESTRICTED_ASSOCIATED_BUG
+    else
+      F90FLAGS += -WF,-DRESTRICTED_ASSOCIATED_BUG
+    endif
   endif
 
   # Debugging
