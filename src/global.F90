@@ -9,7 +9,7 @@ module global
   use geometry_header,  only: Cell, Universe, Lattice, Surface
   use material_header,  only: Material
   use mesh_header,      only: StructuredMesh
-  use particle_header,  only: Particle, ParticlePointer, SendParticle
+  use particle_header,  only: Particle, ParticlePointer, SendParticle, EnergyBand
   use plot_header,      only: ObjectPlot
   use set_header,       only: SetInt
   use source_header,    only: ExtSource
@@ -384,6 +384,7 @@ module global
 
 ! Number of energy bands
 integer :: n_ebands = 10
+type(EnergyBand), allocatable :: ebands(:)
 
 ! Bank for source Particles, using the full Particle data type (not the Bank
 ! type, as is used in source_bank.  

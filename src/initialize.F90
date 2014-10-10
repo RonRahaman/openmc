@@ -4,7 +4,7 @@ module initialize
   use bank_header,      only: Bank
   use constants
   use dict_header,      only: DictIntInt, ElemKeyValueII
-  use energy_banding,   only: allocate_eband_bank, init_eband_bounds
+  use energy_banding,   only: allocate_eband_bank, allocate_psource_bank, init_eband_bounds
   use energy_grid,      only: unionized_grid
   use error,            only: fatal_error, warning
   use geometry,         only: neighbor_lists
@@ -130,9 +130,8 @@ contains
         end if
 
         ! Allocate energy banding bank
+        call allocate_psource_bank()
         call allocate_eband_bank()
-
-        ! Initialize energy band bounds
         call init_eband_bounds()
 
         ! If this is a restart run, load the state point data and binary source

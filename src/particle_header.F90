@@ -148,6 +148,18 @@ end type ParticlePointer
 
   end type SendParticle
 
+!===============================================================================
+! ENERGY_BAND contains a bank of particles and metadata about the band
+!===============================================================================
+
+type EnergyBand
+  integer, allocatable :: bank_index(:) ! indices pointing to particles in psource_bank
+  integer              :: len           ! number of particles in this energy band
+  real(8)              :: min_E         ! minumum energy of this energy band
+  integer              :: min_egrid     ! index min_E on the UEG
+  integer              :: lookups       ! number of lookups in this energy band
+end type EnergyBand
+
 contains
 
 !===============================================================================

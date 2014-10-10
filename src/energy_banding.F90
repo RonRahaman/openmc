@@ -14,45 +14,44 @@ module energy_banding
 
 contains
 
+  subroutine allocate_psource_bank()
+
+      integer :: err  ! allocation error code
+
+      ! Allocate psource_bank
+      allocate(psource_bank(work), STAT=err)
+      if (err /= 0) then
+        message = "Failed to allocate psouce_bank."
+        call fatal_error()
+      end if
+
+  end subroutine allocate_psource_bank
+
+
   !===============================================================================
   ! ALLOCATE_EBAND_BANK allocates memory for the energy-banding bank
   !===============================================================================
 
   subroutine allocate_eband_bank()
 
-      integer :: alloc_err  ! allocation error code
+      integer(8) :: i
+      integer :: err  ! allocation error code
 
-      ! Allocate psource_bank
-      allocate(psource_bank(work), STAT=alloc_err)
-      if (alloc_err /= 0) then
-        message = "Failed to allocate psouce_bank."
+      allocate(ebands(n_ebands), stat=err)
+      if (err /= 0) then
+        message = "Failed to allocate ebands."
         call fatal_error()
       end if
 
-      ! Allocate and initialize len_eband
-      allocate(len_eband(n_ebands), STAT=alloc_err)
-      if (alloc_err /= 0) then
-        message = "Failed to allocate len_ebands."
-        call fatal_error()
-      end if
-
-      len_eband = 0
-
-      ! Allocate and initialize eband_ptrs
-      allocate(eband_ptrs(work,n_ebands), STAT=alloc_err)
-      if (alloc_err /= 0) then
-        message = "Failed to allocate eband_ptrs."
-        call fatal_error()
-      end if
-
-      ! Allocate and initialize eband_lookups
-      allocate(eband_lookups(n_ebands), STAT=alloc_err)
-      if (alloc_err /= 0) then
-        message = "Failed to allocate eband_lookups."
-        call fatal_error()
-      end if
-
-      eband_lookups = 0
+      do i=1,n_ebands
+        allocate(ebands(i) % bank_index(work), stat=err)
+        if (err /= 0) then
+          message = "Failed to allocate bank_index."
+          call fatal_error()
+        end if
+        ebands(i) % len = 0
+        ebands(i) % lookups = 0
+      end do
 
   end subroutine allocate_eband_bank
 
@@ -66,28 +65,10 @@ contains
       integer :: i, j          ! loop control
       integer :: alloc_err     ! allocation error code
 
-      allocate(eband_min_E(n_ebands), STAT=alloc_err)
-      if (alloc_err /= 0) then
-        message = "Failed to allocate eband bounds."
-        call fatal_error()
-      end if
-
-      allocate(eband_min_i(n_ebands), STAT=alloc_err)
-      if (alloc_err /= 0) then
-        message = "Failed to allocate eband bounds."
-        call fatal_error()
-      end if
-
-      ! do i = 1, n_ebands
-      !   j = real(n_ebands - i) / n_ebands * n_grid + 1
-      !   eband_min_i(i) = j
-      !   eband_min_E(i) = e_grid(j)
-      ! end do
-
       do i = 1, n_ebands
         j = real(i-1) / n_ebands * n_grid + 1
-        eband_min_i(i) = j
-        eband_min_E(i) = e_grid(j)
+        ebands(i) % min_egrid = j
+        ebands(i) % min_E = e_grid(j)
       end do
 
       if (verbosity >= 9) then
@@ -95,19 +76,25 @@ contains
         print *, 'Unionized energy grid has ' // trim(to_str(n_grid)) // ' elements and ranges from ' // &
            trim(to_str(e_grid(1))) // ' to ' // trim(to_str(e_grid(n_grid)))
 
-        print *, 'eband_min_i is: '
+        print *, 'eband(i) % min_egrid is: '
         do i=1,n_ebands
-          print *, '     ' // trim(to_str(eband_min_i(i)))
+          print *, '     ' // trim(to_str(ebands(i) % min_egrid))
         end do
 
-        print *, 'eband_min_E is: '
+        print *, 'eband(i) % min_E is: '
         do i=1,n_ebands
-          print *, '     ' // trim(to_str(eband_min_E(i)))
+          print *, '     ' // trim(to_str(ebands(i) % min_E))
         end do
 
       end if
 
+      stop
+
   end subroutine init_eband_bounds
+
+  !===============================================================================
+  ! I stopped here
+  !===============================================================================
 
   !===============================================================================
   ! COPY_SOURCE_TO_EBAND_BANK 
