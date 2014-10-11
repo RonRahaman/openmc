@@ -43,10 +43,16 @@ contains
         call fatal_error()
       end if
 
+      allocate(ebands_min_E(n_ebands), stat=err)
+      if (err /= 0) then
+        message = "Failed to allocate ebands."
+        call fatal_error()
+      end if
+
       do i=1,n_ebands
-        allocate(ebands(i) % bank_index(work), stat=err)
+        allocate(ebands(i) % psource_index(work), stat=err)
         if (err /= 0) then
-          message = "Failed to allocate bank_index."
+          message = "Failed to allocate psource_index."
           call fatal_error()
         end if
         ebands(i) % len = 0
@@ -69,12 +75,13 @@ contains
         j = real(i-1) / n_ebands * n_grid + 1
         ebands(i) % min_egrid = j
         ebands(i) % min_E = e_grid(j)
+        ebands_min_E(i) = e_grid(j)
       end do
 
       if (verbosity >= 9) then
 
         print *, 'Unionized energy grid has ' // trim(to_str(n_grid)) // ' elements and ranges from ' // &
-           trim(to_str(e_grid(1))) // ' to ' // trim(to_str(e_grid(n_grid)))
+            trim(to_str(e_grid(1))) // ' to ' // trim(to_str(e_grid(n_grid)))
 
         print *, 'eband(i) % min_egrid is: '
         do i=1,n_ebands
@@ -88,32 +95,29 @@ contains
 
       end if
 
-      stop
-
   end subroutine init_eband_bounds
 
   !===============================================================================
-  ! I stopped here
+  ! COPY_SOURCE_TO_PSOURCE copies the source (Bank types) to psource (Particle
+  ! types)
   !===============================================================================
 
-  !===============================================================================
-  ! COPY_SOURCE_TO_EBAND_BANK 
-  !===============================================================================
-
-  subroutine copy_source_to_eband_bank()
+  subroutine copy_source_to_psource()
 
       type(Particle), pointer :: p
-      integer(8) :: i  
+      integer(8) :: i, j
 
       ! Empty the eband bank
-      len_eband = 0
+      do i = 1, n_ebands
+        ebands(i) % len = 0
+      end do
 
       do i = 1, work
 
-        ! Get pointer into eband_bank
+        ! Get p, a pointer to an entry in the psource_bank
         p => psource_bank(i)
 
-        ! Get the source particle
+        ! Gets a particle from source_bank and stores its attributes in p
         call get_source_particle(p, i)
 
         ! Initialize coords
@@ -134,18 +138,22 @@ contains
         end if
 
         ! Add to eband_indices
-        call add_eband_ptr(p)
+        call add_psource_to_eband(i, p % eband)
 
       end do
 
       if (verbosity >= 11) then
+        j = 0
         do i = 1, n_ebands
-          print *, 'Eband ', i, '; len_eband ', len_eband(i)
+          print *, 'Eband ', i, '; len', ebands(i) % len
+          j = j + ebands(i) % len
         end do
-        print *, 'Total len_eband ', sum(len_eband)
+        print *, 'Total len_eband ', j
       end if
 
-  end subroutine copy_source_to_eband_bank
+      stop
+
+  end subroutine copy_source_to_psource
 
   !===============================================================================
   ! GET_EBAND_INDEX gets the index of the energy band, given an energy value
@@ -153,7 +161,7 @@ contains
 
   function get_eband_index(E) result(i)
       integer :: i
-      real(8) :: E ! the energy
+      real(8), intent(in) :: E ! the energy
 
       ! Linear search
       ! If loop doesn't exit early, i will equal 1
@@ -162,13 +170,41 @@ contains
       ! end do
 
       ! Binary search -- needs some modificaitons because of bounds
-      if (E >= eband_min_E(n_ebands)) then
+      if (E >= ebands_min_E(n_ebands)) then
         i = n_ebands
       else
-        i = binary_search(eband_min_E, n_ebands, E)
+        i = binary_search(ebands_min_E, n_ebands, E)
       endif
 
   end function get_eband_index
+
+  !===============================================================================
+  ! ADD_PSOURCE_INDEX_TO_EBAND
+  !===============================================================================
+
+  subroutine add_psource_to_eband(psource_index, eband_index)
+      integer(8), intent(in) :: psource_index
+      integer, intent(in) :: eband_index
+      type(EnergyBand), pointer :: b
+      type(Particle), pointer :: p
+
+      p => psource_bank(psource_index)
+      b => ebands(eband_index)
+
+      ! Store necessary info in particle
+      if (associated(p % coord0)) then
+        p % stored_xyz      = p % coord0 % xyz
+        p % stored_uvw      = p % coord0 % uvw
+      endif
+      p % prn_seed        = prn_seed
+
+      ! Add index to eband bank
+      b % len = b % len + 1
+      b % psource_index(b % len) = psource_index
+
+  end subroutine add_psource_to_eband
+
+
 
   !===============================================================================
   ! ADD_TO_EBAND_BANK 
@@ -230,11 +266,11 @@ contains
       logical :: is_in_eband
       type(Particle), intent(in) :: p
 
-      if (p % E < eband_min_E(p % eband)) then
+      if (p % E < ebands_min_E(p % eband)) then
         is_in_eband = .false.
         return
       else if (p % eband < n_ebands) then
-        if (p % E >= eband_min_E(p % eband + 1)) then
+        if (p % E >= ebands_min_E(p % eband + 1)) then
           is_in_eband = .false.
           return
         endif
@@ -245,7 +281,7 @@ contains
   end function is_in_eband
 
 
-  
+
 
 
 

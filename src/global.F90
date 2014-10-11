@@ -384,7 +384,7 @@ module global
 
 ! Number of energy bands
 integer :: n_ebands = 10
-type(EnergyBand), allocatable :: ebands(:)
+type(EnergyBand), allocatable, target :: ebands(:)
 
 ! Bank for source Particles, using the full Particle data type (not the Bank
 ! type, as is used in source_bank.  
@@ -402,7 +402,7 @@ integer, allocatable :: len_eband(:)
 ! Lowest energy of energy band.
 ! I.e, for every particle p in in eband(:,i_eband), eband_min_E(i_band) <= p % E
 ! Will be allocated to eband_min_E(1:n_ebands)
-real(8), allocatable :: eband_min_E(:)
+real(8), allocatable :: ebands_min_E(:)
 
 ! Lowest index of energy band on UEG
 ! I.e, for every particle p in in eband(:,i_eband), e_grid(eband_min_i(i_band)) <= p % E

@@ -153,7 +153,7 @@ end type ParticlePointer
 !===============================================================================
 
 type EnergyBand
-  integer, allocatable :: bank_index(:) ! indices pointing to particles in psource_bank
+  integer, allocatable :: psource_index(:) ! indices pointing to particles in psource_bank
   integer              :: len           ! number of particles in this energy band
   real(8)              :: min_E         ! minumum energy of this energy band
   integer              :: min_egrid     ! index min_E on the UEG

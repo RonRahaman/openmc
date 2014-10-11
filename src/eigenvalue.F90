@@ -72,7 +72,7 @@ contains
 
           ! Copy the particles in source to the energy band bank
           ! (this sorts the source particles into energy bands)
-          call copy_source_to_eband_bank()
+          call copy_source_to_psource()
 
           ! Start timer for transport
           call time_transport % start()
