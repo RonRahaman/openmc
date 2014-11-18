@@ -1,4 +1,4 @@
-[tesla:02036] [[13755,0],0] odls:default:fork binding child [[13755,1],0] to slot_list 0-7,8-15
+[tesla:02430] [[15153,0],0] odls:default:fork binding child [[15153,1],0] to slot_list 0-7,8-15
 
        .d88888b.                             888b     d888  .d8888b.
       d88P" "Y88b                            8888b   d8888 d88P  Y88b
@@ -16,7 +16,7 @@ __________________888______________________________________________________
       License:        http://mit-crpg.github.io/openmc/license.html
       Version:        0.5.4
       Git SHA1:       aa31315a398b20d0289ef288af972382a3bc9b74
-      Date/Time:      2014-11-18 16:30:59
+      Date/Time:      2014-11-18 16:47:05
       MPI Processes:  1
       OpenMP Threads: 16
 
@@ -107,345 +107,345 @@ __________________888______________________________________________________
 
   Bat./Gen.      k       Entropy         Average k         
   =========   ========   ========   ====================   
- rank:           0 ;  cpu:           6
- rank:           0 ;  cpu:           5
- rank:           0 ;  cpu:          10
- rank:           0 ;  cpu:           4
- rank:           0 ;  cpu:           1
- rank:           0 ;  cpu:           2
- rank:           0 ;  cpu:           3
- rank:           0 ;  cpu:           7
- rank:           0 ;  cpu:           0
- rank:           0 ;  cpu:          13
- rank:           0 ;  cpu:           8
- rank:           0 ;  cpu:          14
- rank:           0 ;  cpu:          11
- rank:           0 ;  cpu:          15
- rank:           0 ;  cpu:          12
- rank:           0 ;  cpu:           9
+ batch:            1 ;  rank:           0 ;  cpu:          12
+ batch:            1 ;  rank:           0 ;  cpu:          13
+ batch:            1 ;  rank:           0 ;  cpu:           1
+ batch:            1 ;  rank:           0 ;  cpu:           2
+ batch:            1 ;  rank:           0 ;  cpu:           8
+ batch:            1 ;  rank:           0 ;  cpu:           9
+ batch:            1 ;  rank:           0 ;  cpu:          11
+ batch:            1 ;  rank:           0 ;  cpu:           3
+ batch:            1 ;  rank:           0 ;  cpu:           4
+ batch:            1 ;  rank:           0 ;  cpu:           6
+ batch:            1 ;  rank:           0 ;  cpu:          15
+ batch:            1 ;  rank:           0 ;  cpu:           5
+ batch:            1 ;  rank:           0 ;  cpu:          10
+ batch:            1 ;  rank:           0 ;  cpu:          13
+ batch:            1 ;  rank:           0 ;  cpu:           7
+ batch:            1 ;  rank:           0 ;  cpu:          15
         1/1    0.95427    8.13034                       
- rank:           0 ;  cpu:           5
- rank:           0 ;  cpu:           2
- rank:           0 ;  cpu:          11
- rank:           0 ;  cpu:           8
- rank:           0 ;  cpu:           6
- rank:           0 ;  cpu:           4
- rank:           0 ;  cpu:           1
- rank:           0 ;  cpu:          10
- rank:           0 ;  cpu:          12
- rank:           0 ;  cpu:          13
- rank:           0 ;  cpu:           3
- rank:           0 ;  cpu:          14
- rank:           0 ;  cpu:           0
- rank:           0 ;  cpu:           9
- rank:           0 ;  cpu:          15
- rank:           0 ;  cpu:           7
+ batch:            2 ;  rank:           0 ;  cpu:          12
+ batch:            2 ;  rank:           0 ;  cpu:           2
+ batch:            2 ;  rank:           0 ;  cpu:          14
+ batch:            2 ;  rank:           0 ;  cpu:          10
+ batch:            2 ;  rank:           0 ;  cpu:           8
+ batch:            2 ;  rank:           0 ;  cpu:          13
+ batch:            2 ;  rank:           0 ;  cpu:           6
+ batch:            2 ;  rank:           0 ;  cpu:           3
+ batch:            2 ;  rank:           0 ;  cpu:          15
+ batch:            2 ;  rank:           0 ;  cpu:           7
+ batch:            2 ;  rank:           0 ;  cpu:          11
+ batch:            2 ;  rank:           0 ;  cpu:           1
+ batch:            2 ;  rank:           0 ;  cpu:           5
+ batch:            2 ;  rank:           0 ;  cpu:           4
+ batch:            2 ;  rank:           0 ;  cpu:           9
+ batch:            2 ;  rank:           0 ;  cpu:           0
         2/1    0.97189    8.09759                       
- rank:           0 ;  cpu:           5
- rank:           0 ;  cpu:          14
- rank:           0 ;  cpu:          13
- rank:           0 ;  cpu:           2
- rank:           0 ;  cpu:           3
- rank:           0 ;  cpu:          11
- rank:           0 ;  cpu:           4
- rank:           0 ;  cpu:           8
- rank:           0 ;  cpu:          15
- rank:           0 ;  cpu:           1
- rank:           0 ;  cpu:           6
- rank:           0 ;  cpu:           0
- rank:           0 ;  cpu:           7
- rank:           0 ;  cpu:          10
- rank:           0 ;  cpu:          12
- rank:           0 ;  cpu:           9
+ batch:            3 ;  rank:           0 ;  cpu:          12
+ batch:            3 ;  rank:           0 ;  cpu:           9
+ batch:            3 ;  rank:           0 ;  cpu:           0
+ batch:            3 ;  rank:           0 ;  cpu:          11
+ batch:            3 ;  rank:           0 ;  cpu:          10
+ batch:            3 ;  rank:           0 ;  cpu:           8
+ batch:            3 ;  rank:           0 ;  cpu:           2
+ batch:            3 ;  rank:           0 ;  cpu:           1
+ batch:            3 ;  rank:           0 ;  cpu:           4
+ batch:            3 ;  rank:           0 ;  cpu:          15
+ batch:            3 ;  rank:           0 ;  cpu:          13
+ batch:            3 ;  rank:           0 ;  cpu:           7
+ batch:            3 ;  rank:           0 ;  cpu:           6
+ batch:            3 ;  rank:           0 ;  cpu:           3
+ batch:            3 ;  rank:           0 ;  cpu:           5
+ batch:            3 ;  rank:           0 ;  cpu:          14
         3/1    0.97000    8.07830                       
- rank:           0 ;  cpu:           5
- rank:           0 ;  cpu:           6
- rank:           0 ;  cpu:          15
- rank:           0 ;  cpu:           2
- rank:           0 ;  cpu:           4
- rank:           0 ;  cpu:           0
- rank:           0 ;  cpu:          12
- rank:           0 ;  cpu:          13
- rank:           0 ;  cpu:          10
- rank:           0 ;  cpu:           3
- rank:           0 ;  cpu:           7
- rank:           0 ;  cpu:           9
- rank:           0 ;  cpu:           8
- rank:           0 ;  cpu:          11
- rank:           0 ;  cpu:          14
- rank:           0 ;  cpu:           1
+ batch:            4 ;  rank:           0 ;  cpu:          12
+ batch:            4 ;  rank:           0 ;  cpu:           9
+ batch:            4 ;  rank:           0 ;  cpu:          14
+ batch:            4 ;  rank:           0 ;  cpu:           6
+ batch:            4 ;  rank:           0 ;  cpu:          10
+ batch:            4 ;  rank:           0 ;  cpu:           2
+ batch:            4 ;  rank:           0 ;  cpu:          13
+ batch:            4 ;  rank:           0 ;  cpu:           1
+ batch:            4 ;  rank:           0 ;  cpu:           0
+ batch:            4 ;  rank:           0 ;  cpu:           7
+ batch:            4 ;  rank:           0 ;  cpu:           8
+ batch:            4 ;  rank:           0 ;  cpu:           5
+ batch:            4 ;  rank:           0 ;  cpu:           3
+ batch:            4 ;  rank:           0 ;  cpu:          11
+ batch:            4 ;  rank:           0 ;  cpu:           4
+ batch:            4 ;  rank:           0 ;  cpu:          15
         4/1    0.97427    8.02975                       
- rank:           0 ;  cpu:           5
- rank:           0 ;  cpu:           7
- rank:           0 ;  cpu:           8
- rank:           0 ;  cpu:           1
- rank:           0 ;  cpu:           2
- rank:           0 ;  cpu:           4
- rank:           0 ;  cpu:          15
- rank:           0 ;  cpu:          14
- rank:           0 ;  cpu:          10
- rank:           0 ;  cpu:           3
- rank:           0 ;  cpu:           6
- rank:           0 ;  cpu:          11
- rank:           0 ;  cpu:           0
- rank:           0 ;  cpu:           9
- rank:           0 ;  cpu:          12
- rank:           0 ;  cpu:          13
+ batch:            5 ;  rank:           0 ;  cpu:          12
+ batch:            5 ;  rank:           0 ;  cpu:          10
+ batch:            5 ;  rank:           0 ;  cpu:          15
+ batch:            5 ;  rank:           0 ;  cpu:           7
+ batch:            5 ;  rank:           0 ;  cpu:          11
+ batch:            5 ;  rank:           0 ;  cpu:          13
+ batch:            5 ;  rank:           0 ;  cpu:           6
+ batch:            5 ;  rank:           0 ;  cpu:           3
+ batch:            5 ;  rank:           0 ;  cpu:           2
+ batch:            5 ;  rank:           0 ;  cpu:           0
+ batch:            5 ;  rank:           0 ;  cpu:           9
+ batch:            5 ;  rank:           0 ;  cpu:          14
+ batch:            5 ;  rank:           0 ;  cpu:           8
+ batch:            5 ;  rank:           0 ;  cpu:           1
+ batch:            5 ;  rank:           0 ;  cpu:           4
+ batch:            5 ;  rank:           0 ;  cpu:           5
         5/1    0.97515    8.00895                       
- rank:           0 ;  cpu:           5
- rank:           0 ;  cpu:          10
- rank:           0 ;  cpu:           4
- rank:           0 ;  cpu:           7
- rank:           0 ;  cpu:          13
- rank:           0 ;  cpu:           6
- rank:           0 ;  cpu:           2
- rank:           0 ;  cpu:          11
- rank:           0 ;  cpu:           1
- rank:           0 ;  cpu:          12
- rank:           0 ;  cpu:           9
- rank:           0 ;  cpu:           0
- rank:           0 ;  cpu:           3
- rank:           0 ;  cpu:          14
- rank:           0 ;  cpu:           8
- rank:           0 ;  cpu:          15
+ batch:            6 ;  rank:           0 ;  cpu:          12
+ batch:            6 ;  rank:           0 ;  cpu:          14
+ batch:            6 ;  rank:           0 ;  cpu:           9
+ batch:            6 ;  rank:           0 ;  cpu:          11
+ batch:            6 ;  rank:           0 ;  cpu:          13
+ batch:            6 ;  rank:           0 ;  cpu:           1
+ batch:            6 ;  rank:           0 ;  cpu:           0
+ batch:            6 ;  rank:           0 ;  cpu:           7
+ batch:            6 ;  rank:           0 ;  cpu:           4
+ batch:            6 ;  rank:           0 ;  cpu:           2
+ batch:            6 ;  rank:           0 ;  cpu:           8
+ batch:            6 ;  rank:           0 ;  cpu:          15
+ batch:            6 ;  rank:           0 ;  cpu:          10
+ batch:            6 ;  rank:           0 ;  cpu:           5
+ batch:            6 ;  rank:           0 ;  cpu:           3
+ batch:            6 ;  rank:           0 ;  cpu:           6
         6/1    0.99143    8.00486                       
- rank:           0 ;  cpu:           5
- rank:           0 ;  cpu:           4
- rank:           0 ;  cpu:           7
- rank:           0 ;  cpu:          10
- rank:           0 ;  cpu:           1
- rank:           0 ;  cpu:           0
- rank:           0 ;  cpu:           6
- rank:           0 ;  cpu:          14
- rank:           0 ;  cpu:          15
- rank:           0 ;  cpu:          12
- rank:           0 ;  cpu:           2
- rank:           0 ;  cpu:           3
- rank:           0 ;  cpu:          13
- rank:           0 ;  cpu:          11
- rank:           0 ;  cpu:           9
- rank:           0 ;  cpu:           8
+ batch:            7 ;  rank:           0 ;  cpu:          12
+ batch:            7 ;  rank:           0 ;  cpu:          14
+ batch:            7 ;  rank:           0 ;  cpu:          11
+ batch:            7 ;  rank:           0 ;  cpu:          15
+ batch:            7 ;  rank:           0 ;  cpu:          10
+ batch:            7 ;  rank:           0 ;  cpu:           5
+ batch:            7 ;  rank:           0 ;  cpu:           7
+ batch:            7 ;  rank:           0 ;  cpu:           1
+ batch:            7 ;  rank:           0 ;  cpu:           8
+ batch:            7 ;  rank:           0 ;  cpu:           9
+ batch:            7 ;  rank:           0 ;  cpu:          13
+ batch:            7 ;  rank:           0 ;  cpu:           4
+ batch:            7 ;  rank:           0 ;  cpu:           0
+ batch:            7 ;  rank:           0 ;  cpu:           6
+ batch:            7 ;  rank:           0 ;  cpu:           2
+ batch:            7 ;  rank:           0 ;  cpu:           3
         7/1    0.98194    7.96905                       
- rank:           0 ;  cpu:           5
- rank:           0 ;  cpu:           4
- rank:           0 ;  cpu:           3
- rank:           0 ;  cpu:           9
- rank:           0 ;  cpu:           6
- rank:           0 ;  cpu:           0
- rank:           0 ;  cpu:           2
- rank:           0 ;  cpu:          11
- rank:           0 ;  cpu:          14
- rank:           0 ;  cpu:           7
- rank:           0 ;  cpu:          12
- rank:           0 ;  cpu:          15
- rank:           0 ;  cpu:          10
- rank:           0 ;  cpu:          13
- rank:           0 ;  cpu:           8
- rank:           0 ;  cpu:           1
+ batch:            8 ;  rank:           0 ;  cpu:          12
+ batch:            8 ;  rank:           0 ;  cpu:          14
+ batch:            8 ;  rank:           0 ;  cpu:          11
+ batch:            8 ;  rank:           0 ;  cpu:          15
+ batch:            8 ;  rank:           0 ;  cpu:           9
+ batch:            8 ;  rank:           0 ;  cpu:           1
+ batch:            8 ;  rank:           0 ;  cpu:           0
+ batch:            8 ;  rank:           0 ;  cpu:           2
+ batch:            8 ;  rank:           0 ;  cpu:          13
+ batch:            8 ;  rank:           0 ;  cpu:          10
+ batch:            8 ;  rank:           0 ;  cpu:           8
+ batch:            8 ;  rank:           0 ;  cpu:           6
+ batch:            8 ;  rank:           0 ;  cpu:           7
+ batch:            8 ;  rank:           0 ;  cpu:           5
+ batch:            8 ;  rank:           0 ;  cpu:           4
+ batch:            8 ;  rank:           0 ;  cpu:           3
         8/1    0.96995    7.91932                       
- rank:           0 ;  cpu:           5
- rank:           0 ;  cpu:           7
- rank:           0 ;  cpu:          12
- rank:           0 ;  cpu:           3
- rank:           0 ;  cpu:           2
- rank:           0 ;  cpu:           6
- rank:           0 ;  cpu:          10
- rank:           0 ;  cpu:           9
- rank:           0 ;  cpu:          15
- rank:           0 ;  cpu:           4
- rank:           0 ;  cpu:           1
- rank:           0 ;  cpu:           0
- rank:           0 ;  cpu:          14
- rank:           0 ;  cpu:           8
- rank:           0 ;  cpu:          13
- rank:           0 ;  cpu:          11
+ batch:            9 ;  rank:           0 ;  cpu:          12
+ batch:            9 ;  rank:           0 ;  cpu:          15
+ batch:            9 ;  rank:           0 ;  cpu:           6
+ batch:            9 ;  rank:           0 ;  cpu:           9
+ batch:            9 ;  rank:           0 ;  cpu:          13
+ batch:            9 ;  rank:           0 ;  cpu:          14
+ batch:            9 ;  rank:           0 ;  cpu:           7
+ batch:            9 ;  rank:           0 ;  cpu:           2
+ batch:            9 ;  rank:           0 ;  cpu:           3
+ batch:            9 ;  rank:           0 ;  cpu:          11
+ batch:            9 ;  rank:           0 ;  cpu:           4
+ batch:            9 ;  rank:           0 ;  cpu:           0
+ batch:            9 ;  rank:           0 ;  cpu:           1
+ batch:            9 ;  rank:           0 ;  cpu:           8
+ batch:            9 ;  rank:           0 ;  cpu:          10
+ batch:            9 ;  rank:           0 ;  cpu:           5
         9/1    0.98561    7.92723                       
- rank:           0 ;  cpu:           5
- rank:           0 ;  cpu:           6
- rank:           0 ;  cpu:          15
- rank:           0 ;  cpu:          11
- rank:           0 ;  cpu:           2
- rank:           0 ;  cpu:           0
- rank:           0 ;  cpu:          10
- rank:           0 ;  cpu:           1
- rank:           0 ;  cpu:          14
- rank:           0 ;  cpu:           8
- rank:           0 ;  cpu:           4
- rank:           0 ;  cpu:           3
- rank:           0 ;  cpu:          13
- rank:           0 ;  cpu:           9
- rank:           0 ;  cpu:          12
- rank:           0 ;  cpu:           7
+ batch:           10 ;  rank:           0 ;  cpu:          12
+ batch:           10 ;  rank:           0 ;  cpu:          13
+ batch:           10 ;  rank:           0 ;  cpu:           8
+ batch:           10 ;  rank:           0 ;  cpu:           9
+ batch:           10 ;  rank:           0 ;  cpu:          10
+ batch:           10 ;  rank:           0 ;  cpu:          14
+ batch:           10 ;  rank:           0 ;  cpu:           0
+ batch:           10 ;  rank:           0 ;  cpu:           1
+ batch:           10 ;  rank:           0 ;  cpu:           2
+ batch:           10 ;  rank:           0 ;  cpu:           4
+ batch:           10 ;  rank:           0 ;  cpu:           7
+ batch:           10 ;  rank:           0 ;  cpu:           3
+ batch:           10 ;  rank:           0 ;  cpu:          11
+ batch:           10 ;  rank:           0 ;  cpu:           5
+ batch:           10 ;  rank:           0 ;  cpu:           6
+ batch:           10 ;  rank:           0 ;  cpu:          15
        10/1    0.97465    7.92552                       
- rank:           0 ;  cpu:           5
- rank:           0 ;  cpu:           6
- rank:           0 ;  cpu:           7
- rank:           0 ;  cpu:           8
- rank:           0 ;  cpu:           4
- rank:           0 ;  cpu:          14
- rank:           0 ;  cpu:          15
- rank:           0 ;  cpu:           1
- rank:           0 ;  cpu:           9
- rank:           0 ;  cpu:          11
- rank:           0 ;  cpu:           3
- rank:           0 ;  cpu:           0
- rank:           0 ;  cpu:          12
- rank:           0 ;  cpu:          13
- rank:           0 ;  cpu:          10
- rank:           0 ;  cpu:           2
+ batch:           11 ;  rank:           0 ;  cpu:          12
+ batch:           11 ;  rank:           0 ;  cpu:          15
+ batch:           11 ;  rank:           0 ;  cpu:           5
+ batch:           11 ;  rank:           0 ;  cpu:          11
+ batch:           11 ;  rank:           0 ;  cpu:          10
+ batch:           11 ;  rank:           0 ;  cpu:          14
+ batch:           11 ;  rank:           0 ;  cpu:           6
+ batch:           11 ;  rank:           0 ;  cpu:           2
+ batch:           11 ;  rank:           0 ;  cpu:           7
+ batch:           11 ;  rank:           0 ;  cpu:           9
+ batch:           11 ;  rank:           0 ;  cpu:           8
+ batch:           11 ;  rank:           0 ;  cpu:          13
+ batch:           11 ;  rank:           0 ;  cpu:           3
+ batch:           11 ;  rank:           0 ;  cpu:           4
+ batch:           11 ;  rank:           0 ;  cpu:           1
+ batch:           11 ;  rank:           0 ;  cpu:           0
        11/1    0.98303    7.93543                       
- rank:           0 ;  cpu:           5
- rank:           0 ;  cpu:           6
- rank:           0 ;  cpu:           7
- rank:           0 ;  cpu:           9
- rank:           0 ;  cpu:           0
- rank:           0 ;  cpu:          13
- rank:           0 ;  cpu:           2
- rank:           0 ;  cpu:          10
- rank:           0 ;  cpu:          15
- rank:           0 ;  cpu:           4
- rank:           0 ;  cpu:           1
- rank:           0 ;  cpu:          12
- rank:           0 ;  cpu:          14
- rank:           0 ;  cpu:          11
- rank:           0 ;  cpu:           3
- rank:           0 ;  cpu:           8
+ batch:           12 ;  rank:           0 ;  cpu:          12
+ batch:           12 ;  rank:           0 ;  cpu:          15
+ batch:           12 ;  rank:           0 ;  cpu:          10
+ batch:           12 ;  rank:           0 ;  cpu:           8
+ batch:           12 ;  rank:           0 ;  cpu:          13
+ batch:           12 ;  rank:           0 ;  cpu:          14
+ batch:           12 ;  rank:           0 ;  cpu:           4
+ batch:           12 ;  rank:           0 ;  cpu:           1
+ batch:           12 ;  rank:           0 ;  cpu:           3
+ batch:           12 ;  rank:           0 ;  cpu:          11
+ batch:           12 ;  rank:           0 ;  cpu:           9
+ batch:           12 ;  rank:           0 ;  cpu:           6
+ batch:           12 ;  rank:           0 ;  cpu:           2
+ batch:           12 ;  rank:           0 ;  cpu:           5
+ batch:           12 ;  rank:           0 ;  cpu:           0
+ batch:           12 ;  rank:           0 ;  cpu:           7
        12/1    1.01056    7.92099    0.99680 +/- 0.01377
- rank:           0 ;  cpu:           5
- rank:           0 ;  cpu:           2
- rank:           0 ;  cpu:           7
- rank:           0 ;  cpu:           3
- rank:           0 ;  cpu:          15
- rank:           0 ;  cpu:           6
- rank:           0 ;  cpu:           4
- rank:           0 ;  cpu:          12
- rank:           0 ;  cpu:          13
- rank:           0 ;  cpu:           9
- rank:           0 ;  cpu:           1
- rank:           0 ;  cpu:           0
- rank:           0 ;  cpu:          11
- rank:           0 ;  cpu:          14
- rank:           0 ;  cpu:           8
- rank:           0 ;  cpu:          10
+ batch:           13 ;  rank:           0 ;  cpu:          12
+ batch:           13 ;  rank:           0 ;  cpu:           4
+ batch:           13 ;  rank:           0 ;  cpu:           1
+ batch:           13 ;  rank:           0 ;  cpu:          14
+ batch:           13 ;  rank:           0 ;  cpu:           5
+ batch:           13 ;  rank:           0 ;  cpu:           8
+ batch:           13 ;  rank:           0 ;  cpu:           3
+ batch:           13 ;  rank:           0 ;  cpu:           0
+ batch:           13 ;  rank:           0 ;  cpu:          10
+ batch:           13 ;  rank:           0 ;  cpu:          11
+ batch:           13 ;  rank:           0 ;  cpu:           9
+ batch:           13 ;  rank:           0 ;  cpu:           6
+ batch:           13 ;  rank:           0 ;  cpu:          13
+ batch:           13 ;  rank:           0 ;  cpu:           7
+ batch:           13 ;  rank:           0 ;  cpu:           2
+ batch:           13 ;  rank:           0 ;  cpu:          15
        13/1    0.98295    7.89313    0.99218 +/- 0.00919
- rank:           0 ;  cpu:           5
- rank:           0 ;  cpu:          10
- rank:           0 ;  cpu:           6
- rank:           0 ;  cpu:          13
- rank:           0 ;  cpu:           4
- rank:           0 ;  cpu:           3
- rank:           0 ;  cpu:          15
- rank:           0 ;  cpu:           2
- rank:           0 ;  cpu:          11
- rank:           0 ;  cpu:           1
- rank:           0 ;  cpu:           0
- rank:           0 ;  cpu:           8
- rank:           0 ;  cpu:          12
- rank:           0 ;  cpu:          14
- rank:           0 ;  cpu:           9
- rank:           0 ;  cpu:           7
+ batch:           14 ;  rank:           0 ;  cpu:          12
+ batch:           14 ;  rank:           0 ;  cpu:           8
+ batch:           14 ;  rank:           0 ;  cpu:          11
+ batch:           14 ;  rank:           0 ;  cpu:          10
+ batch:           14 ;  rank:           0 ;  cpu:          14
+ batch:           14 ;  rank:           0 ;  cpu:          15
+ batch:           14 ;  rank:           0 ;  cpu:           7
+ batch:           14 ;  rank:           0 ;  cpu:           3
+ batch:           14 ;  rank:           0 ;  cpu:           4
+ batch:           14 ;  rank:           0 ;  cpu:           1
+ batch:           14 ;  rank:           0 ;  cpu:           9
+ batch:           14 ;  rank:           0 ;  cpu:          13
+ batch:           14 ;  rank:           0 ;  cpu:           5
+ batch:           14 ;  rank:           0 ;  cpu:           2
+ batch:           14 ;  rank:           0 ;  cpu:           6
+ batch:           14 ;  rank:           0 ;  cpu:           0
        14/1    0.98519    7.86877    0.99043 +/- 0.00673
- rank:           0 ;  cpu:           5
- rank:           0 ;  cpu:          12
- rank:           0 ;  cpu:          13
- rank:           0 ;  cpu:           7
- rank:           0 ;  cpu:           2
- rank:           0 ;  cpu:           3
- rank:           0 ;  cpu:           4
- rank:           0 ;  cpu:          10
- rank:           0 ;  cpu:          14
- rank:           0 ;  cpu:           9
- rank:           0 ;  cpu:           1
- rank:           0 ;  cpu:           0
- rank:           0 ;  cpu:           6
- rank:           0 ;  cpu:          15
- rank:           0 ;  cpu:          11
- rank:           0 ;  cpu:           8
+ batch:           15 ;  rank:           0 ;  cpu:          12
+ batch:           15 ;  rank:           0 ;  cpu:          11
+ batch:           15 ;  rank:           0 ;  cpu:           4
+ batch:           15 ;  rank:           0 ;  cpu:          10
+ batch:           15 ;  rank:           0 ;  cpu:          13
+ batch:           15 ;  rank:           0 ;  cpu:          14
+ batch:           15 ;  rank:           0 ;  cpu:           7
+ batch:           15 ;  rank:           0 ;  cpu:           0
+ batch:           15 ;  rank:           0 ;  cpu:           3
+ batch:           15 ;  rank:           0 ;  cpu:           8
+ batch:           15 ;  rank:           0 ;  cpu:           1
+ batch:           15 ;  rank:           0 ;  cpu:           9
+ batch:           15 ;  rank:           0 ;  cpu:           5
+ batch:           15 ;  rank:           0 ;  cpu:          15
+ batch:           15 ;  rank:           0 ;  cpu:           6
+ batch:           15 ;  rank:           0 ;  cpu:           2
        15/1    1.01245    7.89729    0.99484 +/- 0.00682
- rank:           0 ;  cpu:           5
- rank:           0 ;  cpu:           3
- rank:           0 ;  cpu:           7
- rank:           0 ;  cpu:           1
- rank:           0 ;  cpu:           0
- rank:           0 ;  cpu:           2
- rank:           0 ;  cpu:           6
- rank:           0 ;  cpu:           4
- rank:           0 ;  cpu:           8
- rank:           0 ;  cpu:           9
- rank:           0 ;  cpu:          14
- rank:           0 ;  cpu:          12
- rank:           0 ;  cpu:          11
- rank:           0 ;  cpu:          15
- rank:           0 ;  cpu:          13
- rank:           0 ;  cpu:          10
+ batch:           16 ;  rank:           0 ;  cpu:          12
+ batch:           16 ;  rank:           0 ;  cpu:           8
+ batch:           16 ;  rank:           0 ;  cpu:           6
+ batch:           16 ;  rank:           0 ;  cpu:           7
+ batch:           16 ;  rank:           0 ;  cpu:          11
+ batch:           16 ;  rank:           0 ;  cpu:          14
+ batch:           16 ;  rank:           0 ;  cpu:           2
+ batch:           16 ;  rank:           0 ;  cpu:          13
+ batch:           16 ;  rank:           0 ;  cpu:           0
+ batch:           16 ;  rank:           0 ;  cpu:           9
+ batch:           16 ;  rank:           0 ;  cpu:           5
+ batch:           16 ;  rank:           0 ;  cpu:          10
+ batch:           16 ;  rank:           0 ;  cpu:           4
+ batch:           16 ;  rank:           0 ;  cpu:           3
+ batch:           16 ;  rank:           0 ;  cpu:           1
+ batch:           16 ;  rank:           0 ;  cpu:          15
        16/1    0.99606    7.91225    0.99504 +/- 0.00558
- rank:           0 ;  cpu:           5
- rank:           0 ;  cpu:          12
- rank:           0 ;  cpu:          10
- rank:           0 ;  cpu:           6
- rank:           0 ;  cpu:           7
- rank:           0 ;  cpu:           4
- rank:           0 ;  cpu:          15
- rank:           0 ;  cpu:          11
- rank:           0 ;  cpu:           1
- rank:           0 ;  cpu:           2
- rank:           0 ;  cpu:           0
- rank:           0 ;  cpu:          13
- rank:           0 ;  cpu:           8
- rank:           0 ;  cpu:           9
- rank:           0 ;  cpu:          14
- rank:           0 ;  cpu:           3
+ batch:           17 ;  rank:           0 ;  cpu:          12
+ batch:           17 ;  rank:           0 ;  cpu:          10
+ batch:           17 ;  rank:           0 ;  cpu:           6
+ batch:           17 ;  rank:           0 ;  cpu:          14
+ batch:           17 ;  rank:           0 ;  cpu:           4
+ batch:           17 ;  rank:           0 ;  cpu:           5
+ batch:           17 ;  rank:           0 ;  cpu:          11
+ batch:           17 ;  rank:           0 ;  cpu:           9
+ batch:           17 ;  rank:           0 ;  cpu:           3
+ batch:           17 ;  rank:           0 ;  cpu:           7
+ batch:           17 ;  rank:           0 ;  cpu:           0
+ batch:           17 ;  rank:           0 ;  cpu:           2
+ batch:           17 ;  rank:           0 ;  cpu:          13
+ batch:           17 ;  rank:           0 ;  cpu:          15
+ batch:           17 ;  rank:           0 ;  cpu:           8
+ batch:           17 ;  rank:           0 ;  cpu:           1
        17/1    1.00096    7.89404    0.99589 +/- 0.00479
- rank:           0 ;  cpu:           5
- rank:           0 ;  cpu:           3
- rank:           0 ;  cpu:           7
- rank:           0 ;  cpu:          11
- rank:           0 ;  cpu:           2
- rank:           0 ;  cpu:           4
- rank:           0 ;  cpu:          13
- rank:           0 ;  cpu:          12
- rank:           0 ;  cpu:           8
- rank:           0 ;  cpu:          14
- rank:           0 ;  cpu:           6
- rank:           0 ;  cpu:           1
- rank:           0 ;  cpu:           9
- rank:           0 ;  cpu:          10
- rank:           0 ;  cpu:           0
- rank:           0 ;  cpu:          15
+ batch:           18 ;  rank:           0 ;  cpu:          12
+ batch:           18 ;  rank:           0 ;  cpu:           0
+ batch:           18 ;  rank:           0 ;  cpu:           7
+ batch:           18 ;  rank:           0 ;  cpu:          11
+ batch:           18 ;  rank:           0 ;  cpu:           9
+ batch:           18 ;  rank:           0 ;  cpu:          14
+ batch:           18 ;  rank:           0 ;  cpu:           3
+ batch:           18 ;  rank:           0 ;  cpu:           6
+ batch:           18 ;  rank:           0 ;  cpu:           5
+ batch:           18 ;  rank:           0 ;  cpu:          15
+ batch:           18 ;  rank:           0 ;  cpu:           8
+ batch:           18 ;  rank:           0 ;  cpu:           2
+ batch:           18 ;  rank:           0 ;  cpu:           4
+ batch:           18 ;  rank:           0 ;  cpu:          13
+ batch:           18 ;  rank:           0 ;  cpu:           1
+ batch:           18 ;  rank:           0 ;  cpu:          10
        18/1    0.98636    7.85064    0.99470 +/- 0.00431
- rank:           0 ;  cpu:           5
- rank:           0 ;  cpu:           6
- rank:           0 ;  cpu:           4
- rank:           0 ;  cpu:          13
- rank:           0 ;  cpu:           0
- rank:           0 ;  cpu:           3
- rank:           0 ;  cpu:          15
- rank:           0 ;  cpu:           7
- rank:           0 ;  cpu:          11
- rank:           0 ;  cpu:          12
- rank:           0 ;  cpu:           2
- rank:           0 ;  cpu:          14
- rank:           0 ;  cpu:           8
- rank:           0 ;  cpu:           1
- rank:           0 ;  cpu:           9
- rank:           0 ;  cpu:          10
+ batch:           19 ;  rank:           0 ;  cpu:          12
+ batch:           19 ;  rank:           0 ;  cpu:           9
+ batch:           19 ;  rank:           0 ;  cpu:          10
+ batch:           19 ;  rank:           0 ;  cpu:           7
+ batch:           19 ;  rank:           0 ;  cpu:          15
+ batch:           19 ;  rank:           0 ;  cpu:          13
+ batch:           19 ;  rank:           0 ;  cpu:           4
+ batch:           19 ;  rank:           0 ;  cpu:          14
+ batch:           19 ;  rank:           0 ;  cpu:           6
+ batch:           19 ;  rank:           0 ;  cpu:           3
+ batch:           19 ;  rank:           0 ;  cpu:           8
+ batch:           19 ;  rank:           0 ;  cpu:          11
+ batch:           19 ;  rank:           0 ;  cpu:           2
+ batch:           19 ;  rank:           0 ;  cpu:           5
+ batch:           19 ;  rank:           0 ;  cpu:           0
+ batch:           19 ;  rank:           0 ;  cpu:           1
        19/1    0.97525    7.86220    0.99254 +/- 0.00437
- rank:           0 ;  cpu:           5
- rank:           0 ;  cpu:          14
- rank:           0 ;  cpu:           7
- rank:           0 ;  cpu:          11
- rank:           0 ;  cpu:           1
- rank:           0 ;  cpu:           3
- rank:           0 ;  cpu:          15
- rank:           0 ;  cpu:          10
- rank:           0 ;  cpu:          13
- rank:           0 ;  cpu:           0
- rank:           0 ;  cpu:           6
- rank:           0 ;  cpu:           4
- rank:           0 ;  cpu:          12
- rank:           0 ;  cpu:           9
- rank:           0 ;  cpu:           8
- rank:           0 ;  cpu:           2
+ batch:           20 ;  rank:           0 ;  cpu:          12
+ batch:           20 ;  rank:           0 ;  cpu:          10
+ batch:           20 ;  rank:           0 ;  cpu:           2
+ batch:           20 ;  rank:           0 ;  cpu:           7
+ batch:           20 ;  rank:           0 ;  cpu:           8
+ batch:           20 ;  rank:           0 ;  cpu:          14
+ batch:           20 ;  rank:           0 ;  cpu:          11
+ batch:           20 ;  rank:           0 ;  cpu:           1
+ batch:           20 ;  rank:           0 ;  cpu:           3
+ batch:           20 ;  rank:           0 ;  cpu:           5
+ batch:           20 ;  rank:           0 ;  cpu:          13
+ batch:           20 ;  rank:           0 ;  cpu:           9
+ batch:           20 ;  rank:           0 ;  cpu:          15
+ batch:           20 ;  rank:           0 ;  cpu:           6
+ batch:           20 ;  rank:           0 ;  cpu:           0
+ batch:           20 ;  rank:           0 ;  cpu:           4
        20/1    1.02047    7.86634    0.99533 +/- 0.00481
  Creating state point statepoint.20.binary...
 
@@ -456,21 +456,21 @@ __________________888______________________________________________________
 
  =======================>     TIMING STATISTICS     <=======================
 
- Total time for initialization     =  2.5180E+00 seconds
-   Reading cross sections          =  6.7000E-01 seconds
-   Unionizing energy grid          =  1.1120E+00 seconds
- Total time in simulation          =  1.4712E+01 seconds
-   Time in transport only          =  1.4694E+01 seconds
-   Time in inactive batches        =  7.3210E+00 seconds
-   Time in active batches          =  7.3910E+00 seconds
-   Time synchronizing fission bank =  6.0000E-03 seconds
-     Sampling source sites         =  5.0000E-03 seconds
-     SEND/RECV source sites        =  1.0000E-03 seconds
+ Total time for initialization     =  2.5160E+00 seconds
+   Reading cross sections          =  6.9200E-01 seconds
+   Unionizing energy grid          =  1.0890E+00 seconds
+ Total time in simulation          =  1.4728E+01 seconds
+   Time in transport only          =  1.4712E+01 seconds
+   Time in inactive batches        =  7.3200E+00 seconds
+   Time in active batches          =  7.4080E+00 seconds
+   Time synchronizing fission bank =  2.0000E-03 seconds
+     Sampling source sites         =  1.0000E-03 seconds
+     SEND/RECV source sites        =  0.0000E+00 seconds
    Time accumulating tallies       =  0.0000E+00 seconds
  Total time for finalization       =  0.0000E+00 seconds
- Total time elapsed                =  1.7230E+01 seconds
- Calculation Rate (inactive)       =  6829.67 neutrons/second
- Calculation Rate (active)         =  6764.98 neutrons/second
+ Total time elapsed                =  1.7244E+01 seconds
+ Calculation Rate (inactive)       =  6830.60 neutrons/second
+ Calculation Rate (active)         =  6749.46 neutrons/second
 
  ============================>     RESULTS     <============================
 
