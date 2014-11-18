@@ -1298,22 +1298,29 @@ contains
   subroutine print_generation()
 
     ! write out information about batch and generation
+    flush(output_unit)
     write(UNIT=OUTPUT_UNIT, FMT='(2X,A9)', ADVANCE='NO') &
          trim(to_str(current_batch)) // "/" // trim(to_str(current_gen))
+    flush(output_unit)
     write(UNIT=OUTPUT_UNIT, FMT='(3X,F8.5)', ADVANCE='NO') &
          k_generation(overall_gen)
 
     ! write out entropy info
-    if (entropy_on) write(UNIT=OUTPUT_UNIT, FMT='(3X, F8.5)', ADVANCE='NO') &
-         entropy(overall_gen)
+    if (entropy_on) then
+      flush(output_unit)
+      write(UNIT=OUTPUT_UNIT, FMT='(3X, F8.5)', ADVANCE='NO') entropy(overall_gen)
+    endif
 
     if (overall_gen - n_inactive*gen_per_batch > 1) then
+      flush(output_unit)
       write(UNIT=OUTPUT_UNIT, FMT='(3X, F8.5," +/-",F8.5)', ADVANCE='NO') &
            keff, keff_std
     end if
 
     ! next line
+    flush(output_unit)
     write(UNIT=OUTPUT_UNIT, FMT=*)
+!$omp barrier
 
   end subroutine print_generation
 

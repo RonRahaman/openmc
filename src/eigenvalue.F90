@@ -22,6 +22,8 @@ module eigenvalue
   use tally,        only: synchronize_tallies, setup_active_usertallies, &
                           reset_result
   use tracking,     only: transport
+
+  use iso_fortran_env, only: output_unit
   
   implicit none
 
@@ -83,8 +85,9 @@ contains
         ! ====================================================================
         ! LOOP OVER PARTICLES
 !$omp parallel 
-
+        flush(output_unit)
         print *, "batch: ", current_batch, ";  rank:", rank, ";  cpu:", getcpu()
+!$omp barrier
 
 !$omp do schedule(static) firstprivate(p)
         PARTICLE_LOOP: do i_work = 1, work
