@@ -22,12 +22,22 @@ module eigenvalue
   use tally,        only: synchronize_tallies, setup_active_usertallies, &
                           reset_result
   use tracking,     only: transport
+  
+  implicit none
 
   private
   public :: run_eigenvalue
 
   real(8) :: keff_generation ! Single-generation k on each processor
   real(8) :: k_sum(2) = ZERO ! used to reduce sum and sum_sq
+
+  interface
+    function getcpu() bind(c)
+        use iso_c_binding
+        integer(c_int) :: getcpu
+    end function getcpu
+  end interface
+
 
 contains
 
@@ -72,7 +82,11 @@ contains
 
         ! ====================================================================
         ! LOOP OVER PARTICLES
-!$omp parallel do schedule(static) firstprivate(p)
+!$omp parallel 
+
+        print *, "cpu :", getcpu()
+
+!$omp do schedule(static) firstprivate(p)
         PARTICLE_LOOP: do i_work = 1, work
           current_work = i_work
 
@@ -83,7 +97,8 @@ contains
           call transport(p)
 
         end do PARTICLE_LOOP
-!$omp end parallel do
+!$omp end do
+!$omp end parallel
 
         ! Accumulate time for transport
         call time_transport % stop()

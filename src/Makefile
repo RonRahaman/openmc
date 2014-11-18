@@ -10,11 +10,11 @@ xml_lib = -Lxml/lib -lxml
 #===============================================================================
 
 COMPILER = gnu
-DEBUG    = no
+DEBUG    = yes
 PROFILE  = no
 OPTIMIZE = no
 MPI      = no
-OPENMP   = no
+OPENMP   = yes
 HDF5     = no
 PETSC    = no
 
@@ -244,7 +244,7 @@ all: xml $(program)
 xml:
 	cd xml; make MACHINE=$(MACHINE) F90=$(F90) F90FLAGS="$(F90FLAGS)" LDFLAGS="$(LDFLAGS)"
 $(program): $(objects)
-	$(F90) $(objects) $(xml_lib) $(LDFLAGS) -o $@
+	$(F90) $(objects) getcpu.o $(xml_lib) $(LDFLAGS) -o $@
 install:
 	@install -D $(program) $(DESTDIR)$(prefix)/bin/$(program)
 	@install -D utils/statepoint_cmp.py $(DESTDIR)$(prefix)/bin/statepoint_cmp
