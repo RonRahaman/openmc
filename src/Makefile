@@ -10,10 +10,10 @@ xml_lib = -Lxml/lib -lxml
 #===============================================================================
 
 COMPILER = gnu
-DEBUG    = yes
+DEBUG    = no
 PROFILE  = no
-OPTIMIZE = no
-MPI      = no
+OPTIMIZE = yes
+MPI      = yes
 OPENMP   = yes
 HDF5     = no
 PETSC    = no
@@ -22,7 +22,7 @@ PETSC    = no
 # External Library Paths
 #===============================================================================
 
-MPI_DIR   = /opt/mpich/3.0.4-$(COMPILER)
+MPI_DIR   = 
 HDF5_DIR  = /opt/hdf5/1.8.11-$(COMPILER)
 PHDF5_DIR = /opt/phdf5/1.8.11-$(COMPILER)
 PETSC_DIR = /opt/petsc/3.4.2-$(COMPILER)
@@ -167,7 +167,9 @@ ifeq ($(MPI),yes)
     F90 = $(PHDF5_DIR)/bin/h5pfc
     F90FLAGS += -DHDF5
   else
-    F90 = $(MPI_DIR)/bin/mpif90
+    F90 = mpif90.openmpi
+    F90FLAGS += -I/usr/lib/openmpi/include
+    LDFLAGS += -I/usr/lib/openmpi/lib
   endif
   F90FLAGS += -DMPI
 else

@@ -84,7 +84,7 @@ contains
         ! LOOP OVER PARTICLES
 !$omp parallel 
 
-        print *, "cpu :", getcpu()
+        print *, "rank:", rank, ";  cpu:", getcpu()
 
 !$omp do schedule(static) firstprivate(p)
         PARTICLE_LOOP: do i_work = 1, work
