@@ -410,8 +410,7 @@ contains
       ! Score to global leakage tally
       if (tallies_on) then
 !$omp atomic
-        global_tallies(LEAKAGE) % value = &
-           global_tallies(LEAKAGE) % value + p % wgt
+        global_tallies(LEAKAGE) % value = global_tallies(LEAKAGE) % value + p % wgt
       end if
 
       ! Display message

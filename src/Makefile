@@ -18,7 +18,7 @@ OPENMP   = yes
 HDF5     = no
 PETSC    = no
 
-SCOREP = no
+SCOREP = yes
 
 #===============================================================================
 # External Library Paths
@@ -57,7 +57,7 @@ ifeq ($(COMPILER),gnu)
   # Debugging
   ifeq ($(DEBUG),yes)
     F90FLAGS += -g -Wall -pedantic -fbounds-check \
-                -ffpe-trap=invalid,overflow,underflow
+                -ffpe-trap=invalid,overflow,underflow -ffree-line-length-none
     CFLAGS += -g -Wall -pedantic
     LDFLAGS  += -g
   endif
@@ -181,7 +181,7 @@ ifeq ($(MPI),yes)
     F90FLAGS += -DHDF5
   else
     F90 = mpif90.openmpi
-    F90FLAGS += -I/usr/lib/openmpi/include
+    F90FLAGS += -I/usr/lib/openmpi/include -ffree-line-length-none
     LDFLAGS += -I/usr/lib/openmpi/lib
     CC = mpicc.openmpi
     F90FLAGS += -I/usr/lib/openmpi/include

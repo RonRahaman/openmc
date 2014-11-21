@@ -255,9 +255,7 @@ contains
 
       ! Score implicit absorption estimate of keff
 !$omp atomic
-      global_tallies(K_ABSORPTION) % value = &
-           global_tallies(K_ABSORPTION) % value + p % absorb_wgt * &
-           micro_xs(i_nuclide) % nu_fission / micro_xs(i_nuclide) % absorption
+      global_tallies(K_ABSORPTION) % value = global_tallies(K_ABSORPTION) % value + p % absorb_wgt * micro_xs(i_nuclide) % nu_fission / micro_xs(i_nuclide) % absorption
 
     else
       ! See if disappearance reaction happens
@@ -265,9 +263,7 @@ contains
            prn() * micro_xs(i_nuclide) % total) then
         ! Score absorption estimate of keff
 !$omp atomic
-        global_tallies(K_ABSORPTION) % value = &
-             global_tallies(K_ABSORPTION) % value + p % wgt * &
-             micro_xs(i_nuclide) % nu_fission / micro_xs(i_nuclide) % absorption
+        global_tallies(K_ABSORPTION) % value = global_tallies(K_ABSORPTION) % value + p % wgt * micro_xs(i_nuclide) % nu_fission / micro_xs(i_nuclide) % absorption
 
         p % alive = .false.
         p % event = EVENT_ABSORB

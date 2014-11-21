@@ -112,9 +112,7 @@ contains
 
       ! Score track-length estimate of k-eff
 !$omp atomic
-      global_tallies(K_TRACKLENGTH) % value = &
-           global_tallies(K_TRACKLENGTH) % value + p % wgt * distance * &
-           material_xs % nu_fission
+      global_tallies(K_TRACKLENGTH) % value = global_tallies(K_TRACKLENGTH) % value + p % wgt * distance * material_xs % nu_fission
 
       if (d_collision > d_boundary) then
         ! ====================================================================
@@ -139,9 +137,7 @@ contains
 
         ! Score collision estimate of keff
 !$omp atomic
-        global_tallies(K_COLLISION) % value = &
-             global_tallies(K_COLLISION) % value + p % wgt * &
-             material_xs % nu_fission / material_xs % total
+        global_tallies(K_COLLISION) % value = global_tallies(K_COLLISION) % value + p % wgt * material_xs % nu_fission / material_xs % total
 
         ! score surface current tallies -- this has to be done before the collision
         ! since the direction of the particle will change and we need to use the
