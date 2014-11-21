@@ -92,6 +92,7 @@ doppler.o: constants.o
 eigenvalue.o: cmfd_execute.o
 eigenvalue.o: constants.o
 eigenvalue.o: error.o
+eigenvalue.o: getcpu.o
 eigenvalue.o: global.o
 eigenvalue.o: math.o
 eigenvalue.o: mesh.o

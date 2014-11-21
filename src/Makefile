@@ -39,6 +39,8 @@ GIT_SHA1 = $(shell git log -1 2>/dev/null | head -n 1 | awk '{print $$2}')
 
 ifeq ($(COMPILER),gnu)
   F90 = gfortran
+  CC = gcc
+  CFLAGS := -std=c99
   F90FLAGS := -cpp -std=f2008 -fbacktrace
   LDFLAGS =
 
@@ -46,6 +48,7 @@ ifeq ($(COMPILER),gnu)
   ifeq ($(DEBUG),yes)
     F90FLAGS += -g -Wall -pedantic -fbounds-check \
                 -ffpe-trap=invalid,overflow,underflow
+    CFLAGS += -g -Wall -pedantic
     LDFLAGS  += -g
   endif
 
@@ -170,6 +173,8 @@ ifeq ($(MPI),yes)
     F90 = mpif90.openmpi
     F90FLAGS += -I/usr/lib/openmpi/include
     LDFLAGS += -I/usr/lib/openmpi/lib
+    CC = mpicc.openmpi
+    F90FLAGS += -I/usr/lib/openmpi/include
   endif
   F90FLAGS += -DMPI
 else
@@ -274,6 +279,9 @@ neat:
 
 .SUFFIXES: .F90 .o
 .PHONY: all xml install uninstall clean neat distclean 
+
+%.o: %.c
+	$(CC) $(CFLAGS) -c $<
 
 %.o: %.F90
 	$(F90) $(F90FLAGS) -DGIT_SHA1="\"$(GIT_SHA1)\"" -Ixml/include -c $<
