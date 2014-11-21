@@ -1,8 +1,13 @@
 #!/usr/bin/env bash
 
-mpirun.openmpi -np 1 -rf rankfile.rank_1.thread_16.txt --report-bindings \
-  ./openmc --threads 16 ~/benchmarks/mc-performance/openmc/ 2>&1 | tee output.rank_1.thread_16.txt
+export SCOREP_METRIC_PAPI=PAPI_L2_DCA,PAPI_L2_DCM,PAPI_L3_TCA,PAPI_L3_TCM
 
+
+# mpirun.openmpi -np 1 -rf rankfile.rank_1.thread_16.txt --report-bindings \
+#   ./openmc --threads 16 ~/benchmarks/mc-performance/openmc/ 2>&1 | tee output.rank_1.thread_16.txt
+
+export SCOREP_EXPERIMENT_DIRECTORY=scorep.rank_2.thread_8
+mkdir $SCOREP_EXPERIMENT_DIRECTORY
 mpirun.openmpi -np 2 -rf rankfile.rank_2.thread_8.txt --report-bindings \
   ./openmc --threads 8 ~/benchmarks/mc-performance/openmc/ 2>&1 | tee output.rank_2.thread_8.txt
 
