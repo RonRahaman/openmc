@@ -1,8 +1,8 @@
 program = openmc
 prefix = /usr/local
 
-source = $(wildcard *.F90)
-objects = $(source:.F90=.o)
+source = $(wildcard *.F90) 
+objects = $(source:.F90=.o) getcpu.o
 xml_lib = -Lxml/lib -lxml
 
 #===============================================================================
@@ -18,6 +18,8 @@ OPENMP   = yes
 HDF5     = no
 PETSC    = no
 
+SCOREP = no
+
 #===============================================================================
 # External Library Paths
 #===============================================================================
@@ -32,6 +34,14 @@ PETSC_DIR = /opt/petsc/3.4.2-$(COMPILER)
 #===============================================================================
 
 GIT_SHA1 = $(shell git log -1 2>/dev/null | head -n 1 | awk '{print $$2}')
+
+#===============================================================================
+# Score-P instrumentation
+#===============================================================================
+
+ifeq ($(SCOREP),yes)
+  PREP = scorep
+endif
 
 #===============================================================================
 # GNU Fortran compiler options
@@ -251,7 +261,7 @@ all: xml $(program)
 xml:
 	cd xml; make MACHINE=$(MACHINE) F90=$(F90) F90FLAGS="$(F90FLAGS)" LDFLAGS="$(LDFLAGS)"
 $(program): $(objects)
-	$(F90) $(objects) getcpu.o $(xml_lib) $(LDFLAGS) -o $@
+	$(PREP) $(F90) $(objects) $(xml_lib) $(LDFLAGS) -o $@
 install:
 	@install -D $(program) $(DESTDIR)$(prefix)/bin/$(program)
 	@install -D utils/statepoint_cmp.py $(DESTDIR)$(prefix)/bin/statepoint_cmp
@@ -281,10 +291,10 @@ neat:
 .PHONY: all xml install uninstall clean neat distclean 
 
 %.o: %.c
-	$(CC) $(CFLAGS) -c $<
+	$(PREP) $(CC) $(CFLAGS) -DGIT_SHA1="\"$(GIT_SHA1)\"" -c $<
 
 %.o: %.F90
-	$(F90) $(F90FLAGS) -DGIT_SHA1="\"$(GIT_SHA1)\"" -Ixml/include -c $<
+	$(PREP) $(F90) $(F90FLAGS) -DGIT_SHA1="\"$(GIT_SHA1)\"" -Ixml/include -c $<
 
 #===============================================================================
 # Dependencies
