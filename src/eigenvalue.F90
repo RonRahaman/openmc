@@ -86,7 +86,8 @@ contains
         ! LOOP OVER PARTICLES
 !$omp parallel 
         flush(output_unit)
-        print *, "batch: ", current_batch, ";  rank:", rank, ";  cpu:", getcpu()
+        write (*,'(A,I3,A,I3,A,I3,A,I3)') "batch: ", current_batch, ",  rank:", rank, &
+            ",  thread:", thread_id, ",  cpu:", getcpu()
 !$omp barrier
 
 !$omp do schedule(static) firstprivate(p)
