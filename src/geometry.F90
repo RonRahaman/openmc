@@ -409,10 +409,9 @@ contains
 
       ! Score to global leakage tally
       if (tallies_on) then
-!$omp critical
+!$omp atomic
         global_tallies(LEAKAGE) % value = &
            global_tallies(LEAKAGE) % value + p % wgt
-!$omp end critical
       end if
 
       ! Display message
@@ -1572,9 +1571,8 @@ contains
 
     ! Increment number of lost particles
     p % alive = .false.
-!$omp critical
+!$omp atomic
     n_lost_particles = n_lost_particles + 1
-!$omp end critical
 
     ! Abort the simulation if the maximum number of lost particles has been
     ! reached

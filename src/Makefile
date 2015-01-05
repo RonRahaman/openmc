@@ -12,7 +12,7 @@ xml_fort = xml-fortran/xmlparse.o \
 # User Options
 #===============================================================================
 
-COMPILER = ibm
+COMPILER = gnu
 DEBUG    = no
 PROFILE  = no
 OPTIMIZE = yes
@@ -20,7 +20,7 @@ MPI      = no
 OPENMP   = yes
 HDF5     = no
 PETSC    = no
-MACHINE  = bluegeneq
+# MACHINE  = bluegeneq
 
 #===============================================================================
 # External Library Paths
@@ -328,6 +328,8 @@ neat:
 
 %.o: %.F90
 	$(F90) $(F90FLAGS) -DGIT_SHA1="\"$(GIT_SHA1)\"" -Ixml-fortran -Itemplates -c $<
+
+%.o: %.mod
 
 #===============================================================================
 # Dependencies
